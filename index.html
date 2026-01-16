@@ -1,369 +1,258 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>袁天罡稱骨算命</title>
+    <title>八字算命 - 袁天罡稱骨</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bazi-red': '#B91C1C', // Deep red
+                        'bazi-gray': '#F3F4F6', // Light gray bg
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
-        
-        :root {
-            --primary-red: #9B2C2C;
-            --accent-gold: #D4AF37;
-            --bg-paper: #FDFBF7;
-            --text-main: #2D3748;
-        }
-
         body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .serif-font {
             font-family: 'Noto Serif TC', serif;
-            background-color: #f0e6d2;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            color: var(--text-main);
         }
 
-        .main-card {
-            background-color: var(--bg-paper);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+        /* Custom Checkbox/Radio Styles */
+        input[type="radio"] {
+            accent-color: #B91C1C;
         }
 
-        .input-group label {
-            color: #742a2a;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-
-        .custom-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239B2C2C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.7rem center;
-            background-size: 1em;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to bottom, #9B2C2C, #742a2a);
-            border: 1px solid #742a2a;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(to bottom, #742a2a, #531d1d);
-        }
-
-        /* 表格風格結果區 */
-        .result-table-container {
-            border: 2px solid #742a2a;
-            background-color: #fff;
-        }
-        .result-header {
-            background-color: #742a2a;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            font-size: 1.25rem;
-            letter-spacing: 0.1em;
-        }
-        .result-row {
-            display: flex;
-            border-bottom: 1px solid #742a2a;
-        }
-        .result-row:last-child {
-            border-bottom: none;
-        }
-        .result-label {
-            background-color: #fef2f2;
-            color: #742a2a;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 1px solid #742a2a;
-        }
-        .result-content {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-        }
-        .poem-lines {
-            line-height: 2;
-            text-align: justify;
-            font-size: 1.1rem;
-            width: 100%;
-        }
-
-        /* 隱藏表格，改用 Grid */
-        .ref-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background-color: #e2e8f0;
-            border: 1px solid #e2e8f0;
-        }
-        .ref-cell {
-            background-color: #fff;
-            padding: 8px;
+        .form-input {
+            border: 1px solid #D1D5DB;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
             text-align: center;
         }
-        .ref-header {
-            background-color: #fff5f5;
-            color: #742a2a;
-            font-weight: bold;
+
+        .dashed-line {
+            border-bottom: 1px dashed #E5E7EB;
+            margin: 1.5rem 0;
+        }
+
+        .red-border-box {
+            border-top: 2px solid #B91C1C;
+            border-bottom: 2px solid #B91C1C;
+            background-color: #FAFAFA;
         }
     </style>
 </head>
-<body class="min-h-screen py-10 px-4">
 
-    <div class="max-w-2xl mx-auto main-card rounded-lg overflow-hidden relative">
-        <div class="bg-red-900 p-8 text-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')]"></div>
-            <h1 class="text-3xl md:text-4xl font-bold text-yellow-100 tracking-widest relative z-10" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">袁天罡稱骨算命</h1>
-            <p class="text-red-200 mt-2 text-sm relative z-10">預知一生榮枯 · 掌握命運玄機</p>
-        </div>
+<body class="min-h-screen py-10 px-4 max-w-3xl mx-auto">
 
-        <div class="p-6 md:p-10 space-y-8">
-            
-            <div class="space-y-6">
-                <!-- Gender & Calendar Toggle -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="input-group">
-                        <label class="block mb-2 text-sm">您的性別</label>
-                        <div class="flex bg-gray-100 rounded-md p-1">
-                            <label class="flex-1 text-center cursor-pointer">
-                                <input type="radio" name="gender" value="male" checked class="peer hidden">
-                                <span class="block py-2 rounded text-sm text-gray-500 peer-checked:bg-white peer-checked:text-red-900 peer-checked:shadow-sm transition-all font-bold">男命</span>
-                            </label>
-                            <label class="flex-1 text-center cursor-pointer">
-                                <input type="radio" name="gender" value="female" class="peer hidden">
-                                <span class="block py-2 rounded text-sm text-gray-500 peer-checked:bg-white peer-checked:text-red-900 peer-checked:shadow-sm transition-all font-bold">女命</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label class="block mb-2 text-sm">曆法依據</label>
-                        <div class="flex bg-gray-100 rounded-md p-1">
-                            <label class="flex-1 text-center cursor-pointer">
-                                <input type="radio" name="calendarType" value="lunar" checked onchange="toggleCalendarType()" class="peer hidden">
-                                <span class="block py-2 rounded text-sm text-gray-500 peer-checked:bg-white peer-checked:text-red-900 peer-checked:shadow-sm transition-all font-bold">農曆</span>
-                            </label>
-                            <label class="flex-1 text-center cursor-pointer">
-                                <input type="radio" name="calendarType" value="solar" onchange="toggleCalendarType()" class="peer hidden">
-                                <span class="block py-2 rounded text-sm text-gray-500 peer-checked:bg-white peer-checked:text-red-900 peer-checked:shadow-sm transition-all font-bold">國曆</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Date Selection -->
-                <div class="space-y-4">
-                    <div class="input-group">
-                        <label class="block mb-1" id="yearLabel">出生年份 (農曆)</label>
-                        <select id="inputYear" class="custom-select w-full bg-white border border-gray-300 rounded-md px-4 py-3 text-gray-700 focus:outline-none focus:border-red-800 focus:ring-1 focus:ring-red-800 transition-colors">
-                            <!-- JS Populated -->
-                        </select>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="input-group">
-                            <label class="block mb-1" id="monthLabel">月份</label>
-                            <select id="inputMonth" class="custom-select w-full bg-white border border-gray-300 rounded-md px-4 py-3 text-gray-700 focus:outline-none focus:border-red-800 transition-colors">
-                                <!-- JS Populated -->
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label class="block mb-1" id="dayLabel">日期</label>
-                            <select id="inputDay" class="custom-select w-full bg-white border border-gray-300 rounded-md px-4 py-3 text-gray-700 focus:outline-none focus:border-red-800 transition-colors">
-                                <!-- JS Populated -->
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label class="block mb-1">時辰</label>
-                        <select id="inputTime" class="custom-select w-full bg-white border border-gray-300 rounded-md px-4 py-3 text-gray-700 focus:outline-none focus:border-red-800 transition-colors">
-                            <option value="zi">子時 (23:00 - 00:59)</option>
-                            <option value="chou">丑時 (01:00 - 02:59)</option>
-                            <option value="yin">寅時 (03:00 - 04:59)</option>
-                            <option value="mao">卯時 (05:00 - 06:59)</option>
-                            <option value="chen">辰時 (07:00 - 08:59)</option>
-                            <option value="si">巳時 (09:00 - 10:59)</option>
-                            <option value="wu">午時 (11:00 - 12:59)</option>
-                            <option value="wei">未時 (13:00 - 14:59)</option>
-                            <option value="shen">申時 (15:00 - 16:59)</option>
-                            <option value="you">酉時 (17:00 - 18:59)</option>
-                            <option value="xu">戌時 (19:00 - 20:59)</option>
-                            <option value="hai">亥時 (21:00 - 22:59)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button onclick="calculateBazi()" class="btn-primary w-full text-white font-bold text-lg py-4 rounded-md shadow-lg transform active:scale-[0.99] transition-transform">
-                    開始算命
-                </button>
-            </div>
-
-            <!-- Result Section -->
-            <div id="resultArea" class="hidden animate-[fadeIn_0.8s_ease-out]">
-                <!-- Calculation Breakdown (Simple) -->
-                <div class="text-center mb-6">
-                     <p class="text-gray-500 text-xs mb-2">
-                        <span id="dateDisplay"></span>
-                    </p>
-                    <div class="flex justify-center gap-2 flex-wrap text-sm text-gray-600">
-                        <span>年骨: <b id="yearW"></b></span> ·
-                        <span>月骨: <b id="monthW"></b></span> ·
-                        <span>日骨: <b id="dayW"></b></span> ·
-                        <span>時骨: <b id="timeW"></b></span>
-                    </div>
-                </div>
-
-                <!-- Main Table-Style Result -->
-                <div class="result-table-container shadow-md">
-                    <div class="result-header" id="resultTitle">八字重量命解說</div>
-                    <!-- Header Row -->
-                    <div class="result-row bg-red-50 text-red-900 border-b border-red-800">
-                         <div class="w-1/4 text-center py-2 font-bold border-r border-red-800">命重</div>
-                         <div class="w-3/4 text-center py-2 font-bold">命運描述</div>
-                    </div>
-                    <!-- Data Row -->
-                    <div class="result-row">
-                        <div class="result-label w-1/4 text-xl">
-                            <span id="totalWeightDisplay"></span>
-                        </div>
-                        <div class="result-content w-3/4 bg-white">
-                            <div id="poemContent" class="poem-lines text-gray-800">
-                                <!-- Poem -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reference Table Toggle -->
-            <div class="mt-8">
-                <button onclick="toggleReference()" class="w-full text-center text-gray-500 text-sm hover:text-red-800 transition-colors flex items-center justify-center gap-2">
-                    <span>查看八字骨重對照表</span>
-                    <span class="text-xs font-bold">[+]</span>
-                </button>
-
-                <div id="referenceTable" class="hidden mt-4 space-y-6 text-sm">
-                    <div class="bg-white p-4 rounded border">
-                        <h4 class="font-bold text-red-800 mb-2 text-center">年份骨重 (六十甲子)</h4>
-                        <div class="ref-grid text-xs">
-                            <div class="ref-cell ref-header">生肖/年份</div><div class="ref-cell ref-header">骨重</div>
-                            <div class="ref-cell ref-header">生肖/年份</div><div class="ref-cell ref-header">骨重</div>
-                            <div class="ref-cell">鼠 (甲子)</div><div class="ref-cell">1兩2</div>
-                            <div class="ref-cell">馬 (甲午)</div><div class="ref-cell">1兩5</div>
-                            <div class="ref-cell">鼠 (丙子)</div><div class="ref-cell">1兩6</div>
-                            <div class="ref-cell">馬 (丙午)</div><div class="ref-cell">1兩3</div>
-                            <div class="ref-cell col-span-4 text-gray-400 italic">... (詳細數據依程式計算為準) ...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <!-- Header -->
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold mb-2 text-black">八字算命</h1>
+        <p class="text-gray-500 text-sm tracking-widest">洞悉天機 · 掌握命運</p>
     </div>
-    
-    <div class="text-center mt-6 text-gray-400 text-xs font-serif">
-        <p>袁天罡稱骨算命 · 僅供參考</p>
+
+    <!-- Form Section -->
+    <div class="max-w-2xl mx-auto mb-16">
+
+        <!-- Calendar Selection -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2 text-sm">曆法選擇</label>
+            <div class="flex gap-6 items-center">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" name="calendarType" value="solar"
+                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                    <span class="ml-2 text-sm">國曆 (西元)</span>
+                </label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" name="calendarType" value="lunar" checked
+                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                    <span class="ml-2 text-sm">農曆</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Gender Selection -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
+            <div class="flex gap-6 items-center">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" name="gender" value="male" checked
+                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                    <span class="ml-2 text-sm">男</span>
+                </label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" name="gender" value="female"
+                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                    <span class="ml-2 text-sm">女</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Birth Date Selection -->
+        <div class="mb-8">
+            <label class="block text-gray-700 font-medium mb-2 text-sm">出生時間</label>
+            <div class="flex flex-wrap items-center gap-2">
+                <div class="relative w-24">
+                    <select id="inputYear"
+                        class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
+                    </select>
+                    <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                </div>
+                <span class="text-sm text-gray-500">年</span>
+
+                <div class="relative w-16">
+                    <select id="inputMonth"
+                        class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                    </select>
+                </div>
+                <span class="text-sm text-gray-500">月</span>
+
+                <div class="relative w-16">
+                    <select id="inputDay"
+                        class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                    </select>
+                </div>
+                <span class="text-sm text-gray-500">日</span>
+
+                <div class="relative w-24">
+                    <select id="inputTime"
+                        class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                        <option value="zi">子 (23-01)</option>
+                        <option value="chou">丑 (01-03)</option>
+                        <option value="yin">寅 (03-05)</option>
+                        <option value="mao">卯 (05-07)</option>
+                        <option value="chen">辰 (07-09)</option>
+                        <option value="si">巳 (09-11)</option>
+                        <option value="wu">午 (11-13)</option>
+                        <option value="wei">未 (13-15)</option>
+                        <option value="shen">申 (15-17)</option>
+                        <option value="you">酉 (17-19)</option>
+                        <option value="xu">戌 (19-21)</option>
+                        <option value="hai">亥 (21-23)</option>
+                    </select>
+                    <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                </div>
+                <span class="text-sm text-gray-500">時</span>
+            </div>
+        </div>
+
+        <button onclick="calculateBazi()"
+            class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
+            開始算命
+        </button>
+    </div>
+
+    <div class="border-t border-gray-100 my-10"></div>
+
+    <!-- Result Area -->
+    <div id="resultArea" class="hidden max-w-2xl mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
+
+        <!-- Weight Display -->
+        <div class="text-center">
+            <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
+            <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
+                <!-- Calculated Weight -->
+            </div>
+            <p class="text-xs text-gray-400">
+                基數 :
+                年<span id="yearW"></span> +
+                月<span id="monthW"></span> +
+                日<span id="dayW"></span> +
+                時<span id="timeW"></span>
+            </p>
+        </div>
+
+        <!-- Poem Box -->
+        <div class="red-border-box p-8 text-center">
+            <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
+                <!-- Poem goes here -->
+            </p>
+        </div>
+
+        <!-- Pillars (Visual Placeholder - Logic requires full Bazi engine) -->
+        <div class="grid grid-cols-4 gap-4">
+            <div class="bg-gray-50 rounded p-4 text-center">
+                <div class="text-xs text-gray-400 mb-1">年柱</div>
+                <div class="font-bold text-gray-800 text-lg" id="pillarYear">- -</div>
+            </div>
+            <div class="bg-gray-50 rounded p-4 text-center">
+                <div class="text-xs text-gray-400 mb-1">月柱</div>
+                <div class="font-bold text-gray-800 text-lg">- -</div>
+            </div>
+            <div class="bg-gray-50 rounded p-4 text-center">
+                <div class="text-xs text-gray-400 mb-1">日柱</div>
+                <div class="font-bold text-gray-800 text-lg">- -</div>
+            </div>
+            <div class="bg-gray-50 rounded p-4 text-center">
+                <div class="text-xs text-gray-400 mb-1">時柱</div>
+                <div class="font-bold text-gray-800 text-lg">- -</div>
+            </div>
+        </div>
+
+        <!-- Detailed Explanations -->
+        <div class="space-y-2">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+            </div>
+
+            <!-- Analysis Items (Generated from Poem) -->
+            <div id="poemAnalysis" class="space-y-8">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+
+        <!-- Character Analysis (Static Layout for Demo) -->
+        <div class="dashed-line"></div>
+        <div class="space-y-8 pb-10">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-gray-400 tracking-widest">命格綜合分析</span>
+            </div>
+
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    性格正直，自我要求高。你可能有些完美主義，對自己和身邊的人都有一定的標準。富有正義感，且學習能力極強，擅長思考。（此為範例分析，實際需結合完整八字盤）
+                </p>
+            </div>
+            <div class="dashed-line"></div>
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    適合公職、法律、教育、學術研究。早年就展現才華，三十六歲左右會迎來事業的高峰，可能獲得晉升或掌握實權。（此為範例分析）
+                </p>
+            </div>
+            <div class="dashed-line"></div>
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
+                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                    正財運祥盛。你的財富主要來自於你的職位和專業地位，並非投機得來。隨著職位提升，收入自然水漲船高，生活富足。（此為範例分析）
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // --- CALENDAR LOGIC (1900-2100) ---
-        // Hex values representing lunar month sizes and leap months for each year
-        // Format: [LeapMonth][MonthSizes bitmask 12-1] (Last 4 bits are leap month info if any, mostly legacy format adapted here)
-        // Simplified Solar-to-Lunar helper
-        const lunarInfo = [
-            0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2, //1900-1909
-            0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977, //1910-1919
-            0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970, //1920-1929
-            0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950, //1930-1939
-            0x04da0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557, //1940-1949
-            0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0, //1950-1959
-            0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0, //1960-1969
-            0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6, //1970-1979
-            0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570, //1980-1989
-            0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0, //1990-1999
-            0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5, //2000-2009
-            0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930, //2010-2019
-            0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530, //2020-2029
-            0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45, //2030-2039
-            0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0, //2040-2049
-            0x14b63 //2050
-        ];
-
-        // Basic Lunar Helpers
-        function getLunarYearDays(y) {
-            let i, sum = 348;
-            for(i=0x8000; i>0x8; i>>=1) sum += (lunarInfo[y-1900] & i)? 1: 0;
-            return(sum + leapDays(y));
-        }
-        function leapDays(y) {
-            if(leapMonth(y)) return((lunarInfo[y-1900] & 0x10000)? 30: 29);
-            else return(0);
-        }
-        function leapMonth(y) {
-            return(lunarInfo[y-1900] & 0xf);
-        }
-        function monthDays(y,m) {
-            return( (lunarInfo[y-1900] & (0x10000>>m))? 30: 29 );
-        }
-        
-        function solarToLunar(objDate) {
-            let i, leap=0, temp=0;
-            let offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900,0,31))/86400000;
-
-            let dayCyl = offset + 40;
-            let monCyl = 14;
-
-            for(i=1900; i<2051 && offset>0; i++) {
-                temp = getLunarYearDays(i);
-                offset -= temp;
-                monCyl += 12;
-            }
-
-            if(offset<0) {
-                offset += temp;
-                i--;
-                monCyl -= 12;
-            }
-
-            let year = i;
-            let yearCyl = i-1864;
-
-            leap = leapMonth(i); 
-            let isLeap = false;
-
-            for(i=1; i<13 && offset>0; i++) {
-                // Leap month
-                if(leap>0 && i==(leap+1) && isLeap==false) { --i; isLeap = true; temp = leapDays(year); }
-                else { temp = monthDays(year, i); }
-
-                // Note: decrement offset
-                if(isLeap==true && i==(leap+1)) isLeap = false;
-                
-                offset -= temp;
-                if(isLeap == false) monCyl ++;
-            }
-
-            if(offset==0 && leap>0 && i==leap+1) {
-                if(isLeap) { isLeap = false; }
-                else { isLeap = true; --i; --monCyl;}
-            }
-
-            if(offset<0){ offset += temp; --i; --monCyl; }
-
-            return {
-                y: year,
-                m: i,
-                d: offset + 1,
-                isLeap: isLeap
-            };
-        }
-
-        // --- BAZI DATA ---
+        // --- DATA & LOGIC ---
+        // (Reusing existing logic logic with updated DOM targets)
         const jiaZi = [
             "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
             "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
@@ -372,8 +261,8 @@
             "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
             "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
         ];
-        
-        // Year Weights (using map for lookup)
+
+        // Simplified weights for demo
         const yearWeightsMap = {
             "甲子": 12, "丙子": 16, "戊子": 15, "庚子": 7, "壬子": 5,
             "乙丑": 9, "丁丑": 8, "己丑": 7, "辛丑": 7, "癸丑": 7,
@@ -389,15 +278,8 @@
             "乙亥": 9, "丁亥": 16, "己亥": 9, "辛亥": 17, "癸亥": 6
         };
         const monthWeights = [6, 7, 18, 9, 5, 16, 9, 15, 18, 8, 9, 5];
-        const dayWeights = [
-            5, 10, 8, 15, 16, 15, 8, 16, 8, 16,
-            9, 17, 8, 17, 10, 8, 9, 18, 5, 15,
-            10, 9, 8, 9, 15, 18, 7, 8, 16, 6
-        ];
-        const timeWeights = {
-            "zi": 16, "chou": 6, "yin": 7, "mao": 10, "chen": 9, "si": 16,
-            "wu": 10, "wei": 8, "shen": 8, "you": 9, "xu": 6, "hai": 6
-        };
+        const dayWeights = [5, 10, 8, 15, 16, 15, 8, 16, 8, 16, 9, 17, 8, 17, 10, 8, 9, 18, 5, 15, 10, 9, 8, 9, 15, 18, 7, 8, 16, 6];
+        const timeWeights = { "zi": 16, "chou": 6, "yin": 7, "mao": 10, "chen": 9, "si": 16, "wu": 10, "wei": 8, "shen": 8, "you": 9, "xu": 6, "hai": 6 };
 
         const poems = {
             male: {
@@ -509,196 +391,183 @@
             }
         };
 
-        // --- INIT ---
-        window.onload = function() {
-            toggleCalendarType(); // Init UI based on default checked
+        // Lunar Calendar Helper (Legacy compressed data)
+        const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x04da0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63];
+
+        function getLunarYearDays(y) {
+            let i, sum = 348;
+            for (i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
+            return (sum + leapDays(y));
+        }
+        function leapDays(y) {
+            if (leapMonth(y)) return ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29);
+            else return (0);
+        }
+        function leapMonth(y) {
+            return (lunarInfo[y - 1900] & 0xf);
+        }
+        function monthDays(y, m) {
+            return ((lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29);
+        }
+        function solarToLunar(objDate) {
+            let i, leap = 0, temp = 0;
+            let offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
+            let dayCyl = offset + 40;
+            let monCyl = 14;
+            for (i = 1900; i < 2051 && offset > 0; i++) { temp = getLunarYearDays(i); offset -= temp; monCyl += 12; }
+            if (offset < 0) { offset += temp; i--; monCyl -= 12; }
+            let year = i;
+            let yearCyl = i - 1864;
+            leap = leapMonth(i);
+            let isLeap = false;
+            for (i = 1; i < 13 && offset > 0; i++) {
+                if (leap > 0 && i == (leap + 1) && isLeap == false) { --i; isLeap = true; temp = leapDays(year); }
+                else { temp = monthDays(year, i); }
+                if (isLeap == true && i == (leap + 1)) isLeap = false;
+                offset -= temp;
+                if (isLeap == false) monCyl++;
+            }
+            if (offset == 0 && leap > 0 && i == leap + 1) { if (isLeap) { isLeap = false; } else { isLeap = true; --i; --monCyl; } }
+            if (offset < 0) { offset += temp; --i; --monCyl; }
+            return { y: year, m: i, d: offset + 1, isLeap: isLeap };
+        }
+
+        // Init
+        window.onload = function () {
+            populateYears();
+            populateMonths();
+            populateDays();
+
+            // Re-bind listeners
+            document.querySelectorAll('input[name="calendarType"]').forEach(el => {
+                el.addEventListener('change', () => {
+                    populateYears();
+                    populateMonths();
+                });
+            });
         };
 
-        function toggleCalendarType() {
+        function populateYears() {
             const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
-            
-            // Labels
-            document.getElementById('yearLabel').innerText = isSolar ? "出生年份 (國曆)" : "出生年份 (農曆)";
-            
-            // Populate Dropdowns
-            populateYears(isSolar);
-            populateMonths(isSolar);
-            populateDays(isSolar);
-        }
-
-        function populateYears(isSolar) {
             const select = document.getElementById('inputYear');
-            const savedVal = select.value;
             select.innerHTML = '';
-            
             for (let i = 1900; i <= 2050; i++) {
-                const ganZhiIndex = (i - 4) % 60;
-                let idx = ganZhiIndex;
-                if (idx < 0) idx += 60;
-                
-                const gz = jiaZi[idx];
-                const option = document.createElement('option');
-                option.value = i; // Store just the number for simpler logic
-                
-                if (isSolar) {
-                     option.text = `${i}年`;
-                } else {
-                     option.text = `${i}年 (${gz})`;
-                }
-                
-                if (i === 1990) option.selected = true;
-                select.appendChild(option);
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.text = i;
+                if (i === 1990) opt.selected = true;
+                select.appendChild(opt);
             }
-            if(savedVal) select.value = savedVal; // Try to keep selection
         }
-        
-        function populateMonths(isSolar) {
+        function populateMonths() {
             const select = document.getElementById('inputMonth');
             select.innerHTML = '';
-            for(let i=1; i<=12; i++){
-                const option = document.createElement('option');
-                option.value = i;
-                option.text = isSolar ? `${i}月` : (['正','二','三','四','五','六','七','八','九','十','十一','十二'][i-1] + '月');
-                select.appendChild(option);
+            for (let i = 1; i <= 12; i++) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.text = i < 10 ? '0' + i : i;
+                select.appendChild(opt);
             }
         }
-
-        function populateDays(isSolar) {
+        function populateDays() {
             const select = document.getElementById('inputDay');
             select.innerHTML = '';
-            const count = isSolar ? 31 : 30; // Simplify, solar uses 31 max, validator not needed for simple weight tool
-            
-            const dayNamesLunar = ["初一","初二","初三","初四","初五","初六","初七","初八","初九","初十",
-                              "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十",
-                              "廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十"];
-            
-            for (let i = 1; i <= count; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.text = isSolar ? `${i}日` : (dayNamesLunar[i-1] || `${i}日`);
-                select.appendChild(option);
+            for (let i = 1; i <= 31; i++) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.text = i < 10 ? '0' + i : i;
+                select.appendChild(opt);
             }
         }
 
-        function toggleReference() {
-            const ref = document.getElementById('referenceTable');
-            ref.classList.toggle('hidden');
-        }
-
-        // --- LOGIC ---
         function calculateBazi() {
             const gender = document.querySelector('input[name="gender"]:checked').value;
             const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
-            
+
             let y = parseInt(document.getElementById('inputYear').value);
             let m = parseInt(document.getElementById('inputMonth').value);
             let d = parseInt(document.getElementById('inputDay').value);
             const timeKey = document.getElementById('inputTime').value;
 
-            let displayDate = "";
             let lunarYearGZ = "";
             let finalY, finalM, finalD;
 
-            // Conversion Logic
             if (isSolar) {
-                const solarDate = new Date(y, m-1, d);
-                // Validate date exists (e.g., Feb 31)
-                if (solarDate.getMonth() !== m-1) {
-                    alert("日期無效，請檢查輸入。");
-                    return;
-                }
-                
+                const solarDate = new Date(y, m - 1, d);
+                if (solarDate.getMonth() !== m - 1) { alert("日期無效"); return; }
                 const lObj = solarToLunar(solarDate);
-                finalY = lObj.y;
-                finalM = lObj.m;
-                finalD = lObj.d;
-                
-                // Calculate GanZhi for the Lunar Year
-                const ganZhiIndex = (finalY - 4) % 60;
-                let idx = ganZhiIndex < 0 ? ganZhiIndex + 60 : ganZhiIndex;
+                finalY = lObj.y; finalM = lObj.m; finalD = lObj.d;
+
+                let idx = (finalY - 4) % 60;
+                if (idx < 0) idx += 60;
                 lunarYearGZ = jiaZi[idx];
-                
-                displayDate = `國曆 ${y}年${m}月${d}日 (農曆 ${lunarYearGZ}年${lObj.isLeap?"閏":""}${finalM}月${finalD}日)`;
             } else {
-                // Input is already Lunar
-                finalY = y;
-                finalM = m;
-                finalD = d;
-                
-                const ganZhiIndex = (y - 4) % 60;
-                let idx = ganZhiIndex < 0 ? ganZhiIndex + 60 : ganZhiIndex;
+                finalY = y; finalM = m; finalD = d;
+                let idx = (y - 4) % 60;
+                if (idx < 0) idx += 60;
                 lunarYearGZ = jiaZi[idx];
-                
-                displayDate = `農曆 ${y}年${m}月${d}日 (${lunarYearGZ}年)`;
             }
 
-            // Weights
             const wYear = yearWeightsMap[lunarYearGZ] || 0;
-            const wMonth = monthWeights[finalM - 1] || 0; // Lunar month 1 is index 0
-            const wDay = dayWeights[finalD - 1] || 0;     // Lunar day 1 is index 0
+            const wMonth = monthWeights[finalM - 1] || 0;
+            const wDay = dayWeights[finalD - 1] || 0;
             const wTime = timeWeights[timeKey] || 0;
-
             const totalQian = wYear + wMonth + wDay + wTime;
+
             const liang = Math.floor(totalQian / 10);
             const qian = totalQian % 10;
-            
-            document.getElementById('dateDisplay').innerText = displayDate;
-            document.getElementById('yearW').innerText = formatWeight(wYear);
-            document.getElementById('monthW').innerText = formatWeight(wMonth);
-            document.getElementById('dayW').innerText = formatWeight(wDay);
-            document.getElementById('timeW').innerText = formatWeight(wTime);
 
-            document.getElementById('totalWeightDisplay').innerText = `${liang}兩${qian}錢`;
-            
-            // Set Table Title
-            document.getElementById('resultTitle').innerText = gender === 'male' ? "八字重量男命解說" : "八字重量女命解說";
+            // Update UI
+            document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
+            document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
+            document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
+            document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
+            document.getElementById('timeW').innerText = (wTime / 10).toFixed(1);
 
-            const poemKey = totalQian; 
+            // Update Pillar (Year Only - others are placeholder)
+            document.getElementById('pillarYear').innerText = lunarYearGZ;
+
+            // Get Poem
             let poemText = "暫無此重量之批註。";
-            
-            if (gender === 'male' && poems.male[poemKey]) {
-                poemText = poems.male[poemKey];
-            } else if (gender === 'female' && poems.female[poemKey]) {
-                poemText = poems.female[poemKey];
-            } else {
-                if (totalQian > 72) poemText = "此命骨重極高，世間罕有，必是大貴之命。";
-                else if (totalQian < 21) poemText = "此命骨重較輕，宜多行善積德以補運勢。";
-            }
+            if (gender === 'male' && poems.male[totalQian]) poemText = poems.male[totalQian];
+            else if (gender === 'female' && poems.female[totalQian]) poemText = poems.female[totalQian];
 
-            // Enhanced Poem Formatting
-            // 1. Remove trailing punctuation
-            // 2. Replace commas/periods with break
-            // 3. Ensure 4 lines
-            
-            let formattedPoem = poemText;
-            
-            // Normalize punctuation
-            formattedPoem = formattedPoem.replace(/。/g, "，"); // Treat periods as commas for splitting
-            const parts = formattedPoem.split("，").filter(p => p.trim() !== "");
-            
-            if (parts.length >= 4) {
-                formattedPoem = parts.join("，<br>"); // Join back with visual breaks
-                // Add final period if missing
-                if (!formattedPoem.endsWith("。")) formattedPoem += "。";
-            } else {
-                // Fallback for non-standard poems
-                 formattedPoem = poemText.replace(/，/g, "，<br>").replace(/。/g, "。<br>");
-            }
+            // Poem & Analysis Display
+            // Split poem into parts for "Main Poem" and "Detailed Analysis"
+            poemText = poemText.replace(/。/g, "，");
+            const parts = poemText.split("，").filter(p => p.trim() !== "");
 
-            document.getElementById('poemContent').innerHTML = formattedPoem;
+            // 1. Main Poem Box (Join all parts)
+            document.getElementById('mainPoem').innerText = parts.join("，") + "。";
+
+            // 2. Detailed Breakdown
+            const analysisContainer = document.getElementById('poemAnalysis');
+            analysisContainer.innerHTML = '';
+
+            parts.forEach((line, index) => {
+                if (!line) return;
+                const div = document.createElement('div');
+
+                // Generate a fake "meaning" for the demo layout
+                let explanation = "此句為詩中之詳解，描述了命主在不同階段的運勢變化與性格特徵。";
+                if (index === 0) explanation = "代表你的性格正直、清高，不屑於做些偷雞摸狗或違背良心的事情，有文人的風骨。";
+                if (index === 1) explanation = "意味著你求學成績優異，年輕時就可考取功名，或在學術、專業領域嶄露頭角。";
+                if (index === 2) explanation = "人生的一個轉折點，代表運勢在此時會有重大的突破或轉變。";
+                if (index === 3) explanation = "實位晉升的象徵。從低階職位（藍袍）晉升為高階職位（紅袍），寓意事業高升。";
+
+                div.innerHTML = `
+                    <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
+                    ${index < parts.length - 1 ? '<div class="dashed-line"></div>' : ''}
+                 `;
+                analysisContainer.appendChild(div);
+            });
 
             const resArea = document.getElementById('resultArea');
             resArea.classList.remove('hidden');
-            resArea.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-
-        function formatWeight(q) {
-            const l = Math.floor(q / 10);
-            const remainder = q % 10;
-            if (l > 0 && remainder > 0) return `${l}兩${remainder}`;
-            if (l > 0) return `${l}兩`;
-            return `${remainder}錢`;
+            resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
 </body>
+
 </html>
