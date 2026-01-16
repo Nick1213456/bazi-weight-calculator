@@ -28,8 +28,10 @@
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #fff;
             color: #333;
+            background-color: #fcfbf9;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12c0-.622-.095-1.221-.27-1.785A5.982 5.982 0 0 0 10 12c1.654 0 3.153-.67 4.27-1.785A5.998 5.998 0 0 0 14 12h2a7.994 7.994 0 0 1-4.002-6.9ch-4.002A7.995 7.995 0 0 1 4 12H6z' fill='%23b91c1c' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-attachment: fixed;
         }
 
         .serif-font {
@@ -61,513 +63,651 @@
     </style>
 </head>
 
-<body class="min-h-screen py-10 px-4 max-w-3xl mx-auto">
+<body class="min-h-screen py-8 px-4 flex justify-center items-start">
+    <div class="w-full max-w-4xl bg-white shadow-2xl rounded-2xl p-8 md:p-16 relative mx-auto">
 
-    <!-- Header -->
-    <div class="text-center mb-10">
-        <h1 class="text-4xl font-bold mb-2 text-black">八字算命</h1>
-        <p class="text-gray-500 text-sm tracking-widest">洞悉天機 · 掌握命運</p>
-    </div>
-
-    <!-- Form Section -->
-    <div class="max-w-2xl mx-auto mb-16">
-
-        <!-- Calendar Selection -->
-        <div class="mb-6">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">曆法選擇</label>
-            <div class="flex gap-6 items-center">
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="radio" name="calendarType" value="solar"
-                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                    <span class="ml-2 text-sm">國曆 (西元)</span>
-                </label>
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="radio" name="calendarType" value="lunar" checked
-                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                    <span class="ml-2 text-sm">農曆</span>
-                </label>
-            </div>
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold mb-2 text-black">八字算命</h1>
+            <p class="text-gray-500 text-sm tracking-widest">洞悉天機 · 掌握命運</p>
         </div>
 
-        <!-- Gender Selection -->
-        <div class="mb-6">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
-            <div class="flex gap-6 items-center">
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="radio" name="gender" value="male" checked
-                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                    <span class="ml-2 text-sm">男</span>
-                </label>
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="radio" name="gender" value="female"
-                        class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                    <span class="ml-2 text-sm">女</span>
-                </label>
+        <!-- Form Section -->
+        <div class="max-w-2xl mx-auto mb-16">
+
+            <!-- Calendar Selection -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2 text-sm">曆法選擇</label>
+                <div class="flex gap-6 items-center">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="calendarType" value="solar"
+                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                        <span class="ml-2 text-sm">國曆 (西元)</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="calendarType" value="lunar" checked
+                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                        <span class="ml-2 text-sm">農曆</span>
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <!-- Birth Date Selection -->
-        <div class="mb-8">
-            <label class="block text-gray-700 font-medium mb-2 text-sm">出生時間</label>
-            <div class="flex flex-wrap items-center gap-2">
-                <div class="relative w-24">
-                    <select id="inputYear"
-                        class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
-                    </select>
-                    <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+            <!-- Gender Selection -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
+                <div class="flex gap-6 items-center">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="gender" value="male" checked
+                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                        <span class="ml-2 text-sm">男</span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="radio" name="gender" value="female"
+                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                        <span class="ml-2 text-sm">女</span>
+                    </label>
                 </div>
-                <span class="text-sm text-gray-500">年</span>
-
-                <div class="relative w-16">
-                    <select id="inputMonth"
-                        class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                    </select>
-                </div>
-                <span class="text-sm text-gray-500">月</span>
-
-                <div class="relative w-16">
-                    <select id="inputDay"
-                        class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                    </select>
-                </div>
-                <span class="text-sm text-gray-500">日</span>
-
-                <div class="relative w-24">
-                    <select id="inputTime"
-                        class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                        <option value="zi">子 (23-01)</option>
-                        <option value="chou">丑 (01-03)</option>
-                        <option value="yin">寅 (03-05)</option>
-                        <option value="mao">卯 (05-07)</option>
-                        <option value="chen">辰 (07-09)</option>
-                        <option value="si">巳 (09-11)</option>
-                        <option value="wu">午 (11-13)</option>
-                        <option value="wei">未 (13-15)</option>
-                        <option value="shen">申 (15-17)</option>
-                        <option value="you">酉 (17-19)</option>
-                        <option value="xu">戌 (19-21)</option>
-                        <option value="hai">亥 (21-23)</option>
-                    </select>
-                    <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
-                </div>
-                <span class="text-sm text-gray-500">時</span>
             </div>
-        </div>
 
-        <button onclick="calculateBazi()"
-            class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
-            開始算命
-        </button>
-    </div>
+            <!-- Birth Date Selection -->
+            <div class="mb-8">
+                <label class="block text-gray-700 font-medium mb-2 text-sm">出生時間</label>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="relative w-24">
+                        <select id="inputYear"
+                            class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
+                        </select>
+                        <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                    </div>
+                    <span class="text-sm text-gray-500">年</span>
 
-    <div class="border-t border-gray-100 my-10"></div>
+                    <div class="relative w-16">
+                        <select id="inputMonth"
+                            class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                        </select>
+                    </div>
+                    <span class="text-sm text-gray-500">月</span>
 
-    <!-- Result Area -->
-    <div id="resultArea" class="hidden max-w-2xl mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
+                    <div class="relative w-16">
+                        <select id="inputDay"
+                            class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                        </select>
+                    </div>
+                    <span class="text-sm text-gray-500">日</span>
 
-        <!-- Weight Display -->
-        <div class="text-center">
-            <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
-            <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
-                <!-- Calculated Weight -->
+                    <div class="relative w-24">
+                        <select id="inputTime"
+                            class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                            <option value="zi">子 (23-01)</option>
+                            <option value="chou">丑 (01-03)</option>
+                            <option value="yin">寅 (03-05)</option>
+                            <option value="mao">卯 (05-07)</option>
+                            <option value="chen">辰 (07-09)</option>
+                            <option value="si">巳 (09-11)</option>
+                            <option value="wu">午 (11-13)</option>
+                            <option value="wei">未 (13-15)</option>
+                            <option value="shen">申 (15-17)</option>
+                            <option value="you">酉 (17-19)</option>
+                            <option value="xu">戌 (19-21)</option>
+                            <option value="hai">亥 (21-23)</option>
+                        </select>
+                        <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                    </div>
+                    <span class="text-sm text-gray-500">時</span>
+                </div>
             </div>
-            <p class="text-xs text-gray-400">
-                基數 :
-                年<span id="yearW"></span> +
-                月<span id="monthW"></span> +
-                日<span id="dayW"></span> +
-                時<span id="timeW"></span>
+
+            <button onclick="calculateBazi()"
+                class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
+                開始算命
+            </button>
+            <p class="text-xs text-center text-gray-400 mt-4 leading-relaxed">
+                測算結果僅反映先天的運勢，不代表最終定論。<br>人生充滿變數，積極作為才是改變命運的核心。
             </p>
         </div>
 
-        <!-- Poem Box -->
-        <div class="red-border-box p-8 text-center">
-            <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
-                <!-- Poem goes here -->
-            </p>
-        </div>
+        <div class="border-t border-gray-100 my-10"></div>
 
-        <!-- Pillars (Visual Placeholder - Logic requires full Bazi engine) -->
-        <div class="grid grid-cols-4 gap-4">
-            <div class="bg-gray-50 rounded p-4 text-center">
-                <div class="text-xs text-gray-400 mb-1">年柱</div>
-                <div class="font-bold text-gray-800 text-lg" id="pillarYear">- -</div>
-            </div>
-            <div class="bg-gray-50 rounded p-4 text-center">
-                <div class="text-xs text-gray-400 mb-1">月柱</div>
-                <div class="font-bold text-gray-800 text-lg">- -</div>
-            </div>
-            <div class="bg-gray-50 rounded p-4 text-center">
-                <div class="text-xs text-gray-400 mb-1">日柱</div>
-                <div class="font-bold text-gray-800 text-lg">- -</div>
-            </div>
-            <div class="bg-gray-50 rounded p-4 text-center">
-                <div class="text-xs text-gray-400 mb-1">時柱</div>
-                <div class="font-bold text-gray-800 text-lg">- -</div>
-            </div>
-        </div>
+        <!-- Result Area -->
+        <div id="resultArea" class="hidden mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
 
-        <!-- Detailed Explanations -->
-        <div class="space-y-2">
-            <div class="text-center mb-8">
-                <span class="text-xs font-bold text-gray-400 tracking-widest">歌訣詳解</span>
-            </div>
-
-            <!-- Analysis Items (Generated from Poem) -->
-            <div id="poemAnalysis" class="space-y-8">
-                <!-- Dynamic Content -->
-            </div>
-        </div>
-
-        <!-- Character Analysis (Static Layout for Demo) -->
-        <div class="dashed-line"></div>
-        <div class="space-y-8 pb-10">
-            <div class="text-center mb-8">
-                <span class="text-xs font-bold text-gray-400 tracking-widest">命格綜合分析</span>
-            </div>
-
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
-                <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    性格正直，自我要求高。你可能有些完美主義，對自己和身邊的人都有一定的標準。富有正義感，且學習能力極強，擅長思考。（此為範例分析，實際需結合完整八字盤）
+            <!-- Weight Display -->
+            <div class="text-center">
+                <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
+                <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
+                    <!-- Calculated Weight -->
+                </div>
+                <p class="text-xs text-gray-400">
+                    基數 :
+                    年<span id="yearW"></span> +
+                    月<span id="monthW"></span> +
+                    日<span id="dayW"></span> +
+                    時<span id="timeW"></span>
                 </p>
             </div>
+
+            <!-- Poem Box -->
+            <div class="red-border-box p-6 text-center">
+                <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
+                    <!-- Poem goes here -->
+                </p>
+            </div>
+
+
+
+            <!-- Detailed Explanations -->
+            <div class="space-y-2">
+                <div class="text-center mb-8">
+                    <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+                </div>
+
+                <!-- Analysis Items (Generated from Poem) -->
+                <div id="poemAnalysis" class="space-y-8">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+
+            <!-- Character Analysis (Static Layout for Demo) -->
             <div class="dashed-line"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
-                <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    適合公職、法律、教育、學術研究。早年就展現才華，三十六歲左右會迎來事業的高峰，可能獲得晉升或掌握實權。（此為範例分析）
-                </p>
+            <div class="space-y-8 pb-10">
+                <div class="text-center mb-8">
+                    <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
+                </div>
+
+                <div>
+                    <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
+                    <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic -->
+                    </p>
+                </div>
+                <div class="dashed-line"></div>
+                <div>
+                    <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
+                    <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic -->
+                    </p>
+                </div>
+                <div class="dashed-line"></div>
+                <div>
+                    <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
+                    <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic -->
+                    </p>
+                </div>
+                <div class="dashed-line"></div>
+                <div>
+                    <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
+                    <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic -->
+                    </p>
+                </div>
+                <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
+                    <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span
+                            id="adviceWeightDisplay">此命</span> 的建議</h4>
+                    <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic List -->
+                    </div>
+                </div>
             </div>
-            <div class="dashed-line"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
-                <p class="text-gray-600 text-sm leading-relaxed text-justify">
-                    正財運祥盛。你的財富主要來自於你的職位和專業地位，並非投機得來。隨著職位提升，收入自然水漲船高，生活富足。（此為範例分析）
-                </p>
-            </div>
+
         </div>
 
-    </div>
+        <script>
+            // --- DATA & LOGIC ---
+            // (Reusing existing logic logic with updated DOM targets)
+            const jiaZi = [
+                "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
+                "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
+                "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
+                "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
+                "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
+                "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
+            ];
 
-    <script>
-        // --- DATA & LOGIC ---
-        // (Reusing existing logic logic with updated DOM targets)
-        const jiaZi = [
-            "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
-            "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
-            "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
-            "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
-            "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
-            "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
-        ];
+            // Simplified weights for demo
+            const yearWeightsMap = {
+                "甲子": 12, "丙子": 16, "戊子": 15, "庚子": 7, "壬子": 5,
+                "乙丑": 9, "丁丑": 8, "己丑": 7, "辛丑": 7, "癸丑": 7,
+                "丙寅": 6, "戊寅": 8, "庚寅": 9, "壬寅": 9, "甲寅": 12,
+                "丁卯": 7, "己卯": 19, "辛卯": 12, "癸卯": 12, "乙卯": 8,
+                "戊辰": 12, "庚辰": 12, "壬辰": 10, "甲辰": 8, "丙辰": 8,
+                "己巳": 5, "辛巳": 6, "癸巳": 7, "乙巳": 7, "丁巳": 6,
+                "庚午": 9, "壬午": 8, "甲午": 15, "丙午": 13, "戊午": 19,
+                "辛未": 8, "癸未": 7, "乙未": 6, "丁未": 5, "己未": 6,
+                "壬申": 7, "甲申": 5, "丙申": 5, "戊申": 14, "庚申": 8,
+                "癸酉": 8, "乙酉": 15, "丁酉": 14, "己酉": 5, "辛酉": 16,
+                "甲戌": 15, "丙戌": 6, "戊戌": 14, "庚戌": 9, "壬戌": 10,
+                "乙亥": 9, "丁亥": 16, "己亥": 9, "辛亥": 17, "癸亥": 6
+            };
+            const monthWeights = [6, 7, 18, 9, 5, 16, 9, 15, 18, 8, 9, 5];
+            const dayWeights = [5, 10, 8, 15, 16, 15, 8, 16, 8, 16, 9, 17, 8, 17, 10, 8, 9, 18, 5, 15, 10, 9, 8, 9, 15, 18, 7, 8, 16, 6];
+            const timeWeights = { "zi": 16, "chou": 6, "yin": 7, "mao": 10, "chen": 9, "si": 16, "wu": 10, "wei": 8, "shen": 8, "you": 9, "xu": 6, "hai": 6 };
 
-        // Simplified weights for demo
-        const yearWeightsMap = {
-            "甲子": 12, "丙子": 16, "戊子": 15, "庚子": 7, "壬子": 5,
-            "乙丑": 9, "丁丑": 8, "己丑": 7, "辛丑": 7, "癸丑": 7,
-            "丙寅": 6, "戊寅": 8, "庚寅": 9, "壬寅": 9, "甲寅": 12,
-            "丁卯": 7, "己卯": 19, "辛卯": 12, "癸卯": 12, "乙卯": 8,
-            "戊辰": 12, "庚辰": 12, "壬辰": 10, "甲辰": 8, "丙辰": 8,
-            "己巳": 5, "辛巳": 6, "癸巳": 7, "乙巳": 7, "丁巳": 6,
-            "庚午": 9, "壬午": 8, "甲午": 15, "丙午": 13, "戊午": 19,
-            "辛未": 8, "癸未": 7, "乙未": 6, "丁未": 5, "己未": 6,
-            "壬申": 7, "甲申": 5, "丙申": 5, "戊申": 14, "庚申": 8,
-            "癸酉": 8, "乙酉": 15, "丁酉": 14, "己酉": 5, "辛酉": 16,
-            "甲戌": 15, "丙戌": 6, "戊戌": 14, "庚戌": 9, "壬戌": 10,
-            "乙亥": 9, "丁亥": 16, "己亥": 9, "辛亥": 17, "癸亥": 6
-        };
-        const monthWeights = [6, 7, 18, 9, 5, 16, 9, 15, 18, 8, 9, 5];
-        const dayWeights = [5, 10, 8, 15, 16, 15, 8, 16, 8, 16, 9, 17, 8, 17, 10, 8, 9, 18, 5, 15, 10, 9, 8, 9, 15, 18, 7, 8, 16, 6];
-        const timeWeights = { "zi": 16, "chou": 6, "yin": 7, "mao": 10, "chen": 9, "si": 16, "wu": 10, "wei": 8, "shen": 8, "you": 9, "xu": 6, "hai": 6 };
+            const poems = {
+                male: {
+                    21: "短命非業謂大凶，平生災難事重重，兇禍頻臨限逆境，終世困苦事不成",
+                    22: "身寒骨冷苦伶仃，此命推來行乞人，勞勞碌碌無度日，中年打拱過平生",
+                    23: "此命推來骨輕輕，求謀做事事難成，妻兒兄弟應難許，別處他鄉作散人",
+                    24: "此命推來福祿無，門庭困苦總難榮，六親骨肉皆無靠，流到他鄉作老人",
+                    25: "此命推來祖業微，門庭營度似希奇，六親骨肉如水炭，一世勤勞自把持",
+                    26: "平生一路苦中求，獨自營謀事不休，離祖出門宜早計，晚來衣祿自無憂",
+                    27: "一生做事少商量，難靠祖宗作主張，獨馬單槍空作去，早年晚歲總無長",
+                    28: "一生作事似飄蓬，祖宗產業在夢中，若不過房並改姓，也當移徒二三通",
+                    29: "初年運限未曾亨，縱有功名在後成，須過四旬方可上，移居改姓使為良",
+                    30: "勞勞碌碌苦中求，東走西奔何日休，若能終身勤與儉，老來稍可免憂愁",
+                    31: "忙忙碌碌苦中求，何日雲開見日頭，難得祖基家可立，中年衣食漸無憂",
+                    32: "初年運錯事難謀，漸有財源如水流，到的中年衣食旺，那時名利一齊來",
+                    33: "早年做事事難成，百計徒勞枉費心，半世自如流水去，後來運到始得金",
+                    34: "此命福氣果如何，僧道門中衣祿多，離祖出家方得妙，終朝拜佛念彌陀",
+                    35: "生平福量不周全，祖業根基覺少傳，營事生涯宜守舊，時來衣食勝從前",
+                    36: "不須勞碌過平生，獨自成家福不輕，早有福星常照命，任君行去百般成",
+                    37: "此命般般事不成，弟兄少力自孤成，雖然祖業須微有，來的明時去的暗",
+                    38: "一生骨肉最清高，早入學門姓名標，待看年將三十六，藍衣脫去換紅袍",
+                    39: "此命終身運不通，勞勞做事盡皆空，苦心竭力成家計，到得那時在夢中",
+                    40: "平生衣祿是綿長，件件心中自主張，前面風霜都受過，從來必定享安泰",
+                    41: "此命推來事不同，為人能幹異凡庸，中年還有逍遙福，不比前年雲未通",
+                    42: "得寬懷處且寬懷，何用雙眉總不開，若使中年命運濟，那時名利一齊來",
+                    43: "為人心性最聰明，做事軒昂近貴人，衣祿一生天數定，不須勞碌是豐亨",
+                    44: "來事由天莫苦求，須知福祿勝前途，當年財帛難如意，晚景欣然便不憂",
+                    45: "福中取貴格求真，明敏才華志自伸，福祿壽全家道吉，桂蘭毓秀晚榮臻",
+                    46: "東西南北盡皆通，出姓移名更覺隆，衣祿無虧天數定，中年晚景一般同",
+                    47: "此命推來旺末年，妻榮子貴自怡然，平生原有滔滔福，可有財源如水流",
+                    48: "幼年運道未曾享，苦是蹉跎再不興，兄弟六親皆無靠，一身事業晚年成",
+                    49: "此命推來福不輕，自立自成顯門庭，從來富貴人親近，使婢差奴過一生",
+                    50: "為利為名終日勞，中年福祿也多遭，老來是有財星照，不比前番目下高",
+                    51: "一世榮華事事通，不須勞碌自亨通，兄弟叔侄皆如意，家業成時福祿宏",
+                    52: "一世亨通事事能，不須勞思自然能，宗施欣然心皆好，家業豐亨自稱心",
+                    53: "此格推來氣象真，興家發達在其中，一生福祿安排定，卻是人間一富翁",
+                    54: "此命推來厚且清，詩書滿腹看功成，豐衣足食自然穩，正是人間有福人",
+                    55: "走馬揚鞭爭名利，少年做事廢籌論，一朝福祿源源至，富貴榮華顯六親",
+                    56: "此格推來禮儀通，一生福祿用無窮，甜酸苦辣皆嚐過，財源滾滾穩且豐",
+                    57: "福祿盈盈萬事全，一生榮耀顯雙親，名揚威震人欽敬，處世逍遙似遇春",
+                    58: "平生福祿自然來，名利兼全福祿偕，雁塔提名為貴客，紫袍金帶走金鞋",
+                    59: "細推此格妙且清，必定才高禮儀通，甲第之中應有分，揚鞭走馬顯威榮",
+                    60: "一朝金榜快題名，顯祖榮宗立大功，衣食定然原欲足，田園財帛更豐盈",
+                    61: "不做朝中金榜客，定為世上一財翁，聰明天賦經書熟，名顯高克自是榮",
+                    62: "此名生來福不窮，讀書必定顯親榮，紫衣金帶為卿相，富貴榮華皆可同",
+                    63: "命主為官福祿長，得來富貴定非常，名題金塔傳金榜，定中高科天下揚",
+                    64: "此格權威不可當，紫袍金帶坐高堂，榮華富貴誰能及，積玉堆金滿儲倉",
+                    65: "細推此命福不輕，安國安邦極品人，文繡雕樑政富貴，威聲照耀四方聞",
+                    66: "此格人間一福人，堆金積玉滿堂春，從來富貴由天定，正笏垂紳謁聖君",
+                    67: "此名生來福自宏，田園家業最高隆，平生衣祿豐盈足，一世榮華萬事通",
+                    68: "富貴由天莫苦求，萬金家計不須謀，十年不比前番事，祖業根基水上舟",
+                    69: "君是人間衣祿星，一生福貴眾人欽，縱然福祿由天定，安享榮華過一生",
+                    70: "此命推來福不輕，不須愁慮苦勞心，一生天定衣與祿，富貴榮華過一生",
+                    71: "此名生來大不同，公侯卿相在其中，一生自有逍遙福，富貴榮華極品隆",
+                    72: "此格世界罕有生，十代積善產此人，天上紫微來照命，統治萬民樂太平"
+                },
+                female: {
+                    21: "短命非業謂大空，平生災難事重重。兇禍頻臨陷逆境，終世困苦事不成。",
+                    22: "此命孤冷有淒伶，此命推來路乞人。操心煩腦度平日，一生育苦度光陰。",
+                    23: "此命推來骨肉輕，求財謀事事難成。弟妹六親無有靠，繁鞝家事難以持。",
+                    24: "此命推來福祿無，家務辛苦難以扶。丈夫兒女皆無靠，流落他鄉作游孤。",
+                    25: "此命推來八字輕，六庭艱辛多苦淒。娘家六友冷如灰，一生操勞多憂心。",
+                    26: "平生衣祿苦尋求，女命生來帶憂愁。辛酸苦辣他嚐過，晚年衣缽本無憂。",
+                    27: "竹平做事少間量，難靠夫君做主張。心問口來口問心，自做主張過光陰。",
+                    28: "女命生來八字經，得善做事一無情。你把別人當親生，別人對你假殷情。",
+                    29: "花枝要來性情硬，自奔自立不求人。若向求財方可止，有苦有甜度光陰。",
+                    30: "此命推來比郎強，婚姻大事礙無防。中年走過坎坷運，末年漸比先前強。",
+                    31: "早年行運在忙碌，勞碌奔波苦中求。自奔自愁把家立，後來晚景無憂愁。",
+                    32: "時逢吉神在運中，縱有兇處不為兇。真變假來假變真，結拜弟妹當親生。",
+                    33: "八字命來張張薄，勤儉持家皆可過。年華巴如流水過，末年運至受福祿。",
+                    34: "矮巴勾棗難撈枝，好人尋命不投機。謀望獻身最費力，婚姻同移總是虛。",
+                    35: "女子走冰怕冰薄，交易出行犯琢磨。婚姻周郎休此意，官司口舌須要知。",
+                    36: "憂愁常鎖兩眉間，女命萬緒掛心頭。從今以後防口角，任意行而不相天。",
+                    37: "此命來時運費多，此作推車受折磨。山路崎嶇吊下耳，左插右安安不著。",
+                    38: "鳳鳴岐山聞四方，女命逢之大吉昌。走失夫君音有信，晚年衣祿人財多。",
+                    39: "此命推來運不通，勞碌奔波一場空。好像俊鳥關籠中，中年末限起秋風。",
+                    40: "目上月令如運關，千心萬苦受煎熬。女子苦難受過來，晚年福康比花艷。",
+                    41: "此命推來普普通通，女子為人很非凡。中年逍遙多自在，晚年更比中年強。",
+                    42: "枯井破廢已多年，一朝泉水出來鮮。資生濟竭人稱美，來運轉喜自然時。",
+                    43: "推車靠涯道路趕，女命求財也費難。婚姻出行無陰礙，疾病口舌多安寧。",
+                    44: "夜夢金銀醒來空，女子謀事運不能。婚姻難成交易獲，夫君走失不見蹤。",
+                    45: "此命終身駁雜多，六親骨肉不相助。命中男婦都難養，勞碌辛苦還奔波。",
+                    46: "孤舟得水離沙灘，女命出外早遠家。是非口舌皆無礙，婚姻合夥更不差。",
+                    47: "時來運轉吉氣發，多年枯木又開花。枝葉重生多茂盛，凡人見了凡人夸。",
+                    48: "一朵鮮花鏡中開，看著極好取不來。勸你休把鏡花想，女命推業主可怪。",
+                    49: "此命推來福不輕，女子隨君顯門庭。容貌美滿熱人愛，銀錢富足過一生。",
+                    50: "馬氏太公不相和，好命逢之尤凝多。恩人無義反成怨，是非平地起風波。",
+                    51: "肥羊失群入山崗，餓虎逢之把口張。適口充腸心歡喜，女名八安大吉昌。",
+                    52: "順風行舟扯起棚，上天又助一順風。不用費力逍遙去，任意而行大亨通。",
+                    53: "此命相貌眉活秀，文武雙全功名成。一生衣祿皆無愁，可算世上有福人。",
+                    54: "學問滿腹運氣強，謀望求財大吉祥。交易出行大得意，是非口舌皆無妨。",
+                    55: "吉祥平安志量高，女命求財任逍遙。交易婚姻大有意，夫君在外有音耗。",
+                    56: "明珠書士離埃來，女命口角消散開。走失郎君當兩歸，交易有成水無災。",
+                    57: "游魚戲水被網驚，跳過龍門秧化龍。三根楊柳垂金線，萬朵桃花顯價能。",
+                    58: "此命推來閒逛悠，時運未來莫強求。幸得今日重反點，自有好運在後頭。",
+                    59: "雨雪載途泥濘至，交易不定難出行。疾病還拉慢婚姻，謀望求財事不成。",
+                    60: "女命八字喜氣和，謀望求財吉慶多。口舌漸消疾病少，夫君走失歸老窩。",
+                    61: "緣木求魚事多端，雖不得魚無後害。若是行險弄巧地，事不遂心枉安排。",
+                    62: "指日升高氣象新，走失待人有音信。好命遇事遂心好，伺病口舌皆除根。",
+                    63: "五官脫運難抬頭，女命須當把財求。交易少行有人助，疾病口舌不須愁。",
+                    64: "俊鳥曾得出籠中，脫離災難顯威風。一朝得意福立至，東南西北任意行。",
+                    65: "此命推來福不輕，慈善為事受人敬。天降文王開基業，富貴榮華八百年。",
+                    66: "時來運轉銳氣周，賢惠淑女君子求。釧鼓樂之大吉慶，女名逢之吉悠悠。",
+                    67: "亂絲無頭定有頭，碰著閒磨且暫推。交易出有無好處，謀事求財心不遂。",
+                    68: "水庭明月不可撈，女命早限命不高。交易出行難獲得，末限命運漸漸好。",
+                    69: "太公封祖不非凡，女子求財穩如山。交易合夥大吉慶，疾病口角消除安。",
+                    70: "此命推來喜氣新，郎君遇著多遂心。女命交了順當運，富貴衣祿平樂生。",
+                    71: "此命推來鴻運交，再不需愁來苦勞。一生身有衣祿福，按享榮華在其中。"
+                }
+            };
 
-        const poems = {
-            male: {
-                21: "短命非業謂大凶，平生災難事重重，兇禍頻臨限逆境，終世困苦事不成",
-                22: "身寒骨冷苦伶仃，此命推來行乞人，勞勞碌碌無度日，中年打拱過平生",
-                23: "此命推來骨輕輕，求謀做事事難成，妻兒兄弟應難許，別處他鄉作散人",
-                24: "此命推來福祿無，門庭困苦總難榮，六親骨肉皆無靠，流到他鄉作老人",
-                25: "此命推來祖業微，門庭營度似希奇，六親骨肉如水炭，一世勤勞自把持",
-                26: "平生一路苦中求，獨自營謀事不休，離祖出門宜早計，晚來衣祿自無憂",
-                27: "一生做事少商量，難靠祖宗作主張，獨馬單槍空作去，早年晚歲總無長",
-                28: "一生作事似飄蓬，祖宗產業在夢中，若不過房並改姓，也當移徒二三通",
-                29: "初年運限未曾亨，縱有功名在後成，須過四旬方可上，移居改姓使為良",
-                30: "勞勞碌碌苦中求，東走西奔何日休，若能終身勤與儉，老來稍可免憂愁",
-                31: "忙忙碌碌苦中求，何日雲開見日頭，難得祖基家可立，中年衣食漸無憂",
-                32: "初年運錯事難謀，漸有財源如水流，到的中年衣食旺，那時名利一齊來",
-                33: "早年做事事難成，百計徒勞枉費心，半世自如流水去，後來運到始得金",
-                34: "此命福氣果如何，僧道門中衣祿多，離祖出家方得妙，終朝拜佛念彌陀",
-                35: "生平福量不周全，祖業根基覺少傳，營事生涯宜守舊，時來衣食勝從前",
-                36: "不須勞碌過平生，獨自成家福不輕，早有福星常照命，任君行去百般成",
-                37: "此命般般事不成，弟兄少力自孤成，雖然祖業須微有，來的明時去的暗",
-                38: "一生骨肉最清高，早入學門姓名標，待看年將三十六，藍衣脫去換紅袍",
-                39: "此命終身運不通，勞勞做事盡皆空，苦心竭力成家計，到得那時在夢中",
-                40: "平生衣祿是綿長，件件心中自主張，前面風霜都受過，從來必定享安泰",
-                41: "此命推來事不同，為人能幹異凡庸，中年還有逍遙福，不比前年雲未通",
-                42: "得寬懷處且寬懷，何用雙眉總不開，若使中年命運濟，那時名利一齊來",
-                43: "為人心性最聰明，做事軒昂近貴人，衣祿一生天數定，不須勞碌是豐亨",
-                44: "來事由天莫苦求，須知福祿勝前途，當年財帛難如意，晚景欣然便不憂",
-                45: "福中取貴格求真，明敏才華志自伸，福祿壽全家道吉，桂蘭毓秀晚榮臻",
-                46: "東西南北盡皆通，出姓移名更覺隆，衣祿無虧天數定，中年晚景一般同",
-                47: "此命推來旺末年，妻榮子貴自怡然，平生原有滔滔福，可有財源如水流",
-                48: "幼年運道未曾享，苦是蹉跎再不興，兄弟六親皆無靠，一身事業晚年成",
-                49: "此命推來福不輕，自立自成顯門庭，從來富貴人親近，使婢差奴過一生",
-                50: "為利為名終日勞，中年福祿也多遭，老來是有財星照，不比前番目下高",
-                51: "一世榮華事事通，不須勞碌自亨通，兄弟叔侄皆如意，家業成時福祿宏",
-                52: "一世亨通事事能，不須勞思自然能，宗施欣然心皆好，家業豐亨自稱心",
-                53: "此格推來氣象真，興家發達在其中，一生福祿安排定，卻是人間一富翁",
-                54: "此命推來厚且清，詩書滿腹看功成，豐衣足食自然穩，正是人間有福人",
-                55: "走馬揚鞭爭名利，少年做事廢籌論，一朝福祿源源至，富貴榮華顯六親",
-                56: "此格推來禮儀通，一生福祿用無窮，甜酸苦辣皆嚐過，財源滾滾穩且豐",
-                57: "福祿盈盈萬事全，一生榮耀顯雙親，名揚威震人欽敬，處世逍遙似遇春",
-                58: "平生福祿自然來，名利兼全福祿偕，雁塔提名為貴客，紫袍金帶走金鞋",
-                59: "細推此格妙且清，必定才高禮儀通，甲第之中應有分，揚鞭走馬顯威榮",
-                60: "一朝金榜快題名，顯祖榮宗立大功，衣食定然原欲足，田園財帛更豐盈",
-                61: "不做朝中金榜客，定為世上一財翁，聰明天賦經書熟，名顯高克自是榮",
-                62: "此名生來福不窮，讀書必定顯親榮，紫衣金帶為卿相，富貴榮華皆可同",
-                63: "命主為官福祿長，得來富貴定非常，名題金塔傳金榜，定中高科天下揚",
-                64: "此格權威不可當，紫袍金帶坐高堂，榮華富貴誰能及，積玉堆金滿儲倉",
-                65: "細推此命福不輕，安國安邦極品人，文繡雕樑政富貴，威聲照耀四方聞",
-                66: "此格人間一福人，堆金積玉滿堂春，從來富貴由天定，正笏垂紳謁聖君",
-                67: "此名生來福自宏，田園家業最高隆，平生衣祿豐盈足，一世榮華萬事通",
-                68: "富貴由天莫苦求，萬金家計不須謀，十年不比前番事，祖業根基水上舟",
-                69: "君是人間衣祿星，一生福貴眾人欽，縱然福祿由天定，安享榮華過一生",
-                70: "此命推來福不輕，不須愁慮苦勞心，一生天定衣與祿，富貴榮華過一生",
-                71: "此名生來大不同，公侯卿相在其中，一生自有逍遙福，富貴榮華極品隆",
-                72: "此格世界罕有生，十代積善產此人，天上紫微來照命，統治萬民樂太平"
-            },
-            female: {
-                21: "短命非業謂大空，平生災難事重重。兇禍頻臨陷逆境，終世困苦事不成。",
-                22: "此命孤冷有淒伶，此命推來路乞人。操心煩腦度平日，一生育苦度光陰。",
-                23: "此命推來骨肉輕，求財謀事事難成。弟妹六親無有靠，繁鞝家事難以持。",
-                24: "此命推來福祿無，家務辛苦難以扶。丈夫兒女皆無靠，流落他鄉作游孤。",
-                25: "此命推來八字輕，六庭艱辛多苦淒。娘家六友冷如灰，一生操勞多憂心。",
-                26: "平生衣祿苦尋求，女命生來帶憂愁。辛酸苦辣他嚐過，晚年衣缽本無憂。",
-                27: "竹平做事少間量，難靠夫君做主張。心問口來口問心，自做主張過光陰。",
-                28: "女命生來八字經，得善做事一無情。你把別人當親生，別人對你假殷情。",
-                29: "花枝要來性情硬，自奔自立不求人。若向求財方可止，有苦有甜度光陰。",
-                30: "此命推來比郎強，婚姻大事礙無防。中年走過坎坷運，末年漸比先前強。",
-                31: "早年行運在忙碌，勞碌奔波苦中求。自奔自愁把家立，後來晚景無憂愁。",
-                32: "時逢吉神在運中，縱有兇處不為兇。真變假來假變真，結拜弟妹當親生。",
-                33: "八字命來張張薄，勤儉持家皆可過。年華巴如流水過，末年運至受福祿。",
-                34: "矮巴勾棗難撈枝，好人尋命不投機。謀望獻身最費力，婚姻同移總是虛。",
-                35: "女子走冰怕冰薄，交易出行犯琢磨。婚姻周郎休此意，官司口舌須要知。",
-                36: "憂愁常鎖兩眉間，女命萬緒掛心頭。從今以後防口角，任意行而不相天。",
-                37: "此命來時運費多，此作推車受折磨。山路崎嶇吊下耳，左插右安安不著。",
-                38: "鳳鳴岐山聞四方，女命逢之大吉昌。走失夫君音有信，晚年衣祿人財多。",
-                39: "此命推來運不通，勞碌奔波一場空。好像俊鳥關籠中，中年末限起秋風。",
-                40: "目上月令如運關，千心萬苦受煎熬。女子苦難受過來，晚年福康比花艷。",
-                41: "此命推來普普通通，女子為人很非凡。中年逍遙多自在，晚年更比中年強。",
-                42: "枯井破廢已多年，一朝泉水出來鮮。資生濟竭人稱美，來運轉喜自然時。",
-                43: "推車靠涯道路趕，女命求財也費難。婚姻出行無陰礙，疾病口舌多安寧。",
-                44: "夜夢金銀醒來空，女子謀事運不能。婚姻難成交易獲，夫君走失不見蹤。",
-                45: "此命終身駁雜多，六親骨肉不相助。命中男婦都難養，勞碌辛苦還奔波。",
-                46: "孤舟得水離沙灘，女命出外早遠家。是非口舌皆無礙，婚姻合夥更不差。",
-                47: "時來運轉吉氣發，多年枯木又開花。枝葉重生多茂盛，凡人見了凡人夸。",
-                48: "一朵鮮花鏡中開，看著極好取不來。勸你休把鏡花想，女命推業主可怪。",
-                49: "此命推來福不輕，女子隨君顯門庭。容貌美滿熱人愛，銀錢富足過一生。",
-                50: "馬氏太公不相和，好命逢之尤凝多。恩人無義反成怨，是非平地起風波。",
-                51: "肥羊失群入山崗，餓虎逢之把口張。適口充腸心歡喜，女名八安大吉昌。",
-                52: "順風行舟扯起棚，上天又助一順風。不用費力逍遙去，任意而行大亨通。",
-                53: "此命相貌眉活秀，文武雙全功名成。一生衣祿皆無愁，可算世上有福人。",
-                54: "學問滿腹運氣強，謀望求財大吉祥。交易出行大得意，是非口舌皆無妨。",
-                55: "吉祥平安志量高，女命求財任逍遙。交易婚姻大有意，夫君在外有音耗。",
-                56: "明珠書士離埃來，女命口角消散開。走失郎君當兩歸，交易有成水無災。",
-                57: "游魚戲水被網驚，跳過龍門秧化龍。三根楊柳垂金線，萬朵桃花顯價能。",
-                58: "此命推來閒逛悠，時運未來莫強求。幸得今日重反點，自有好運在後頭。",
-                59: "雨雪載途泥濘至，交易不定難出行。疾病還拉慢婚姻，謀望求財事不成。",
-                60: "女命八字喜氣和，謀望求財吉慶多。口舌漸消疾病少，夫君走失歸老窩。",
-                61: "緣木求魚事多端，雖不得魚無後害。若是行險弄巧地，事不遂心枉安排。",
-                62: "指日升高氣象新，走失待人有音信。好命遇事遂心好，伺病口舌皆除根。",
-                63: "五官脫運難抬頭，女命須當把財求。交易少行有人助，疾病口舌不須愁。",
-                64: "俊鳥曾得出籠中，脫離災難顯威風。一朝得意福立至，東南西北任意行。",
-                65: "此命推來福不輕，慈善為事受人敬。天降文王開基業，富貴榮華八百年。",
-                66: "時來運轉銳氣周，賢惠淑女君子求。釧鼓樂之大吉慶，女名逢之吉悠悠。",
-                67: "亂絲無頭定有頭，碰著閒磨且暫推。交易出有無好處，謀事求財心不遂。",
-                68: "水庭明月不可撈，女命早限命不高。交易出行難獲得，末限命運漸漸好。",
-                69: "太公封祖不非凡，女子求財穩如山。交易合夥大吉慶，疾病口角消除安。",
-                70: "此命推來喜氣新，郎君遇著多遂心。女命交了順當運，富貴衣祿平樂生。",
-                71: "此命推來鴻運交，再不需愁來苦勞。一生身有衣祿福，按享榮華在其中。"
+            // Lunar Calendar Helper (Legacy compressed data)
+            const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x04da0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63];
+
+            function getLunarYearDays(y) {
+                let i, sum = 348;
+                for (i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
+                return (sum + leapDays(y));
             }
-        };
-
-        // Lunar Calendar Helper (Legacy compressed data)
-        const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x04da0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63];
-
-        function getLunarYearDays(y) {
-            let i, sum = 348;
-            for (i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
-            return (sum + leapDays(y));
-        }
-        function leapDays(y) {
-            if (leapMonth(y)) return ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29);
-            else return (0);
-        }
-        function leapMonth(y) {
-            return (lunarInfo[y - 1900] & 0xf);
-        }
-        function monthDays(y, m) {
-            return ((lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29);
-        }
-        function solarToLunar(objDate) {
-            let i, leap = 0, temp = 0;
-            let offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
-            let dayCyl = offset + 40;
-            let monCyl = 14;
-            for (i = 1900; i < 2051 && offset > 0; i++) { temp = getLunarYearDays(i); offset -= temp; monCyl += 12; }
-            if (offset < 0) { offset += temp; i--; monCyl -= 12; }
-            let year = i;
-            let yearCyl = i - 1864;
-            leap = leapMonth(i);
-            let isLeap = false;
-            for (i = 1; i < 13 && offset > 0; i++) {
-                if (leap > 0 && i == (leap + 1) && isLeap == false) { --i; isLeap = true; temp = leapDays(year); }
-                else { temp = monthDays(year, i); }
-                if (isLeap == true && i == (leap + 1)) isLeap = false;
-                offset -= temp;
-                if (isLeap == false) monCyl++;
+            function leapDays(y) {
+                if (leapMonth(y)) return ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29);
+                else return (0);
             }
-            if (offset == 0 && leap > 0 && i == leap + 1) { if (isLeap) { isLeap = false; } else { isLeap = true; --i; --monCyl; } }
-            if (offset < 0) { offset += temp; --i; --monCyl; }
-            return { y: year, m: i, d: offset + 1, isLeap: isLeap };
-        }
+            function leapMonth(y) {
+                return (lunarInfo[y - 1900] & 0xf);
+            }
+            function monthDays(y, m) {
+                return ((lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29);
+            }
+            function solarToLunar(objDate) {
+                let i, leap = 0, temp = 0;
+                let offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
+                let dayCyl = offset + 40;
+                let monCyl = 14;
+                for (i = 1900; i < 2051 && offset > 0; i++) { temp = getLunarYearDays(i); offset -= temp; monCyl += 12; }
+                if (offset < 0) { offset += temp; i--; monCyl -= 12; }
+                let year = i;
+                let yearCyl = i - 1864;
+                leap = leapMonth(i);
+                let isLeap = false;
+                for (i = 1; i < 13 && offset > 0; i++) {
+                    if (leap > 0 && i == (leap + 1) && isLeap == false) { --i; isLeap = true; temp = leapDays(year); }
+                    else { temp = monthDays(year, i); }
+                    if (isLeap == true && i == (leap + 1)) isLeap = false;
+                    offset -= temp;
+                    if (isLeap == false) monCyl++;
+                }
+                if (offset == 0 && leap > 0 && i == leap + 1) { if (isLeap) { isLeap = false; } else { isLeap = true; --i; --monCyl; } }
+                if (offset < 0) { offset += temp; --i; --monCyl; }
+                return { y: year, m: i, d: offset + 1, isLeap: isLeap };
+            }
 
-        // Init
-        window.onload = function () {
-            populateYears();
-            populateMonths();
-            populateDays();
+            // Init
+            window.onload = function () {
+                populateYears();
+                populateMonths();
+                populateDays();
 
-            // Re-bind listeners
-            document.querySelectorAll('input[name="calendarType"]').forEach(el => {
-                el.addEventListener('change', () => {
-                    populateYears();
-                    populateMonths();
+                // Re-bind listeners
+                document.querySelectorAll('input[name="calendarType"]').forEach(el => {
+                    el.addEventListener('change', () => {
+                        populateYears();
+                        populateMonths();
+                    });
                 });
-            });
-        };
+            };
 
-        function populateYears() {
-            const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
-            const select = document.getElementById('inputYear');
-            select.innerHTML = '';
-            for (let i = 1900; i <= 2050; i++) {
-                const opt = document.createElement('option');
-                opt.value = i;
-                opt.text = i;
-                if (i === 1990) opt.selected = true;
-                select.appendChild(opt);
+            function populateYears() {
+                const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
+                const select = document.getElementById('inputYear');
+                select.innerHTML = '';
+                for (let i = 1900; i <= 2050; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.text = i;
+                    if (i === 1990) opt.selected = true;
+                    select.appendChild(opt);
+                }
             }
-        }
-        function populateMonths() {
-            const select = document.getElementById('inputMonth');
-            select.innerHTML = '';
-            for (let i = 1; i <= 12; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.text = i < 10 ? '0' + i : i;
-                select.appendChild(opt);
+            function populateMonths() {
+                const select = document.getElementById('inputMonth');
+                select.innerHTML = '';
+                for (let i = 1; i <= 12; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = i;
+                    opt.text = i < 10 ? '0' + i : i;
+                    select.appendChild(opt);
+                }
             }
-        }
-        function populateDays() {
-            const select = document.getElementById('inputDay');
-            select.innerHTML = '';
-            for (let i = 1; i <= 31; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.text = i < 10 ? '0' + i : i;
-                select.appendChild(opt);
-            }
-        }
-
-        function calculateBazi() {
-            const gender = document.querySelector('input[name="gender"]:checked').value;
-            const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
-
-            let y = parseInt(document.getElementById('inputYear').value);
-            let m = parseInt(document.getElementById('inputMonth').value);
-            let d = parseInt(document.getElementById('inputDay').value);
-            const timeKey = document.getElementById('inputTime').value;
-
-            let lunarYearGZ = "";
-            let finalY, finalM, finalD;
-
-            if (isSolar) {
-                const solarDate = new Date(y, m - 1, d);
-                if (solarDate.getMonth() !== m - 1) { alert("日期無效"); return; }
-                const lObj = solarToLunar(solarDate);
-                finalY = lObj.y; finalM = lObj.m; finalD = lObj.d;
-
-                let idx = (finalY - 4) % 60;
-                if (idx < 0) idx += 60;
-                lunarYearGZ = jiaZi[idx];
-            } else {
-                finalY = y; finalM = m; finalD = d;
-                let idx = (y - 4) % 60;
-                if (idx < 0) idx += 60;
-                lunarYearGZ = jiaZi[idx];
+            function populateDays() {
+                const select = document.getElementById('inputDay');
+                select.innerHTML = '';
+                for (let i = 1; i <= 31; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = i;
+                    opt.text = i < 10 ? '0' + i : i;
+                    select.appendChild(opt);
+                }
             }
 
-            const wYear = yearWeightsMap[lunarYearGZ] || 0;
-            const wMonth = monthWeights[finalM - 1] || 0;
-            const wDay = dayWeights[finalD - 1] || 0;
-            const wTime = timeWeights[timeKey] || 0;
-            const totalQian = wYear + wMonth + wDay + wTime;
+            function calculateBazi() {
+                const gender = document.querySelector('input[name="gender"]:checked').value;
+                const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
 
-            const liang = Math.floor(totalQian / 10);
-            const qian = totalQian % 10;
+                let y = parseInt(document.getElementById('inputYear').value);
+                let m = parseInt(document.getElementById('inputMonth').value);
+                let d = parseInt(document.getElementById('inputDay').value);
+                const timeKey = document.getElementById('inputTime').value;
 
-            // Update UI
-            document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
-            document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
-            document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
-            document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
-            document.getElementById('timeW').innerText = (wTime / 10).toFixed(1);
+                let lunarYearGZ = "";
+                let finalY, finalM, finalD;
 
-            // Update Pillar (Year Only - others are placeholder)
-            document.getElementById('pillarYear').innerText = lunarYearGZ;
+                if (isSolar) {
+                    const solarDate = new Date(y, m - 1, d);
+                    if (solarDate.getMonth() !== m - 1) { alert("日期無效"); return; }
+                    const lObj = solarToLunar(solarDate);
+                    finalY = lObj.y; finalM = lObj.m; finalD = lObj.d;
 
-            // Get Poem
-            let poemText = "暫無此重量之批註。";
-            if (gender === 'male' && poems.male[totalQian]) poemText = poems.male[totalQian];
-            else if (gender === 'female' && poems.female[totalQian]) poemText = poems.female[totalQian];
+                    let idx = (finalY - 4) % 60;
+                    if (idx < 0) idx += 60;
+                    lunarYearGZ = jiaZi[idx];
+                } else {
+                    finalY = y; finalM = m; finalD = d;
+                    let idx = (y - 4) % 60;
+                    if (idx < 0) idx += 60;
+                    lunarYearGZ = jiaZi[idx];
+                }
 
-            // Poem & Analysis Display
-            // Split poem into parts for "Main Poem" and "Detailed Analysis"
-            poemText = poemText.replace(/。/g, "，");
-            const parts = poemText.split("，").filter(p => p.trim() !== "");
+                const wYear = yearWeightsMap[lunarYearGZ] || 0;
+                const wMonth = monthWeights[finalM - 1] || 0;
+                const wDay = dayWeights[finalD - 1] || 0;
+                const wTime = timeWeights[timeKey] || 0;
+                const totalQian = wYear + wMonth + wDay + wTime;
 
-            // 1. Main Poem Box (Join all parts)
-            document.getElementById('mainPoem').innerText = parts.join("，") + "。";
+                const liang = Math.floor(totalQian / 10);
+                const qian = totalQian % 10;
 
-            // 2. Detailed Breakdown
-            const analysisContainer = document.getElementById('poemAnalysis');
-            analysisContainer.innerHTML = '';
+                // Update UI
+                document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
+                document.getElementById('adviceWeightDisplay').innerText = `${liang}兩${qian}錢`;
+                document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
+                document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
+                document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
+                document.getElementById('timeW').innerText = (wTime / 10).toFixed(1);
 
-            parts.forEach((line, index) => {
-                if (!line) return;
-                const div = document.createElement('div');
 
-                // Generate a fake "meaning" for the demo layout
-                let explanation = "此句為詩中之詳解，描述了命主在不同階段的運勢變化與性格特徵。";
-                if (index === 0) explanation = "代表你的性格正直、清高，不屑於做些偷雞摸狗或違背良心的事情，有文人的風骨。";
-                if (index === 1) explanation = "意味著你求學成績優異，年輕時就可考取功名，或在學術、專業領域嶄露頭角。";
-                if (index === 2) explanation = "人生的一個轉折點，代表運勢在此時會有重大的突破或轉變。";
-                if (index === 3) explanation = "實位晉升的象徵。從低階職位（藍袍）晉升為高階職位（紅袍），寓意事業高升。";
 
-                div.innerHTML = `
+
+                // Get Poem
+                let poemText = "暫無此重量之批註。";
+                if (gender === 'male' && poems.male[totalQian]) poemText = poems.male[totalQian];
+                else if (gender === 'female' && poems.female[totalQian]) poemText = poems.female[totalQian];
+
+                // Poem & Analysis Display
+                // Split poem into parts for "Main Poem" and "Detailed Analysis"
+                poemText = poemText.replace(/。/g, "，");
+                const parts = poemText.split("，").filter(p => p.trim() !== "");
+
+                // 1. Main Poem Box (Join all parts)
+                document.getElementById('mainPoem').innerText = parts.join("，") + "。";
+
+                // 2. Detailed Breakdown
+                const analysisContainer = document.getElementById('poemAnalysis');
+                analysisContainer.innerHTML = '';
+
+                parts.forEach((line, index) => {
+                    if (!line) return;
+                    const div = document.createElement('div');
+
+                    // Dynamic keyword-based explanation
+                    let explanation = getPoemLineExplanation(line, index);
+
+                    // Specific override for specific highly known poems could go here, 
+                    // but for now we rely on the keyword generator for "real-feeling" text.
+
+                    div.innerHTML = `
                     <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
                     <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
                     ${index < parts.length - 1 ? '<div class="dashed-line"></div>' : ''}
                  `;
-                analysisContainer.appendChild(div);
-            });
+                    analysisContainer.appendChild(div);
+                });
 
-            const resArea = document.getElementById('resultArea');
-            resArea.classList.remove('hidden');
-            resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    </script>
+                // 3. Populate Detailed Analysis (Character, Wealth, etc.)
+                const detail = getDetails(totalQian);
+                document.getElementById('descCharacter').innerText = detail.character;
+                document.getElementById('descCareer').innerText = detail.career;
+                document.getElementById('descWealth').innerText = detail.wealth;
+                document.getElementById('descLove').innerText = detail.love;
+
+                // Render Advice List
+                const adviceContainer = document.getElementById('descAdvice');
+                adviceContainer.innerHTML = '';
+                const adviceList = Array.isArray(detail.advice) ? detail.advice : [detail.advice];
+
+                adviceList.forEach((item, idx) => {
+                    const p = document.createElement('div');
+                    // Format: "1. Title: Content" matches user image style
+                    // If contains colon, bold the part before it
+                    if (item.includes("：")) {
+                        const parts = item.split("：");
+                        p.innerHTML = `<span class="font-bold text-gray-900">${idx + 1}. ${parts[0]}：</span>${parts[1]}`;
+                    } else {
+                        p.innerText = `${idx + 1}. ${item}`;
+                    }
+                    adviceContainer.appendChild(p);
+                });
+
+                const resArea = document.getElementById('resultArea');
+                resArea.classList.remove('hidden');
+                resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // --- INTERPRETATION ENGINE ---
+            const specificInterps = {
+                38: {
+                    character: "性格清高正直，骨子裡透著一股傲氣，不願隨波逐流或與世俗同流合汙。你對自我要求甚高，雖有時給人難以親近的高冷感，但內心實則正直善良，充滿文人氣息與理想主義色彩。做事有原則，不輕易妥協，這種堅持雖讓你偶爾感到孤獨，卻也是你最珍貴的特質。",
+                    career: "早年雖才華洋溢，但可能因性格耿直而懷才不遇。然而，你的才華終究不會被埋沒，適合往學術、教育、研究或公職體系發展。三十六歲左右將是你人生的重大分水嶺，職位有望高升，正如詩句所云「藍衣脫去換紅袍」，屆時將掌握實權，一展長才。",
+                    wealth: "正財運相當穩固，你的財富主要隨地位與職位提升而水漲船高。相比投機性的偏財，你的正職收入更為可觀且長久。隨著年資與聲望的累積，晚年生活將十分優渥富足，無須為錢財擔憂。",
+                    love: "對伴侶的標準較高，不僅看重外在條件，更重視精神層面的契合與內在涵養。因此緣分可能來得稍晚，但這份堅持會為你帶來優雅和諧的婚姻生活。另一半多為氣質出眾或有相當社會地位之人，能與你在精神上相互扶持。",
+                    advice: [
+                        "莫過於孤高：清高是優點，但太過孤芳自賞容易讓人產生距離感。適度親近人群有助於運勢。",
+                        "把握三十六歲：這前後幾年是關鍵期，應積極爭取表現機會。",
+                        "持續進修：你的運勢與知識綁定，活到老學到老，運勢就會一直旺下去。"
+                    ]
+                }
+            };
+
+            const rangeInterps = {
+                low: { // 2.1 - 3.2
+                    character: "個性堅毅剛強，擁有超乎常人的忍耐力與毅力。雖然早年運勢起伏較大，常需獨自面對風雨，但這也鍛鍊出你一顆不服輸、不向命運低頭的心。你像是一株在岩縫中求生的松柏，環境越艱困，你的根紮得越深。",
+                    career: "事業起步階段較為艱辛，六親助力較少，凡事多需靠雙手打拼，屬於白手起家的類型。初期可能較多波折，適合從事專業技術性、勞務性或需長期耕耘的行業。中年之後，憑藉著早年累積的經驗與實力，運勢將如同倒吃甘蔗般漸入佳境。",
+                    wealth: "財運屬於細水長流、聚沙成塔型。你的錢財多是辛苦錢，需透過開源節流來累積。不宜從事高風險的投機行為或賭博，每一分錢都需靠努力獲得，「穩紮穩打」是你理財的最高指導原則，守得住財才是真財。",
+                    love: "感情緣分可能來得較晚，或容易因生活奔波、經濟壓力而導致聚少離多。建議在忙碌之餘，多些耐心與伴侶溝通，共同面對生活的挑戰，患難見真情的情感將更為堅固。",
+                    advice: [
+                        "心態建設：天將降大任於斯人也，早年的磨練是為了成就未來的堅韌。",
+                        "腳踏實地：切勿氣餒，踏實走好每一步，不求一步登天。",
+                        "晚年福報：堅持到底，晚年必能安享清福，苦盡甘來。"
+                    ]
+                },
+                mediumLow: { // 3.3 - 4.5
+                    character: "性情溫和敦厚，處事圓融周到，做事條理分明。你為人正直且講信用，不喜與人計較長短，因此人緣相當不錯。你有一種讓人安心的特質，是團體中值得信賴的夥伴或傾聽者。",
+                    career: "運勢平穩順遂，雖然未必有一夕暴富的機會，但也沒有大起大落的風險。非常適合在制度健全的組織、企業或公家機關發展。只要按部就班，持續努力，三十歲後自有發揮空間，能逐步晉升至穩定的管理或專業職位。",
+                    wealth: "天生衣食無憂之命，財運隨著年齡增長而穩步累積。你對金錢有正確的觀念，不揮霍也不吝嗇。中年後會有不錯的積蓄與資產，適合定期定額或保守型的理財規劃，晚年經濟無虞。",
+                    love: "桃花運勢平順，婚姻生活雖無轟轟烈烈的情節，但平淡是福。夫妻間能互相扶持、相敬如賓，建立溫馨穩定的家庭。對於子女教育也頗有心得，家庭氣氛和樂。",
+                    advice: [
+                        "循序漸進：凡事循序漸進，不可操之過急。",
+                        "充實技能：多充實專業技能，待時機成熟，自然水到渠成。",
+                        "廣結善緣：保持良好的人際關係，貴人將在關鍵時刻出現。"
+                    ]
+                },
+                mediumHigh: { // 4.6 - 5.5
+                    character: "天資聰穎，反應靈敏，文武雙全。你具有敏銳的觀察力與不錯的領導統御能力，志氣高昂，對未來充滿信心與規劃。你的自信與才華容易感染身邊的人，是天生的意見領袖或團隊核心。",
+                    career: "事業運勢強勁，容易獲得長官肯定或貴人提攜。無論是投身公職、晉升管理階層或是自行創業，都有極高的成功率。你善於把握機會，勇於挑戰，中年後可達事業高峰，成就一番令人稱羨的功業。",
+                    wealth: "財運亨通，正財偏財皆有斬獲。你眼光獨到，善於投資理財，能用錢滾錢。只要不涉入非法或過度貪婪，累積可觀財富並非難事，生活品質優渥。",
+                    love: "異性緣極佳，容易吸引優秀的對象。伴侶多為賢內助或事業上的好幫手，能為你的生活加分。但需注意在感情中保持謙卑，避免因過於強勢或自我中心而忽略了對方的感受。",
+                    advice: [
+                        "謙虛待人：運勢雖好，仍需謙虛待人，滿招損，謙受益。",
+                        "善用資源：善用你的資源幫助他人，富貴方能長久。",
+                        "謹慎理財：雖有偏財運，但仍需謹慎理財，避免過度揮霍。"
+                    ]
+                },
+                high: { // 5.6+
+                    character: "氣宇軒昂，格局宏大，具備與生俱來的領袖氣質與威嚴。你為人慷慨大方，心胸寬廣，有悲天憫人之心。你的眼界高遠，思考問題往往能從大局著眼，受人敬重，具有強大的號召力。",
+                    career: "官運亨通，位高權重之相。在社會上有一定的影響力與知名度，能成就一番驚天動地的大事業。無論在政界、商界或學術界，都能成為一方之霸或權威人物，名利雙收。",
+                    wealth: "一生富貴榮華，財源廣進，彷彿自帶聚寶盆。不僅自身生活極度富足，更能福澤子孫，建立家族基業。你的財富往往伴隨著社會責任，是難得的富貴雙全之命。",
+                    love: "家庭和睦圓滿，子女賢孝有成。婚姻美滿幸福，是眾人稱羨的神仙眷侶。你的家庭是你最強大的後盾，也是你心靈的港灣。",
+                    advice: [
+                        "惜福感恩：此乃大富大貴之命，應多惜福感恩。",
+                        "回饋社會：多做公益，回饋社會，積善之家必有餘慶。",
+                        "傳承家風：注重子女教育與家風傳承，讓富貴得以延續。"
+                    ]
+                }
+            };
+
+            function getDetails(weight) {
+                // Check specific override first
+                if (specificInterps[weight]) return specificInterps[weight];
+
+                // Range fallback
+                if (weight < 33) return rangeInterps.low;
+                if (weight < 46) return rangeInterps.mediumLow;
+                if (weight < 56) return rangeInterps.mediumHigh;
+                return rangeInterps.high;
+            }
+
+            function getPoemLineExplanation(line, index) {
+                // Enhanced keyword analysis for deeper interpretation
+
+                // 1. Health & Lifespan
+                if (line.includes("短命")) return "此句點出命主先天元氣可能較弱，或人生中易遇重大健康關卡。古語云『大德者算不準』，意指透過積德行善、調整生活作息與心性修養，往往能改變既定的壽元定數。";
+                if (line.includes("災")) return "暗示人生旅途中可能會遇到一些意料之外的波折或考驗。這些災厄往往是命運給予的試金石，雖帶來短暫的困頓，卻能磨練心志。建議行事謹慎，多行善舉以化解戾氣。";
+
+                // 2. Hardship & Struggle (Early Life)
+                if (line.includes("乞") || line.includes("寒") || line.includes("苦")) return "象徵早年運勢或特定時期較為艱辛，可能面臨物質匱乏或六親無助的局面。『寒徹骨』方得『梅花香』，這段經歷往往造就了命主堅韌不拔的性格，是未來成就大事的基石。";
+                if (line.includes("勞") || line.includes("奔") || line.includes("忙")) return "這是一條『勞碌命』的批註，意味著凡事需親力親為，較難坐享其成。雖然身體勞累，但這也代表命主生命力旺盛，且多為主動進取之人，每一分收穫都是實實在在的汗水換來。";
+
+                // 3. Status & Career (Success)
+                if (line.includes("皇") || line.includes("紫袍") || line.includes("金榜") || line.includes("官") || line.includes("卿")) return "此乃大貴之兆。預示仕途順遂，有機會進入公門、大型機構任職，或在專業領域獲得極高的社會地位。『紫袍』象徵顯赫的職位與權力，是事業有成的最佳印證。";
+                if (line.includes("成") || line.includes("通") || line.includes("榮") || line.includes("顯")) return "運勢亨通之象。代表謀事可成，努力終將獲得回報。這類命格通常在經歷一番努力後，能獲得社會的認可與榮耀，事業發展順利，人際關係也較為通達。";
+
+                // 4. Wealth & Abundance
+                if (line.includes("財") || line.includes("金") || line.includes("富") || line.includes("倉")) return "財星高照。象徵財源廣進，經濟狀況優渥。這不僅是指正財收入豐厚，也可能包含祖業繼承或投資獲利。『堆金積玉』意味著晚年生活將十分富足，毋須為錢財煩惱。";
+
+                // 5. Family & Relationships
+                if (line.includes("親") || line.includes("妻") || line.includes("子") || line.includes("骨肉")) {
+                    if (line.includes("無") || line.includes("冷") || line.includes("難")) return "暗示六親緣分較淺，或者在家族中助力較少，甚至可能需要獨立承擔家庭重擔。這類命格鼓勵命主向外發展，靠自己的雙手建立新的人際網絡與家庭。";
+                    return "家庭運勢的描述。暗示了與親人之間的緣分深淺，家庭和睦則是萬事興旺的基礎，若有不足，則需靠後天經營來彌補。";
+                }
+
+                // 6. Personality & Character
+                if (line.includes("清高") || line.includes("聰明") || line.includes("才")) return "對命主個人特質的讚賞。表示此人天資聰穎，或性格高潔，不願隨波逐流。這類人通常有特殊的才華或專長，若能善加利用，必能在人群中脫穎而出。";
+
+                // Fallback: Detailed Generic Explanations based on verse position
+                // Usually Poem is 4 lines: 1. Base/Character 2. Early Life/Roots 3. Mid Life/Career 4. Late Life/Outcome
+                const positionMeanings = [
+                    "【命格基調】：此句為首句，通常批註命主的先天根基與性格底色。詩意顯示了您命格的整體走向。",
+                    "【早年運程】：此句對應人生前半段的經歷。描述了祖業根基的厚薄以及求學、初入社會時的際遇。",
+                    "【中年轉折】：此句為人生關鍵的轉折點。詳解了中年時期的事業發展、名利獲取以及可能面臨的重大機遇。",
+                    "【晚景歸宿】：此句為末句，總結了一生的最終成就與晚年福澤。預示了勞碌過後的收穫與最終的生活狀態。"
+                ];
+
+                return `詩句云：「${line}」。${positionMeanings[index % 4]}這句話雖短，卻蘊含了對命運深刻的洞察，值得細細品味。`;
+            }
+        </script>
+    </div>
 </body>
 
 </html>
