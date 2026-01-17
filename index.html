@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>八字算命 - 袁天罡稱骨</title>
+    <title>八字重量 - 袁天罡稱骨</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -68,8 +69,8 @@
 
         <!-- Header -->
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold mb-2 text-black">八字算命</h1>
-            <p class="text-gray-500 text-sm tracking-widest">洞悉天機 · 掌握命運</p>
+            <h1 class="text-4xl font-bold mb-2 text-black">八字重量</h1>
+            <p class="text-gray-500 text-sm tracking-widest">知命而後立命，運籌帷幄之中</p>
         </div>
 
         <!-- Form Section -->
@@ -82,7 +83,7 @@
                     <label class="inline-flex items-center cursor-pointer">
                         <input type="radio" name="calendarType" value="solar"
                             class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                        <span class="ml-2 text-sm">國曆 (西元)</span>
+                        <span class="ml-2 text-sm">國曆</span>
                     </label>
                     <label class="inline-flex items-center cursor-pointer">
                         <input type="radio" name="calendarType" value="lunar" checked
@@ -191,6 +192,26 @@
                 <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
                     <!-- Poem goes here -->
                 </p>
+            </div>
+
+            <!-- Four Pillars (Real Data) -->
+            <div class="grid grid-cols-4 gap-4 mt-8">
+                <div class="bg-gray-50 rounded p-4 text-center">
+                    <div class="text-xs text-gray-400 mb-1">年柱</div>
+                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarYear">- -</div>
+                </div>
+                <div class="bg-gray-50 rounded p-4 text-center">
+                    <div class="text-xs text-gray-400 mb-1">月柱</div>
+                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarMonth">- -</div>
+                </div>
+                <div class="bg-gray-50 rounded p-4 text-center">
+                    <div class="text-xs text-gray-400 mb-1">日柱</div>
+                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarDay">- -</div>
+                </div>
+                <div class="bg-gray-50 rounded p-4 text-center">
+                    <div class="text-xs text-gray-400 mb-1">時柱</div>
+                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarTime">- -</div>
+                </div>
             </div>
 
 
@@ -491,108 +512,130 @@
                 let d = parseInt(document.getElementById('inputDay').value);
                 const timeKey = document.getElementById('inputTime').value;
 
-                let lunarYearGZ = "";
-                let finalY, finalM, finalD;
-
-                if (isSolar) {
-                    const solarDate = new Date(y, m - 1, d);
-                    if (solarDate.getMonth() !== m - 1) { alert("日期無效"); return; }
-                    const lObj = solarToLunar(solarDate);
-                    finalY = lObj.y; finalM = lObj.m; finalD = lObj.d;
-
-                    let idx = (finalY - 4) % 60;
-                    if (idx < 0) idx += 60;
-                    lunarYearGZ = jiaZi[idx];
-                } else {
-                    finalY = y; finalM = m; finalD = d;
-                    let idx = (y - 4) % 60;
-                    if (idx < 0) idx += 60;
-                    lunarYearGZ = jiaZi[idx];
-                }
-
-                const wYear = yearWeightsMap[lunarYearGZ] || 0;
-                const wMonth = monthWeights[finalM - 1] || 0;
-                const wDay = dayWeights[finalD - 1] || 0;
-                const wTime = timeWeights[timeKey] || 0;
-                const totalQian = wYear + wMonth + wDay + wTime;
-
-                const liang = Math.floor(totalQian / 10);
-                const qian = totalQian % 10;
-
-                // Update UI
-                document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
-                document.getElementById('adviceWeightDisplay').innerText = `${liang}兩${qian}錢`;
-                document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
-                document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
-                document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
-                document.getElementById('timeW').innerText = (wTime / 10).toFixed(1);
-
-
-
-
-                // Get Poem
-                let poemText = "暫無此重量之批註。";
-                if (gender === 'male' && poems.male[totalQian]) poemText = poems.male[totalQian];
-                else if (gender === 'female' && poems.female[totalQian]) poemText = poems.female[totalQian];
-
-                // Poem & Analysis Display
-                // Split poem into parts for "Main Poem" and "Detailed Analysis"
-                poemText = poemText.replace(/。/g, "，");
-                const parts = poemText.split("，").filter(p => p.trim() !== "");
-
-                // 1. Main Poem Box (Join all parts)
-                document.getElementById('mainPoem').innerText = parts.join("，") + "。";
-
-                // 2. Detailed Breakdown
-                const analysisContainer = document.getElementById('poemAnalysis');
-                analysisContainer.innerHTML = '';
-
-                parts.forEach((line, index) => {
-                    if (!line) return;
-                    const div = document.createElement('div');
-
-                    // Dynamic keyword-based explanation
-                    let explanation = getPoemLineExplanation(line, index);
-
-                    // Specific override for specific highly known poems could go here, 
-                    // but for now we rely on the keyword generator for "real-feeling" text.
-
-                    div.innerHTML = `
-                    <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
-                    ${index < parts.length - 1 ? '<div class="dashed-line"></div>' : ''}
-                 `;
-                    analysisContainer.appendChild(div);
-                });
-
-                // 3. Populate Detailed Analysis (Character, Wealth, etc.)
-                const detail = getDetails(totalQian);
-                document.getElementById('descCharacter').innerText = detail.character;
-                document.getElementById('descCareer').innerText = detail.career;
-                document.getElementById('descWealth').innerText = detail.wealth;
-                document.getElementById('descLove').innerText = detail.love;
-
-                // Render Advice List
-                const adviceContainer = document.getElementById('descAdvice');
-                adviceContainer.innerHTML = '';
-                const adviceList = Array.isArray(detail.advice) ? detail.advice : [detail.advice];
-
-                adviceList.forEach((item, idx) => {
-                    const p = document.createElement('div');
-                    // Format: "1. Title: Content" matches user image style
-                    // If contains colon, bold the part before it
-                    if (item.includes("：")) {
-                        const parts = item.split("：");
-                        p.innerHTML = `<span class="font-bold text-gray-900">${idx + 1}. ${parts[0]}：</span>${parts[1]}`;
+                try {
+                    // 1. Unified Time Handling with Lunar.js
+                    //    We convert everything to a Solar object first to standardize the timestamp,
+                    //    then get the Lunar object from it.
+                    let solar;
+                    if (isSolar) {
+                        solar = Solar.fromYmd(y, m, d);
                     } else {
-                        p.innerText = `${idx + 1}. ${item}`;
+                        // User input is Lunar
+                        const lunarObj = Lunar.fromYmd(y, m, d);
+                        solar = lunarObj.getSolar();
                     }
-                    adviceContainer.appendChild(p);
-                });
 
-                const resArea = document.getElementById('resultArea');
-                resArea.classList.remove('hidden');
-                resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Time mapping (middle of the shichen)
+                    const timeMap = {
+                        "zi": 0, "chou": 2, "yin": 4, "mao": 6, "chen": 8, "si": 10,
+                        "wu": 12, "wei": 14, "shen": 16, "you": 18, "xu": 20, "hai": 22
+                    };
+                    const hour = timeMap[timeKey];
+
+                    // Create precise Solar object with time
+                    solar = Solar.fromYmdHms(solar.getYear(), solar.getMonth(), solar.getDay(), hour, 0, 0);
+
+                    // Get the Master Lunar Object
+                    const lunar = solar.getLunar();
+
+                    // 2. Extract Data for Pillars Display
+                    const bazi = lunar.getBaZi();
+                    const lunarYearGZ = bazi[0]; // Accurate Year Pillar (GanZhi)
+
+                    document.getElementById('pillarYear').innerText = bazi[0];
+                    document.getElementById('pillarMonth').innerText = bazi[1];
+                    document.getElementById('pillarDay').innerText = bazi[2];
+                    document.getElementById('pillarTime').innerText = bazi[3];
+
+                    // 3. Extract Data for Bone Weight Calculation
+                    // Yuan Tian Gang Bone Weight is based on:
+                    // Year: GanZhi (e.g. "甲子")
+                    // Month: Lunar Month Number (1-12)
+                    // Day: Lunar Day Number (1-30)
+                    // Time: Shichen (already known as timeKey)
+
+                    // Note: lunar.js Ganzhi matches our keys ("甲子", etc.)
+                    // Note: lunar.getMonth() might return negative for leap months? 
+                    // lunar.js documentation: getMonth() returns 1-12. If leap, strictly speaking we treat it as the month regular.
+                    // We use Math.abs just in case implementation varies, but standard lunar.js is 1-12.
+
+                    let wYearKey = lunarYearGZ;
+                    let finalM = Math.abs(lunar.getMonth());
+                    let finalD = lunar.getDay();
+
+                    const wYear = yearWeightsMap[wYearKey] || 0;
+                    const wMonth = monthWeights[finalM - 1] || 0;
+                    const wDay = dayWeights[finalD - 1] || 0;
+                    const wTime = timeWeights[timeKey] || 0;
+                    const totalQian = wYear + wMonth + wDay + wTime;
+
+                    const liang = Math.floor(totalQian / 10);
+                    const qian = totalQian % 10;
+
+                    // Update UI - Weight
+                    document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
+                    document.getElementById('adviceWeightDisplay').innerText = `${liang}兩${qian}錢`;
+                    document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
+                    document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
+                    document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
+                    document.getElementById('timeW').innerText = (wTime / 10).toFixed(1);
+
+                    // 4. Poem & Analysis Logic
+                    let poemText = "暫無此重量之批註。";
+                    if (gender === 'male' && poems.male[totalQian]) poemText = poems.male[totalQian];
+                    else if (gender === 'female' && poems.female[totalQian]) poemText = poems.female[totalQian];
+
+                    poemText = poemText.replace(/。/g, "，");
+                    const parts = poemText.split("，").filter(p => p.trim() !== "");
+
+                    document.getElementById('mainPoem').innerText = parts.join("，") + "。";
+
+                    const analysisContainer = document.getElementById('poemAnalysis');
+                    analysisContainer.innerHTML = '';
+
+                    parts.forEach((line, index) => {
+                        if (!line) return;
+                        const div = document.createElement('div');
+                        let explanation = getPoemLineExplanation(line, index);
+                        div.innerHTML = `
+                        <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
+                        ${index < parts.length - 1 ? '<div class="dashed-line"></div>' : ''}
+                    `;
+                        analysisContainer.appendChild(div);
+                    });
+
+                    // Detailed Analysis
+                    const detail = getDetails(totalQian);
+                    document.getElementById('descCharacter').innerText = detail.character;
+                    document.getElementById('descCareer').innerText = detail.career;
+                    document.getElementById('descWealth').innerText = detail.wealth;
+                    document.getElementById('descLove').innerText = detail.love;
+
+                    // Render Advice List
+                    const adviceContainer = document.getElementById('descAdvice');
+                    adviceContainer.innerHTML = '';
+                    const adviceList = Array.isArray(detail.advice) ? detail.advice : [detail.advice];
+
+                    adviceList.forEach((item, idx) => {
+                        const p = document.createElement('div');
+                        if (item.includes("：")) {
+                            const parts = item.split("：");
+                            p.innerHTML = `<span class="font-bold text-gray-900">${idx + 1}. ${parts[0]}：</span>${parts[1]}`;
+                        } else {
+                            p.innerText = `${idx + 1}. ${item}`;
+                        }
+                        adviceContainer.appendChild(p);
+                    });
+
+                    const resArea = document.getElementById('resultArea');
+                    resArea.classList.remove('hidden');
+                    resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                } catch (e) {
+                    console.error("Calculation Error:", e);
+                    alert("日期計算發生錯誤，請檢查輸入是否正確。");
+                }
             }
 
             // --- INTERPRETATION ENGINE ---
