@@ -863,20 +863,17 @@
         function getDetails(weight, zodiac, dayMaster, lunar) {
             const zData = zodiacTraits[zodiac] || { adj: "獨特", noun: "行者", advice: "慎始敬終" };
             const dmData = dayMasterAttributes[dayMaster] || dayMasterAttributes["甲"];
-            const level = weight > 5.0 ? 'high' : (weight < 3.5 ? 'low' : 'mid');
-            const levelDesc = level === 'high' ? '富貴' : level === 'mid' ? '平穩' : '堅韌';
 
             // Get Advanced Analysis (Ten Gods + WuXing + ShenSha)
             const advanced = getAdvancedAnalysis(lunar);
 
             // Construct Advice Array
             let adviceArray = [
-                "發揮日主優勢：善用您" + (dmData.char ? dmData.char.substring(2, 6) : "獨特") + "...的天賦。",
-                "針對性格盲點：生肖" + zodiac + "可能有時會過於" + zData.adj + "，建議適時調整。",
-                "五行健康提點：" + advanced.health,
-                "開運幸運指引：" + advanced.lucky,
-                "命格提升建議：" + zData.advice + "，並結合" + (dmData.career ? dmData.career.substring(2, 7) : "專業") + "的方向努力。",
-                `未來展望：命格顯現${levelDesc}之象，保持信心，好運將至。`
+                `發揮日主優勢：您的本命為${dmData.name}，特質是${dmData.desc}，請善用此天賦。`,
+                `針對性格盲點：生肖${zodiac}可能有時會過於${zData.adj}，建議適時調整。`,
+                `五行健康提點：${advanced.health}`,
+                `開運幸運指引：${advanced.lucky}`,
+                `命格提升建議：${zData.advice}，並在職場上保持${advanced.career.includes("主管") ? "領導風範" : "專業深耕"}。`
             ];
 
             // Insert Shensha highlights if any
@@ -887,7 +884,7 @@
 
             return {
                 character: `${dmData.character}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.character} 同時，您還帶有${zodiac}年生肖「${zData.adj}」的特質，這使您成為一位剛柔並濟的${zData.noun}。`,
-                career: `${dmData.career}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.career} ${levelDesc === '富貴' ? '您的命格格局宏大，未來不可限量。' : levelDesc === '堅韌' ? '雖起步可能較緩，但堅持必有後福。' : '穩健發展，必能有所建樹。'}`,
+                career: `${dmData.career}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.career}`,
                 wealth: `${dmData.wealth}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.wealth} 另外，${zodiac}年出生的人，${zData.advice}，這將幫助您守住財富。`,
                 love: `${dmData.love}${advanced.character.includes("桃花") ? "<br><br><span class='font-bold text-pink-600'>【桃花運】</span>命帶桃花，異性緣極佳，人緣好。" : ""}`,
                 advice: adviceArray
