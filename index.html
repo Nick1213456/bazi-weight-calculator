@@ -65,6 +65,15 @@
 </head>
 
 <body class="min-h-screen py-8 px-4 flex justify-center items-start">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay"
+        class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl flex flex-col items-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-red-800 mb-4"></div>
+            <p class="text-gray-700 font-medium tracking-widest text-sm">請稍等...</p>
+        </div>
+    </div>
+
     <div class="w-full max-w-4xl bg-white shadow-2xl rounded-2xl p-8 md:p-16 relative mx-auto">
 
         <!-- Header -->
@@ -158,12 +167,12 @@
                 </div>
             </div>
 
-            <button onclick="calculateBazi()"
+            <button onclick="handleCalculate()"
                 class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
                 開始算命
             </button>
 
-            <button onclick="location.reload()"
+            <button onclick="handleReload()"
                 class="w-full mt-3 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
                 重置
             </button>
@@ -277,7 +286,7 @@
                             <div>
                                 <h6 class="text-xs font-bold text-gray-500 mb-1">【人生階段意涵】</h6>
                                 <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                                    日柱代表了人生的黃金壯年期，也代表了您內心深處最真實的自我（日干）。同時，日流下方的地支代表配偶宮，暗示著您對另一半的期待與互動模式。此階段是人生定型、成家立業的關鍵期。
+                                    日柱代表了人生的黃金壯年期，也代表了您內心深處最真實的自我（日干）。此階段是人生定型、成家立業的關鍵期。
                                 </p>
                             </div>
                         </div>
@@ -359,21 +368,21 @@
                     <!-- Dynamic -->
                 </p>
             </div>
-            <div class="dashed-line"></div>
+            <div class="border-b border-dashed border-gray-200 my-3"></div>
             <div>
                 <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
                 <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
                     <!-- Dynamic -->
                 </p>
             </div>
-            <div class="dashed-line"></div>
+            <div class="border-b border-dashed border-gray-200 my-3"></div>
             <div>
                 <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
                 <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
                     <!-- Dynamic -->
                 </p>
             </div>
-            <div class="dashed-line"></div>
+            <div class="border-b border-dashed border-gray-200 my-3"></div>
             <div>
                 <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
                 <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
@@ -388,9 +397,9 @@
                 </div>
             </div>
 
-            <button onclick="location.reload()"
+            <button onclick="handleReload()"
                 class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
-                重新測算
+                重置
             </button>
         </div>
     </div>
@@ -623,6 +632,34 @@
                 opt.text = i < 10 ? '0' + i : i;
                 select.appendChild(opt);
             }
+        }
+
+        function showLoading(callback) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.remove('hidden');
+            // Small delay to ensure CSS transition can play if enabled, or just visual feedback time
+            setTimeout(() => {
+                if (callback) callback();
+                // If it's not a reload, we define when to hide it.
+                // For calculation, we hide it after processing.
+                if (callback && callback.name !== 'reloadPage') {
+                    setTimeout(() => {
+                        overlay.classList.add('hidden');
+                    }, 500); // 0.5s visual delay for 'calculation' feeling
+                }
+            }, 300);
+        }
+
+        function handleCalculate() {
+            showLoading(() => {
+                calculateBazi();
+            });
+        }
+
+        function handleReload() {
+            showLoading(() => {
+                location.reload();
+            });
         }
 
         function calculateBazi() {
@@ -938,6 +975,36 @@
         }
     </script>
     </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn"
+        class="fixed bottom-8 right-8 bg-red-800 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 translate-y-10 pointer-events-none hover:bg-red-700 hover:shadow-xl z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 
 </html>
