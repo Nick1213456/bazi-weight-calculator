@@ -187,8 +187,12 @@
         <!-- Result Area -->
         <div id="resultArea" class="hidden mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
 
-            <!-- 1. Four Pillars (Real Data) -->
-            <div class="grid grid-cols-4 gap-4 mt-2">
+            <!-- 1. Four Pillars Section (Data + Analysis) -->
+            <div class="text-center mb-6 mt-2">
+                <span class="text-lg font-bold text-gray-400 tracking-widest">四柱命盤淺析</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4">
                 <div class="bg-gray-50 rounded p-4 text-center">
                     <div class="text-xs text-gray-400 mb-1">年柱</div>
                     <div class="font-bold text-gray-800 text-lg font-serif" id="pillarYear">- -</div>
@@ -208,200 +212,192 @@
             </div>
 
             <!-- 2. Four Pillars Plain Analysis Section -->
-            <div class="dashed-line"></div>
-            <div class="pb-4">
-                <div class="text-center mb-8">
-                    <span class="text-lg font-bold text-gray-400 tracking-widest">四柱命盤淺析</span>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
+                <!-- Year Pillar -->
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                    </div>
+                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
+                        年柱・生命根基
+                    </h5>
+                    <p class="text-xs text-gray-400 mb-4">主宰 1-16 歲運程 | 祖業 | 外在氣質</p>
+                    <div class="space-y-3">
+                        <div class="flex items-baseline">
+                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpYearStr">--</span>
+                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full"
+                                id="fpYearZodiac">--</span>
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpYearDesc">
+                            <!-- Dynamic Content -->
+                        </p>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
-                    <!-- Year Pillar -->
+                <!-- Month Pillar -->
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
                     <div
-                        class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div
-                            class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                    </div>
+                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
+                        月柱・成長苗芽
+                    </h5>
+                    <p class="text-xs text-gray-400 mb-4">主宰 17-32 歲運程 | 父母兄弟 | 事業起點</p>
+                    <div class="space-y-3">
+                        <div class="flex items-baseline">
+                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpMonthStr">--</span>
                         </div>
-                        <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                            <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                            年柱・生命根基
-                        </h5>
-                        <p class="text-xs text-gray-400 mb-4">主宰 1-16 歲運程 | 祖業 | 外在氣質</p>
-                        <div class="space-y-3">
-                            <div class="flex items-baseline">
-                                <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpYearStr">--</span>
-                                <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full"
-                                    id="fpYearZodiac">--</span>
-                            </div>
-                            <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpYearDesc">
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpMonthDesc">
+                            月柱代表了青年時期的性格養成與環境機遇。它承載了家庭教育的影響，也預示著您初入社會時的挑戰與機會。此柱有力，代表青年得志，父母兄弟有靠。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Day Pillar -->
+                <div
+                    class="bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full -mr-10 -mt-10 opacity-60">
+                    </div>
+                    <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
+                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
+                        日柱・本命元神
+                    </h5>
+                    <p class="text-xs text-gray-400 mb-4">主宰 33-48 歲運程 | 自我本質 | 婚姻感情</p>
+                    <div class="space-y-4">
+                        <div class="flex items-baseline border-b border-red-100 pb-2">
+                            <span class="text-3xl font-serif font-bold text-gray-800 mr-3" id="fpDayStr">--</span>
+                            <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full tracking-wider"
+                                id="fpDayMaster">--命</span>
+                        </div>
+                        <div>
+                            <h6 class="text-xs font-bold text-gray-500 mb-1">【本命性格解析】</h6>
+                            <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="fpDayDesc">
                                 <!-- Dynamic Content -->
                             </p>
                         </div>
-                    </div>
-
-                    <!-- Month Pillar -->
-                    <div
-                        class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div
-                            class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
-                        </div>
-                        <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                            <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                            月柱・成長苗芽
-                        </h5>
-                        <p class="text-xs text-gray-400 mb-4">主宰 17-32 歲運程 | 父母兄弟 | 事業起點</p>
-                        <div class="space-y-3">
-                            <div class="flex items-baseline">
-                                <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpMonthStr">--</span>
-                            </div>
-                            <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpMonthDesc">
-                                月柱代表了青年時期的性格養成與環境機遇。它承載了家庭教育的影響，也預示著您初入社會時的挑戰與機會。此柱有力，代表青年得志，父母兄弟有靠。
+                        <div>
+                            <h6 class="text-xs font-bold text-gray-500 mb-1">【人生階段意涵】</h6>
+                            <p class="text-sm text-gray-600 leading-relaxed text-justify">
+                                日柱代表了人生的黃金壯年期，也代表了您內心深處最真實的自我（日干）。此階段是人生定型、成家立業的關鍵期。
                             </p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Day Pillar -->
+                <!-- Hour Pillar -->
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group md:col-span-2">
                     <div
-                        class="bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
-                        <div
-                            class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full -mr-10 -mt-10 opacity-60">
+                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                    </div>
+                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
+                        時柱・人生果實
+                    </h5>
+                    <p class="text-xs text-gray-400 mb-4">主宰 49 歲後運程 | 子女晚輩 | 晚景歸宿</p>
+                    <div class="space-y-3">
+                        <div class="flex items-baseline">
+                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpTimeStr">--</span>
                         </div>
-                        <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
-                            <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                            日柱・本命元神
-                        </h5>
-                        <p class="text-xs text-gray-400 mb-4">主宰 33-48 歲運程 | 自我本質 | 婚姻感情</p>
-                        <div class="space-y-4">
-                            <div class="flex items-baseline border-b border-red-100 pb-2">
-                                <span class="text-3xl font-serif font-bold text-gray-800 mr-3" id="fpDayStr">--</span>
-                                <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full tracking-wider"
-                                    id="fpDayMaster">--命</span>
-                            </div>
-                            <div>
-                                <h6 class="text-xs font-bold text-gray-500 mb-1">【本命性格解析】</h6>
-                                <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
-                                    id="fpDayDesc">
-                                    <!-- Dynamic Content -->
-                                </p>
-                            </div>
-                            <div>
-                                <h6 class="text-xs font-bold text-gray-500 mb-1">【人生階段意涵】</h6>
-                                <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                                    日柱代表了人生的黃金壯年期，也代表了您內心深處最真實的自我（日干）。此階段是人生定型、成家立業的關鍵期。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hour Pillar -->
-                    <div
-                        class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group md:col-span-2">
-                        <div
-                            class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
-                        </div>
-                        <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                            <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                            時柱・人生果實
-                        </h5>
-                        <p class="text-xs text-gray-400 mb-4">主宰 49 歲後運程 | 子女晚輩 | 晚景歸宿</p>
-                        <div class="space-y-3">
-                            <div class="flex items-baseline">
-                                <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpTimeStr">--</span>
-                            </div>
-                            <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpTimeDesc">
-                                時柱是八字的歸宿，代表了晚年的生活品質、子女的賢孝與否，以及事業最終的成就高度。時柱生旺，晚景榮華，子女有成；若能在此時修身養性，更是福壽綿長之兆。這也是檢驗一生奮鬥成果的時刻。
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="dashed-line"></div>
-
-            <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
-            <div class="space-y-12">
-                <!-- Weight Display -->
-                <div class="text-center">
-                    <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
-                    <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
-                        <!-- Calculated Weight -->
-                    </div>
-                    <p class="text-xs text-gray-400">
-                        基數 :
-                        年<span id="yearW"></span> +
-                        月<span id="monthW"></span> +
-                        日<span id="dayW"></span> +
-                        時<span id="timeW"></span>
-                    </p>
-                </div>
-
-                <!-- Poem Box -->
-                <div class="red-border-box p-6 text-center">
-                    <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
-                        <!-- Poem goes here -->
-                    </p>
-                </div>
-
-                <!-- Detailed Explanations -->
-                <div class="space-y-2">
-                    <div class="text-center mb-8">
-                        <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
-                    </div>
-
-                    <!-- Analysis Items (Generated from Poem) -->
-                    <div id="poemAnalysis" class="space-y-8">
-                        <!-- Dynamic Content -->
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpTimeDesc">
+                            時柱是八字的歸宿，代表了晚年的生活品質、子女的賢孝與否，以及事業最終的成就高度。時柱生旺，晚景榮華，子女有成；若能在此時修身養性，更是福壽綿長之兆。這也是檢驗一生奮鬥成果的時刻。
+                        </p>
                     </div>
                 </div>
-            </div>
 
-            <div class="dashed-line"></div>
-
-            <!-- 4. Character Analysis -->
-            <div class="text-center mb-4">
-                <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
             </div>
-
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
-                <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
-                <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
-                <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
-                <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
-                <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span
-                        id="adviceWeightDisplay">此命</span> 的建議</h4>
-                <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic List -->
-                </div>
-            </div>
-
-            <button onclick="handleReload()"
-                class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
-                重置
-            </button>
         </div>
+
+        <div class="dashed-line"></div>
+
+        <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
+        <div class="space-y-12">
+            <!-- Weight Display -->
+            <div class="text-center">
+                <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
+                <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
+                    <!-- Calculated Weight -->
+                </div>
+                <p class="text-xs text-gray-400">
+                    基數 :
+                    年<span id="yearW"></span> +
+                    月<span id="monthW"></span> +
+                    日<span id="dayW"></span> +
+                    時<span id="timeW"></span>
+                </p>
+            </div>
+
+            <!-- Poem Box -->
+            <div class="red-border-box p-6 text-center">
+                <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
+                    <!-- Poem goes here -->
+                </p>
+            </div>
+
+            <!-- Detailed Explanations -->
+            <div class="space-y-2">
+                <div class="text-center mb-8">
+                    <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+                </div>
+
+                <!-- Analysis Items (Generated from Poem) -->
+                <div id="poemAnalysis" class="space-y-8">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </div>
+
+        <div class="dashed-line"></div>
+
+        <!-- 4. Character Analysis -->
+        <div class="text-center mb-4">
+            <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
+        </div>
+
+        <div>
+            <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
+            <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
+                <!-- Dynamic -->
+            </p>
+        </div>
+        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+        <div>
+            <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
+            <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
+                <!-- Dynamic -->
+            </p>
+        </div>
+        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+        <div>
+            <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
+            <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
+                <!-- Dynamic -->
+            </p>
+        </div>
+        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+        <div>
+            <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
+            <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
+                <!-- Dynamic -->
+            </p>
+        </div>
+        <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
+            <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span id="adviceWeightDisplay">此命</span>
+                的建議</h4>
+            <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
+                <!-- Dynamic List -->
+            </div>
+        </div>
+
+        <button onclick="handleReload()"
+            class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
+            重置
+        </button>
+    </div>
     </div>
 
     </div>
