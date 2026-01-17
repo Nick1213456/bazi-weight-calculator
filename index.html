@@ -85,22 +85,7 @@
         <!-- Form Section -->
         <div class="max-w-2xl mx-auto mb-16">
 
-            <!-- Calendar Selection -->
-            <div class="mb-6">
-                <label class="block text-gray-700 font-medium mb-2 text-sm">曆法選擇</label>
-                <div class="flex gap-6 items-center">
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="radio" name="calendarType" value="solar"
-                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                        <span class="ml-2 text-sm">國曆</span>
-                    </label>
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="radio" name="calendarType" value="lunar" checked
-                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                        <span class="ml-2 text-sm">農曆</span>
-                    </label>
-                </div>
-            </div>
+
 
             <!-- Gender Selection -->
             <div class="mb-6">
@@ -121,9 +106,9 @@
 
             <!-- Birth Date Selection -->
             <div class="mb-8">
-                <label class="block text-gray-700 font-medium mb-2 text-sm">出生時間</label>
+                <label class="block text-gray-700 font-medium mb-2 text-sm">國歷出生時間</label>
                 <div class="flex flex-wrap items-center gap-2">
-                    <div class="relative w-24">
+                    <div class="relative w-40">
                         <select id="inputYear"
                             class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
                         </select>
@@ -145,7 +130,7 @@
                     </div>
                     <span class="text-sm text-gray-500">日</span>
 
-                    <div class="relative w-24">
+                    <div class="relative w-28">
                         <select id="inputTime"
                             class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
                             <option value="zi">子 (23-01)</option>
@@ -169,7 +154,7 @@
 
             <button onclick="handleCalculate()"
                 class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
-                開始算命
+                開始批算
             </button>
 
             <button onclick="handleReload()"
@@ -211,9 +196,9 @@
                 </div>
             </div>
 
-            <!-- 2. Four Pillars Plain Analysis Section -->
+            <!-- 2. Four Pillars Plain Analysis Section -> Refactored to Comprehensive Analysis -->
             <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
-                <!-- Year Pillar -->
+                <!-- Character Card -->
                 <div
                     class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
                     <div
@@ -221,22 +206,17 @@
                     </div>
                     <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
                         <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        年柱・生命根基
+                        性格特質・內在潛能
                     </h5>
-                    <p class="text-xs text-gray-400 mb-4">主宰 1-16 歲運程 | 祖業 | 外在氣質</p>
+                    <p class="text-xs text-gray-400 mb-4">個性優勢 | 盲點 | 行事風格</p>
                     <div class="space-y-3">
-                        <div class="flex items-baseline">
-                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpYearStr">--</span>
-                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full"
-                                id="fpYearZodiac">--</span>
-                        </div>
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpYearDesc">
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisCharacter">
                             <!-- Dynamic Content -->
                         </p>
                     </div>
                 </div>
 
-                <!-- Month Pillar -->
+                <!-- Wealth Card -->
                 <div
                     class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
                     <div
@@ -244,51 +224,40 @@
                     </div>
                     <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
                         <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        月柱・成長苗芽
+                        財運運勢・致富祕鑰
                     </h5>
-                    <p class="text-xs text-gray-400 mb-4">主宰 17-32 歲運程 | 父母兄弟 | 事業起點</p>
+                    <p class="text-xs text-gray-400 mb-4">正財偏財 | 理財建議 | 財富來源</p>
                     <div class="space-y-3">
-                        <div class="flex items-baseline">
-                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpMonthStr">--</span>
-                        </div>
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpMonthDesc">
-                            月柱代表了青年時期的性格養成與環境機遇。它承載了家庭教育的影響，也預示著您初入社會時的挑戰與機會。此柱有力，代表青年得志，父母兄弟有靠。
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisWealth">
+                            <!-- Dynamic Content -->
                         </p>
                     </div>
                 </div>
 
-                <!-- Day Pillar -->
+                <!-- Career Pillar -->
                 <div
                     class="bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full -mr-10 -mt-10 opacity-60">
                     </div>
                     <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
                         <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        日柱・本命元神
+                        事業運勢・職場格局
                     </h5>
-                    <p class="text-xs text-gray-400 mb-4">主宰 33-48 歲運程 | 自我本質 | 婚姻感情</p>
+                    <p class="text-xs text-gray-400 mb-4">職涯方向 | 適合領域 | 成功關鍵</p>
                     <div class="space-y-4">
-                        <div class="flex items-baseline border-b border-red-100 pb-2">
-                            <span class="text-3xl font-serif font-bold text-gray-800 mr-3" id="fpDayStr">--</span>
-                            <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full tracking-wider"
-                                id="fpDayMaster">--命</span>
-                        </div>
                         <div>
-                            <h6 class="text-xs font-bold text-gray-500 mb-1">【本命性格解析】</h6>
-                            <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="fpDayDesc">
+                            <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
+                                id="analysisCareer">
                                 <!-- Dynamic Content -->
                             </p>
                         </div>
-                        <div>
-                            <h6 class="text-xs font-bold text-gray-500 mb-1">【人生階段意涵】</h6>
-                            <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                                日柱代表了人生的黃金壯年期，也代表了您內心深處最真實的自我（日干）。此階段是人生定型、成家立業的關鍵期。
-                            </p>
+                        <div id="analysisCareerExtra" class="mt-2 text-justify">
+                            <!-- Dynamic Careers List -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Hour Pillar -->
+                <!-- Love Pillar -->
                 <div
                     class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group md:col-span-2">
                     <div
@@ -296,20 +265,18 @@
                     </div>
                     <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
                         <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        時柱・人生果實
+                        感情人際・幸福密碼
                     </h5>
-                    <p class="text-xs text-gray-400 mb-4">主宰 49 歲後運程 | 子女晚輩 | 晚景歸宿</p>
+                    <p class="text-xs text-gray-400 mb-4">桃花運勢 | 相處之道 | 人際魅力</p>
                     <div class="space-y-3">
-                        <div class="flex items-baseline">
-                            <span class="text-xl font-serif font-bold text-gray-800 mr-2" id="fpTimeStr">--</span>
-                        </div>
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="fpTimeDesc">
-                            時柱是八字的歸宿，代表了晚年的生活品質、子女的賢孝與否，以及事業最終的成就高度。時柱生旺，晚景榮華，子女有成；若能在此時修身養性，更是福壽綿長之兆。這也是檢驗一生奮鬥成果的時刻。
+                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisLove">
+                            <!-- Dynamic -->
                         </p>
                     </div>
                 </div>
-
             </div>
+
+
 
             <div class="dashed-line"></div>
 
@@ -357,39 +324,25 @@
                 <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
             </div>
 
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
-                <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
-                <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
-                <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
-            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-            <div>
-                <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
-                <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic -->
-                </p>
-            </div>
+
             <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
                 <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span
                         id="adviceWeightDisplay">此命</span>
                     的建議</h4>
                 <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
                     <!-- Dynamic List -->
+                </div>
+            </div>
+
+            <div class="border-b border-dashed border-gray-200 my-6"></div>
+
+            <!-- 2.5 Five Elements & Crystal Section (Moved to Bottom) -->
+            <div class="space-y-6">
+                <div class="text-center mb-4">
+                    <span class="text-lg font-bold text-gray-400 tracking-widest">五行盈缺與水晶建議</span>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100" id="fiveElementsContainer">
+                    <!-- Dynamic Content -->
                 </div>
             </div>
 
@@ -658,7 +611,7 @@
 
         function calculateBazi() {
             const gender = document.querySelector('input[name="gender"]:checked').value;
-            const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
+
 
             let y = parseInt(document.getElementById('inputYear').value);
             let m = parseInt(document.getElementById('inputMonth').value);
@@ -669,14 +622,9 @@
                 // 1. Unified Time Handling with Lunar.js
                 //    We convert everything to a Solar object first to standardize the timestamp,
                 //    then get the Lunar object from it.
-                let solar;
-                if (isSolar) {
-                    solar = Solar.fromYmd(y, m, d);
-                } else {
-                    // User input is Lunar
-                    const lunarObj = Lunar.fromYmd(y, m, d);
-                    solar = lunarObj.getSolar();
-                }
+                // 1. Unified Time Handling with Lunar.js
+                //    Input is always treated as SOLAR (Gregorian)
+                let solar = Solar.fromYmd(y, m, d);
 
                 // Time mapping (middle of the shichen)
                 const timeMap = {
@@ -759,14 +707,15 @@
                 });
 
                 // Detailed Analysis
-                const detail = getDetails(totalQian);
-                document.getElementById('descCharacter').innerText = detail.character;
-                document.getElementById('descCareer').innerText = detail.career;
-                document.getElementById('descWealth').innerText = detail.wealth;
-                document.getElementById('descLove').innerText = detail.love;
+                const yearZhi = bazi[0].substring(1, 2);
+                const dayGan = bazi[2].substring(0, 1);
+                const detail = getDetails(totalQian / 10, yearZhi, dayGan, lunar);
 
-                // Four Pillars Plain Analysis
-                renderFourPillarsAnalysis(lunar);
+                // Render Comprehensive Analysis (replacing Four Pillars Analysis)
+                renderFourPillarsAnalysis(detail, lunar);
+
+                // 4. Five Elements Analysis
+                analyzeFiveElements(bazi, lunar); // Pass lunar for Zodiac calculation
 
                 // Render Advice List
                 const adviceContainer = document.getElementById('descAdvice');
@@ -790,182 +739,822 @@
 
             } catch (e) {
                 console.error("Calculation Error:", e);
-                alert("日期計算發生錯誤，請檢查輸入是否正確。");
+                alert("日期計算發生錯誤：" + e.message);
             }
         }
 
         // --- INTERPRETATION ENGINE ---
-        const specificInterps = {
-            38: {
-                character: "性格清高正直，骨子裡透著一股傲氣，不願隨波逐流或與世俗同流合汙。你對自我要求甚高，雖有時給人難以親近的高冷感，但內心實則正直善良，充滿文人氣息與理想主義色彩。做事有原則，不輕易妥協，這種堅持雖讓你偶爾感到孤獨，卻也是你最珍貴的特質。",
-                career: "早年雖才華洋溢，但可能因性格耿直而懷才不遇。然而，你的才華終究不會被埋沒，適合往學術、教育、研究或公職體系發展。三十六歲左右將是你人生的重大分水嶺，職位有望高升，正如詩句所云「藍衣脫去換紅袍」，屆時將掌握實權，一展長才。",
-                wealth: "正財運相當穩固，你的財富主要隨地位與職位提升而水漲船高。相比投機性的偏財，你的正職收入更為可觀且長久。隨著年資與聲望的累積，晚年生活將十分優渥富足，無須為錢財擔憂。",
-                love: "對伴侶的標準較高，不僅看重外在條件，更重視精神層面的契合與內在涵養。因此緣分可能來得稍晚，但這份堅持會為你帶來優雅和諧的婚姻生活。另一半多為氣質出眾或有相當社會地位之人，能與你在精神上相互扶持。",
-                advice: [
-                    "莫過於孤高：清高是優點，但太過孤芳自賞容易讓人產生距離感。適度親近人群有助於運勢。",
-                    "把握三十六歲：這前後幾年是關鍵期，應積極爭取表現機會。",
-                    "持續進修：你的運勢與知識綁定，活到老學到老，運勢就會一直旺下去。"
-                ]
+        // --- UNIQUE INTERPRETATION GENERATOR ---
+
+        const zodiacTraits = {
+            "子": { adj: "機靈敏銳", noun: "智者", advice: "多與人合作" },
+            "丑": { adj: "腳踏實地", noun: "耕耘者", advice: "保持彈性" },
+            "寅": { adj: "充滿行動力", noun: "開拓者", advice: "避免過衝" },
+            "卯": { adj: "溫和細膩", noun: "協調者", advice: "果斷決策" },
+            "辰": { adj: "志向遠大", noun: "領袖", advice: "聽取建言" },
+            "巳": { adj: "深思熟慮", noun: "謀略家", advice: "打開心扉" },
+            "午": { adj: "熱情奔放", noun: "先鋒", advice: "培養耐心" },
+            "未": { adj: "外柔內剛", noun: "守護者", advice: "勇於表達" },
+            "申": { adj: "多才多藝", noun: "發明家", advice: "專注目標" },
+            "酉": { adj: "追求完美", noun: "鑑賞家", advice: "放寬標準" },
+            "戌": { adj: "忠誠可靠", noun: "執行者", advice: "建立信任" },
+            "亥": { adj: "樂觀豁達", noun: "哲學家", advice: "積極進取" }
+        };
+
+
+
+        const weightTemplates = {
+            low: { // < 3.5
+                char: ["性格堅毅，有著不服輸的韌性。", "為人樸實，能夠吃苦耐勞。", "個性獨立，習慣靠自己解決問題。"],
+                career: ["早年需經歷一番磨練，屬大器晚成之格。", "事業起步較緩，但基礎穩固。", "適合專精一技之長，靠實力說話。"],
+                wealth: ["財運如涓涓細流，需積少成多。", "前半生財來財去，後半生漸入佳境。", "正財運佳，不宜投機，勤儉致富。"]
+            },
+            mid: { // 3.5 - 5.0
+                char: ["處事圓融，具有良好的適應力。", "性格穩重，給人可靠的安全感。", "才思敏捷，善於把握機會。"],
+                career: ["職場發展順遂，易得貴人提攜。", "事業運勢平穩上升，中年可擔大任。", "適合團隊合作，能發揮協調長才。"],
+                wealth: ["衣食無憂，財運穩健。", "擅長理財，能守能攻。", "正偏財皆有斬獲，生活優渥。"]
+            },
+            high: { // > 5.0
+                char: ["氣宇軒昂，具有天生的領袖風範。", "心胸寬廣，格局遠大。", "充滿自信，勇於承擔重任。"],
+                career: ["官運亨通，有機會掌權或成為業界權威。", "事業宏大，能成就一番偉業。", "名利雙收，社會地位崇高。"],
+                wealth: ["一生富貴，財源廣進。", "聚寶盆之命，富澤子孫。", "財富格局大，適合大型投資。"]
             }
         };
 
-        const rangeInterps = {
-            low: { // 2.1 - 3.2
-                character: "個性堅毅剛強，擁有超乎常人的忍耐力與毅力。雖然早年運勢起伏較大，常需獨自面對風雨，但這也鍛鍊出你一顆不服輸、不向命運低頭的心。你像是一株在岩縫中求生的松柏，環境越艱困，你的根紮得越深。",
-                career: "事業起步階段較為艱辛，六親助力較少，凡事多需靠雙手打拼，屬於白手起家的類型。初期可能較多波折，適合從事專業技術性、勞務性或需長期耕耘的行業。中年之後，憑藉著早年累積的經驗與實力，運勢將如同倒吃甘蔗般漸入佳境。",
-                wealth: "財運屬於細水長流、聚沙成塔型。你的錢財多是辛苦錢，需透過開源節流來累積。不宜從事高風險的投機行為或賭博，每一分錢都需靠努力獲得，「穩紮穩打」是你理財的最高指導原則，守得住財才是真財。",
-                love: "感情緣分可能來得較晚，或容易因生活奔波、經濟壓力而導致聚少離多。建議在忙碌之餘，多些耐心與伴侶溝通，共同面對生活的挑戰，患難見真情的情感將更為堅固。",
-                advice: [
-                    "心態建設：天將降大任於斯人也，早年的磨練是為了成就未來的堅韌。",
-                    "腳踏實地：切勿氣餒，踏實走好每一步，不求一步登天。",
-                    "晚年福報：堅持到底，晚年必能安享清福，苦盡甘來。"
-                ]
-            },
-            mediumLow: { // 3.3 - 4.5
-                character: "性情溫和敦厚，處事圓融周到，做事條理分明。你為人正直且講信用，不喜與人計較長短，因此人緣相當不錯。你有一種讓人安心的特質，是團體中值得信賴的夥伴或傾聽者。",
-                career: "運勢平穩順遂，雖然未必有一夕暴富的機會，但也沒有大起大落的風險。非常適合在制度健全的組織、企業或公家機關發展。只要按部就班，持續努力，三十歲後自有發揮空間，能逐步晉升至穩定的管理或專業職位。",
-                wealth: "天生衣食無憂之命，財運隨著年齡增長而穩步累積。你對金錢有正確的觀念，不揮霍也不吝嗇。中年後會有不錯的積蓄與資產，適合定期定額或保守型的理財規劃，晚年經濟無虞。",
-                love: "桃花運勢平順，婚姻生活雖無轟轟烈烈的情節，但平淡是福。夫妻間能互相扶持、相敬如賓，建立溫馨穩定的家庭。對於子女教育也頗有心得，家庭氣氛和樂。",
-                advice: [
-                    "循序漸進：凡事循序漸進，不可操之過急。",
-                    "充實技能：多充實專業技能，待時機成熟，自然水到渠成。",
-                    "廣結善緣：保持良好的人際關係，貴人將在關鍵時刻出現。"
-                ]
-            },
-            mediumHigh: { // 4.6 - 5.5
-                character: "天資聰穎，反應靈敏，文武雙全。你具有敏銳的觀察力與不錯的領導統御能力，志氣高昂，對未來充滿信心與規劃。你的自信與才華容易感染身邊的人，是天生的意見領袖或團隊核心。",
-                career: "事業運勢強勁，容易獲得長官肯定或貴人提攜。無論是投身公職、晉升管理階層或是自行創業，都有極高的成功率。你善於把握機會，勇於挑戰，中年後可達事業高峰，成就一番令人稱羨的功業。",
-                wealth: "財運亨通，正財偏財皆有斬獲。你眼光獨到，善於投資理財，能用錢滾錢。只要不涉入非法或過度貪婪，累積可觀財富並非難事，生活品質優渥。",
-                love: "異性緣極佳，容易吸引優秀的對象。伴侶多為賢內助或事業上的好幫手，能為你的生活加分。但需注意在感情中保持謙卑，避免因過於強勢或自我中心而忽略了對方的感受。",
-                advice: [
-                    "謙虛待人：運勢雖好，仍需謙虛待人，滿招損，謙受益。",
-                    "善用資源：善用你的資源幫助他人，富貴方能長久。",
-                    "謹慎理財：雖有偏財運，但仍需謹慎理財，避免過度揮霍。"
-                ]
-            },
-            high: { // 5.6+
-                character: "氣宇軒昂，格局宏大，具備與生俱來的領袖氣質與威嚴。你為人慷慨大方，心胸寬廣，有悲天憫人之心。你的眼界高遠，思考問題往往能從大局著眼，受人敬重，具有強大的號召力。",
-                career: "官運亨通，位高權重之相。在社會上有一定的影響力與知名度，能成就一番驚天動地的大事業。無論在政界、商界或學術界，都能成為一方之霸或權威人物，名利雙收。",
-                wealth: "一生富貴榮華，財源廣進，彷彿自帶聚寶盆。不僅自身生活極度富足，更能福澤子孫，建立家族基業。你的財富往往伴隨著社會責任，是難得的富貴雙全之命。",
-                love: "家庭和睦圓滿，子女賢孝有成。婚姻美滿幸福，是眾人稱羨的神仙眷侶。你的家庭是你最強大的後盾，也是你心靈的港灣。",
-                advice: [
-                    "惜福感恩：此乃大富大貴之命，應多惜福感恩。",
-                    "回饋社會：多做公益，回饋社會，積善之家必有餘慶。",
-                    "傳承家風：注重子女教育與家風傳承，讓富貴得以延續。"
-                ]
+
+
+        // --- Advanced Analysis Helper (Ten Gods + WuXing + ShenSha) ---
+        function getAdvancedAnalysis(lunar) {
+            // 1. Ten Gods (Shi Shen) Analysis
+            const shiShenGan = lunar.getBaZiShiShenGan();
+            const godsList = [shiShenGan[0], shiShenGan[1], shiShenGan[3]];
+
+            let wealthAnalysis = "";
+            let careerAnalysis = "";
+            let characterAnalysis = "";
+
+            // Wealth (Ten Gods)
+            if (godsList.includes("正財")) wealthAnalysis += "命帶「正財」，正職收入穩定，適合保守理財。";
+            else if (godsList.includes("偏財")) wealthAnalysis += "命帶「偏財」，具投資眼光，有獲取意外之財的潛力。";
+            else wealthAnalysis += "財星隱含，需靠積累一技之長致富。";
+
+            // Career (Ten Gods)
+            if (godsList.includes("正官")) careerAnalysis += "【主管格】命帶正官，適合承擔責任，具備極佳的組織管理能力。";
+            else if (godsList.includes("七殺")) careerAnalysis += "【開創格】命帶七殺，具備突破現狀的魄力，勇於面對挑戰。";
+            else if (godsList.includes("傷官") || godsList.includes("食神")) careerAnalysis += "【才華格】命帶食傷，思維靈活，具備獨特的創造力與解決問題的能力。";
+            else careerAnalysis += "【專業格】專注力強，能沈下心來深耕專業，追求卓越。";
+
+            // Character (Ten Gods)
+            if (godsList.includes("比肩")) characterAnalysis += "個性獨立自主，意志堅定。";
+            else if (godsList.includes("劫財")) characterAnalysis += "為人豪爽，重義輕財。";
+
+            // 2. WuXing (Five Elements) Analysis - Health & Advice
+            const wuxing = lunar.getBaZiWuXing();
+            const counts = { "金": 0, "木": 0, "水": 0, "火": 0, "土": 0 };
+            wuxing.forEach(wx => { if (counts[wx] !== undefined) counts[wx]++; });
+
+            const missing = Object.keys(counts).filter(k => counts[k] === 0);
+            let healthAdvice = "";
+            let luckyAdvice = "";
+
+            if (missing.length > 0) {
+                const m = missing[0];
+                if (m === "金") { healthAdvice = "五行缺金，需注意呼吸系統與皮膚保養。"; luckyAdvice = "開運建議：多穿白色系衣物，佩戴金屬飾品。"; }
+                else if (m === "木") { healthAdvice = "五行缺木，需留意肝膽功能與神經系統。"; luckyAdvice = "開運建議：多穿綠色系衣物，家中多種植綠色植物。"; }
+                else if (m === "水") { healthAdvice = "五行缺水，需注意腎臟與泌尿系統循環。"; luckyAdvice = "開運建議：多穿黑色或藍色衣物，多喝水。"; }
+                else if (m === "火") { healthAdvice = "五行缺火，需留意心血管與血液循環問題。"; luckyAdvice = "開運建議：多穿紅色或紫色衣物，多曬太陽。"; }
+                else if (m === "土") { healthAdvice = "五行缺土，需注意脾胃消化功能。"; luckyAdvice = "開運建議：多穿黃色或大地色系衣物，佩戴玉石。"; }
+            } else {
+                healthAdvice = "五行俱全，體質相對平衡，保持規律作息即可。";
+                luckyAdvice = "五行平衡，可依個人喜好選擇幸運色。";
             }
-        };
 
-        function getDetails(weight) {
-            // Check specific override first
-            if (specificInterps[weight]) return specificInterps[weight];
+            // 3. ShenSha (Gods and Evils) - Highlights
+            let allShenSha = [];
+            // Safe ShenSha Retrieval: Try standard getShenSha() first
+            if (typeof lunar.getShenSha === 'function') {
+                allShenSha = allShenSha.concat(lunar.getShenSha());
+            } else if (typeof lunar.getDayShenSha === 'function') {
+                allShenSha = allShenSha.concat(lunar.getDayShenSha());
+            } else {
+                // Fallback or empty if methods are different in this version
+                allShenSha = [];
+            }
+            // Add other potential sources if needed, but avoid crashing calls like getBaZiDayZhiShenSha unless sure
 
-            // Range fallback
-            if (weight < 33) return rangeInterps.low;
-            if (weight < 46) return rangeInterps.mediumLow;
-            if (weight < 56) return rangeInterps.mediumHigh;
-            return rangeInterps.high;
+            let shenShaHighlights = [];
+            if (allShenSha.includes("天乙贵人") || allShenSha.includes("天乙貴人")) shenShaHighlights.push("【天乙貴人】：命中帶貴，一生逢凶化吉，易得長輩提攜。");
+            if (allShenSha.includes("文昌贵人") || allShenSha.includes("文昌貴人") || allShenSha.includes("文昌")) shenShaHighlights.push("【文昌貴人】：才思敏捷，學業事業皆有成，利於考試考證。");
+            if (allShenSha.includes("桃花") || allShenSha.includes("咸池")) shenShaHighlights.push("【桃花星】：異性緣佳，人緣好，公關魅力強。");
+            if (allShenSha.includes("驿马") || allShenSha.includes("驛馬")) shenShaHighlights.push("【驛馬星】：動中求財，適合出差、外派或旅遊業，越動越發。");
+            if (allShenSha.includes("华盖") || allShenSha.includes("華蓋")) shenShaHighlights.push("【華蓋星】：聰明孤高，具藝術才華，對哲學宗教有慧根。");
+            if (allShenSha.includes("将星") || allShenSha.includes("將星")) shenShaHighlights.push("【將星】：具備領導才能，有機會掌權，成為團隊核心。");
+
+            return {
+                wealth: wealthAnalysis,
+                career: careerAnalysis,
+                character: characterAnalysis,
+                health: healthAdvice,
+                lucky: luckyAdvice,
+                shensha: shenShaHighlights
+            };
         }
 
-        function getPoemLineExplanation(line, index) {
-            // Enhanced keyword analysis for deeper interpretation
+        function getDetails(weight, zodiac, dayMaster, lunar) {
+            const zData = zodiacTraits[zodiac] || { adj: "獨特", noun: "行者", advice: "慎始敬終" };
+            const dmData = dayMasterAttributes[dayMaster] || dayMasterAttributes["甲"];
+            const level = weight > 5.0 ? 'high' : (weight < 3.5 ? 'low' : 'mid');
+            const levelDesc = level === 'high' ? '富貴' : level === 'mid' ? '平穩' : '堅韌';
 
-            // 1. Health & Lifespan
-            if (line.includes("短命")) return "此句點出命主先天元氣可能較弱，或人生中易遇重大健康關卡。古語云『大德者算不準』，意指透過積德行善、調整生活作息與心性修養，往往能改變既定的壽元定數。";
-            if (line.includes("災")) return "暗示人生旅途中可能會遇到一些意料之外的波折或考驗。這些災厄往往是命運給予的試金石，雖帶來短暫的困頓，卻能磨練心志。建議行事謹慎，多行善舉以化解戾氣。";
+            // Get Advanced Analysis (Ten Gods + WuXing + ShenSha)
+            const advanced = getAdvancedAnalysis(lunar);
 
-            // 2. Hardship & Struggle (Early Life)
-            if (line.includes("乞") || line.includes("寒") || line.includes("苦")) return "象徵早年運勢或特定時期較為艱辛，可能面臨物質匱乏或六親無助的局面。『寒徹骨』方得『梅花香』，這段經歷往往造就了命主堅韌不拔的性格，是未來成就大事的基石。";
-            if (line.includes("勞") || line.includes("奔") || line.includes("忙")) return "這是一條『勞碌命』的批註，意味著凡事需親力親為，較難坐享其成。雖然身體勞累，但這也代表命主生命力旺盛，且多為主動進取之人，每一分收穫都是實實在在的汗水換來。";
-
-            // 3. Status & Career (Success)
-            if (line.includes("皇") || line.includes("紫袍") || line.includes("金榜") || line.includes("官") || line.includes("卿")) return "此乃大貴之兆。預示仕途順遂，有機會進入公門、大型機構任職，或在專業領域獲得極高的社會地位。『紫袍』象徵顯赫的職位與權力，是事業有成的最佳印證。";
-            if (line.includes("成") || line.includes("通") || line.includes("榮") || line.includes("顯")) return "運勢亨通之象。代表謀事可成，努力終將獲得回報。這類命格通常在經歷一番努力後，能獲得社會的認可與榮耀，事業發展順利，人際關係也較為通達。";
-
-            // 4. Wealth & Abundance
-            if (line.includes("財") || line.includes("金") || line.includes("富") || line.includes("倉")) return "財星高照。象徵財源廣進，經濟狀況優渥。這不僅是指正財收入豐厚，也可能包含祖業繼承或投資獲利。『堆金積玉』意味著晚年生活將十分富足，毋須為錢財煩惱。";
-
-            // 5. Family & Relationships
-            if (line.includes("親") || line.includes("妻") || line.includes("子") || line.includes("骨肉")) {
-                if (line.includes("無") || line.includes("冷") || line.includes("難")) return "暗示六親緣分較淺，或者在家族中助力較少，甚至可能需要獨立承擔家庭重擔。這類命格鼓勵命主向外發展，靠自己的雙手建立新的人際網絡與家庭。";
-                return "家庭運勢的描述。暗示了與親人之間的緣分深淺，家庭和睦則是萬事興旺的基礎，若有不足，則需靠後天經營來彌補。";
-            }
-
-            // 6. Personality & Character
-            if (line.includes("清高") || line.includes("聰明") || line.includes("才")) return "對命主個人特質的讚賞。表示此人天資聰穎，或性格高潔，不願隨波逐流。這類人通常有特殊的才華或專長，若能善加利用，必能在人群中脫穎而出。";
-
-            // Fallback: Detailed Generic Explanations based on verse position
-            // Usually Poem is 4 lines: 1. Base/Character 2. Early Life/Roots 3. Mid Life/Career 4. Late Life/Outcome
-            const positionMeanings = [
-                "【命格基調】：此句為首句，通常批註命主的先天根基與性格底色。詩意顯示了您命格的整體走向。",
-                "【早年運程】：此句對應人生前半段的經歷。描述了祖業根基的厚薄以及求學、初入社會時的際遇。",
-                "【中年轉折】：此句為人生關鍵的轉折點。詳解了中年時期的事業發展、名利獲取以及可能面臨的重大機遇。",
-                "【晚景歸宿】：此句為末句，總結了一生的最終成就與晚年福澤。預示了勞碌過後的收穫與最終的生活狀態。"
+            // Construct Advice Array
+            let adviceArray = [
+                "發揮日主優勢：善用您" + (dmData.char ? dmData.char.substring(2, 6) : "獨特") + "...的天賦。",
+                "針對性格盲點：生肖" + zodiac + "可能有時會過於" + zData.adj + "，建議適時調整。",
+                "五行健康提點：" + advanced.health,
+                "開運幸運指引：" + advanced.lucky,
+                "命格提升建議：" + zData.advice + "，並結合" + (dmData.career ? dmData.career.substring(2, 7) : "專業") + "的方向努力。",
+                `未來展望：命格顯現${levelDesc}之象，保持信心，好運將至。`
             ];
 
-            return `詩句云：「${line}」。${positionMeanings[index % 4]}這句話雖短，卻蘊含了對命運深刻的洞察，值得細細品味。`;
+            // Insert Shensha highlights if any
+            if (advanced.shensha.length > 0) {
+                // Insert them after character/personality advice to make it flow better
+                adviceArray.splice(2, 0, ...advanced.shensha);
+            }
+
+            return {
+                character: `${dmData.character}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.character} 同時，您還帶有${zodiac}年生肖「${zData.adj}」的特質，這使您成為一位剛柔並濟的${zData.noun}。`,
+                career: `${dmData.career}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.career} ${levelDesc === '富貴' ? '您的命格格局宏大，未來不可限量。' : levelDesc === '堅韌' ? '雖起步可能較緩，但堅持必有後福。' : '穩健發展，必能有所建樹。'}`,
+                wealth: `${dmData.wealth}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.wealth} 另外，${zodiac}年出生的人，${zData.advice}，這將幫助您守住財富。`,
+                love: `${dmData.love}${advanced.character.includes("桃花") ? "<br><br><span class='font-bold text-pink-600'>【桃花運】</span>命帶桃花，異性緣極佳，人緣好。" : ""}`,
+                advice: adviceArray
+            };
+        }
+
+
+
+
+
+        const poemLineMap = {
+            // --- Male Poems (2.1 - 2.9) ---
+            "短命非業謂大凶": "這句詩雖從字面看較為嚴厲，實則是對「健康」的極度重視。命格暗示先天元氣較弱，如同一盞微弱的油燈，需要倍加呵護。這是一個養生的警訊，提醒您不要透支身體，作息需規律，「惜命」是您一生的課題。",
+            "身寒骨冷苦伶仃": "「寒」與「冷」形容的是早年資源的匱乏與心靈的孤單。您可能出生於清寒之家，或少時缺乏長輩的關愛。但這份孤獨也是一種淬鍊，讓您比同齡人更早學會獨立，懂得在這世情冷暖中自我取暖。",
+            "此命推來骨輕輕": "「骨輕」意指根基不穩，容易受到外界環境的影響。您在做決定時可能較易動搖，或缺乏有力的靠山支持。這提醒您，凡事需腳踏實地，建立屬於自己的核心競爭力，厚植實力才能穩住陣腳。",
+            "此命推來福祿無": "這句話並非斷言您一生貧窮，而是指出「福祿」不會自動掉下來。這是一種「勞碌格」，每一分收穫都需要付出相對應的汗水。別期待不勞而獲的運氣，相信雙手打拼出來的成果才最實在。",
+            "此命推來祖業微": "祖上的庇蔭微薄，能留給您的有形資產不多。這象徵您是典型的「創一代」，一切都要從零開始。雖然起步艱難，但這種白手起家的成就感，將是您人生徽章上最耀眼的一枚。",
+            "平生一路苦中求": "您的人生主旋律是「奮鬥」。路途或許崎嶇，充滿挑戰，但每一個「苦」字背後都藏著「求」到的智慧。這句詩鼓勵您，不要害怕吃苦，因為這些苦難都是為了磨練您的心智，讓您成為更好的人。",
+            "一生做事少商量": "形容您性格較為孤僻或主觀，習慣獨來獨往，不善於與人合作。這即使是優點（果斷），也可能是盲點（固執）。建議您適度打開心扉，多聽取他人意見，集思廣益能讓您的路走得更寬。",
+            "一生作事似飄蓬": "「飄蓬」象徵著漂泊不定。您可能工作頻繁變動，或居無定所，像風中的蓬草。這雖然是一種不穩定，但也代表了豐富的閱歷。在變動中尋找不變的核心，將動盪轉化為適應力，是您的轉機。",
+            "初年運限未曾亨": "早年的運勢確實較為低迷，可能求學不順或初入社會頻頻碰壁。但這只是人生的序曲，並非終章。「大器晚成」往往需要早年的沉澱，請保持耐心，時間會證明您的價值。",
+
+            // --- Male Poems (3.0 - 3.9) ---
+            "勞勞碌碌苦中求": "大部分的人都在為生活奔波，您也不例外。這句詩肯定了您的勤奮，但也提醒您要注意「效率」。如果在忙亂中能找到方向，您的勞碌將不再是受苦，而是通往成功的積累。",
+            "忙忙碌碌苦中求": "與上一句類似，強調了「忙」的狀態。這可能代表您身兼數職，或為了家庭生計不敢停歇。這份責任感令人敬佩，但也要學會適時放鬆，別讓忙碌吞噬了生活的品質。",
+            "初年運錯事難謀": "起步時可能選錯了跑道，或時機不對，導致事倍功半。這是一種「試錯」的過程。別因為初期的失敗而否定自己，調整方向，重新出發，每一次修正都讓您離目標更近一步。",
+            "早年做事事難成": "萬事起頭難，這句詩反映了執行層面可能常遇阻礙。這或許是經驗不足，也可能是缺乏貴人指點。建議您多請教前輩，借力使力，不要獨自硬闖，便能化「難成」為「晚成」。",
+            "此命福氣果如何": "這是一個設問，引出後面的轉折。這句詩暗示您的福氣比較特殊，可能不在世俗的名利，而在於精神的富足。您適合在特定的領域（如技藝、宗教）尋找心靈的安頓。",
+            "生平福量不周全": "人生不如意事十之八九，這句詩點出您可能在某方面（如財富、健康或感情）略有缺憾。接受這種「不完美」，學會與遺憾共處，反而能讓您更加珍惜手中所擁有的一切。",
+            "不須勞碌過平生": "這是一句轉折的吉話！相較於前面的勞碌，這句詩預示著您有機會過上相對輕鬆的日子。或許是您懂得知足常樂，或者運氣開始好轉，生活壓力將逐漸減輕。",
+            "此命般般事不成": "這句話聽起來很洩氣，但其實是針對「心態」的提醒。如果抱持消極的態度，自然萬事難成。這是在激將您：想要打破魔咒，就必須拿出破釜沉舟的決心，去完成一件小事，建立信心。",
+            "一生骨肉最清高": "「骨肉」指親人，「清高」可能意味著疏離或不願同流合污。您可能與家族成員格格不入，或者有一種傲氣。這代表了您獨特的人格特質，不隨波逐流，堅持走自己的路。",
+            "此命終身運不通": "這句詩最為嚴厲，但古書多有誇張。在現代解讀，這代表您可能是一個「懷才不遇」的典型。環境常常限制了您的發展，建議您轉換環境，或尋找非主流的賽道，別在死胡同裡打轉。",
+
+            // --- Male Poems (4.0 - 4.9) ---
+            "平生衣祿是綿長": "這是福氣綿延的象徵。雖然未必大富大貴，但「綿長」二字保證了您一輩子衣食無缺，細水長流。這種平穩安定的生活，其實是許多人求之不得的幸福。",
+            "此命推來事不同": "您註定與眾不同！這句詩暗示您有獨特的才華或際遇，不適合走尋常路。您的思維模式或處事風格可能異於常人，這正是您的優勢所在，大膽發揮您的創意吧。",
+            "得寬懷處且寬懷": "這是一句充滿智慧的勸世語。您的命格中可能有些糾結或放不下的事，詩句勸您「放寬心」。心寬路就寬，許多煩惱其實都是自找的，豁達的態度是您改運的鑰匙。",
+            "為人心性最聰明": "天資聰穎是您最大的資產。您的反應快、學習力強，這是成功的入場券。但聰明需用在正途，且需搭配「厚道」，避免恃才傲物，您的智慧才能真正轉化為成就。",
+            "來事由天莫苦求": "這句詩充滿了道家哲學。告訴您有些事情強求不來，順其自然反而更好。這不是要您放棄努力，而是要您放下對結果的執著，盡人事聽天命，心態對了，運氣自然會來。",
+            "福中取貴格求真": "這是一個相當高雅的命格。您不僅有福氣，更有機會獲得社會地位（貴）。「求真」二字暗示您做人做事要腳踏實地，追求真理與誠信，這將是您通往富貴的道路。",
+            "東西南北盡皆通": "四通八達，無往不利！這句詩預示您的適應力極強，無論到哪裡發展都能生存。您的格局開闊，適合跨領域、跨地域的發展，世界就是您的遊樂場。",
+            "此命推來旺末年": "標準的「老來俏」命格。年輕時或許平平，但運勢會隨著年齡增長而上揚。晚年福氣旺盛，可能是財富的累積，也可能是子孫的成就，您的好戲在後頭。",
+            "幼年運道未曾享": "再次確認了早年的辛苦。您可能沒有一個無憂無慮的童年，過早承擔了責任。但這份早熟讓您更懂得人情世故，這些童年的缺憾將轉化為成年後奮發向上的動力。",
+            "此命推來福不輕": "開宗明義，這是一個極具福氣的命格。您的起點很高，或者即使起點平凡，運勢的推升力也極強。請惜福培福，利用這份好運去幫助更多人，您的福氣將會加倍回流。",
+
+            // --- Male Poems (5.0 - 5.9) ---
+            "為利為名終日勞": "名利是您追逐的目標，您也為此付出了巨大的努力。這句詩肯定了您的企圖心，但也提醒不要迷失其中。在終日奔波之餘，問問自己真正的快樂是什麼，別讓名利成為枷鎖。",
+            "一世榮華事事通": "「通」字最妙，代表人生順暢無阻。無論事業、家庭還是人際，您似乎總能找到解決之道。這份圓融與順遂，來自於您開闊的格局與高度的智慧。",
+            "一世亨通事事能": "全能型人才！您似乎什麼都會，什麼都能做。這種多才多藝讓您在職場上無可取代。「事事能」代表極強的執行力，只要您想做的事，通常沒有做不到的。",
+            "此格推來氣象真": "「氣象」宏大，非同小可。這句詩形容您的格局與氣度不凡，有大將之風。您適合做大事，看長遠，不要被小利所惑，您的命運格局註定是要成就一番事業的。",
+            "此命推來厚且清": "「厚」代表福澤深厚，「清」代表品格高尚。這是一個富貴雙全且名聲極佳的命格。您不僅有物質財富，更有精神潔癖，這份清貴之氣讓您受人敬重。",
+            "走馬揚鞭爭名利": "畫面感極強！形容您在名利場上意氣風發，競爭力強。您是行動派，有目標就衝，像騎馬奔騰一樣。這種積極的攻擊性是您成功的關鍵，但也需注意控制節奏，避免過勞。",
+            "此格推來禮儀通": "您是一個知書達禮、人情練達的人。您懂得進退應對，社交手腕高明。「禮多人不怪」，這份教養與風度是您最好的通行證，讓您在各個圈子都能左右逢源。",
+            "福祿盈盈萬事全": "「盈盈」形容滿出來的樣子，「萬事全」代表沒有缺憾。這是一個接近完美的命格，五福臨門。請珍惜這份難得的幸運，多做善事回饋社會，讓這份圓滿延續下去。",
+            "平生福祿自然來": "許多人求之不得的境界！您不需要刻意追求，好運似乎總是自動找上門。這可能源於您的性格討喜，或是有祖德庇蔭。這種「順流而下」的人生，是最大的福報。",
+            "細推此格妙且清": "「妙」字形容命格的獨特與精巧。您可能有某種特殊的天賦或專長，無人能及。發掘並打磨這份「妙」處，它將帶給您意想不到的成功與快樂。",
+
+            // --- Male Poems (6.0 - 7.2) ---
+            "一朝金榜快題名": "傳統指科舉高中，現代則指專業上的「認證」與「成名」。您將在眾人的見證下獲得巨大的榮譽，無論是考試、升遷還是獲獎，那種「一舉成名天下知」的時刻即將到來。",
+            "不做朝中金榜客": "即使不走仕途（公職），您也註定是不凡之人。這句詩暗示您如果從商，將成為鉅富（財翁）。條條大路通羅馬，您的才華無論放在哪個領域，都會是頂尖的存在。",
+            "此名生來福不窮": "福氣無窮無盡，取之不竭。這是一種源源不絕的能量，不僅庇蔭自己，還能庇蔭家人朋友。您就像一個發光體，身邊的人都能感受到您的正能量。",
+            "命主為官福祿長": "明確指出了「官運」。您適合在體制內發展，或擔任管理職。您的仕途長遠，且伴隨著穩定的收入（福祿）。權力在您手中是用來造福人群的，這是您的天職。",
+            "此格權威不可當": "霸氣外露！您天生具有領袖氣質，說話有份量，能讓眾人信服。這種權威感不是強壓下來的，而是來自於您的實力與擔當。您是天生的領導者。",
+            "細推此命福不輕": "再次強調福氣之重。這不是小確幸，而是大格局的福報。您可能肩負著重大的社會責任，您的成功將影響許多人的生計與未來，是真正的棟樑之材。",
+            "此格人間一福人": "簡單而有力，您就是人間有福之人。這句話勝過千言萬語。無論遇到什麼風浪，您總能安然度過，好像有隱形的翅膀在保護。這種「天選」的感覺，是您自信的來源。",
+            "此名生來福自宏": "「宏」意味著宏大。您的福氣格局很大，不拘泥於小節。您的眼界與心胸都比常人寬廣，這讓您能容納更多的財富與機遇，成就非凡的事業。",
+            "富貴由天莫苦求": "這是一種境界。告訴您富貴是命中註定的，不需要您像苦行僧一樣去追求。這句話勸您放鬆心情，享受過程，因為結果早已寫好，您只需要優雅地走過去接收即可。",
+            "君是人間衣祿星": "您是財神的化身！「衣祿星」代表著豐衣足食。您到哪裡，哪裡就興旺。這句詩讚美了您的招財能力，您不僅自己富足，還能帶動身邊的經濟繁榮。",
+            "此命推來福不輕": "反覆出現的福不輕，代表這是一個非常穩定的高分命格。無論在哪個版本，這都是好命的認證。請懷著感恩的心，享受這份上天賜予的禮物。",
+            "此名生來大不同": "卓爾不凡！您與眾不同，生來就是為了做大事。這句詩鼓勵您不要害怕「不一樣」，您的獨特性正是您改變世界的力量。勇敢做自己，您將創造歷史。",
+            "此格世界罕有生": "稀世珍寶！這種命格百年難得一見。這句話給予您極高的評價，暗示您肩負著特殊的使命。您的存在本身就是一種奇蹟，請珍視並發揮您的影響力。",
+
+            // --- Female Poems (2.1 - 2.9) ---
+            "短命非業謂大空": "這句詩是對女性健康的嚴厲警語。「空」代表抓不住，暗示健康或緣分易逝。這是在提醒您要將「愛自己」放在第一位，不要為家庭或感情過度犧牲透支。保養身體，是您最重要的投資。",
+            "此命孤冷有淒伶": "形容內心的孤寂感。您可能覺得無人能懂，或身邊缺乏知冷知熱的人。但這種「冷」氣質也賦予您獨特的冷靜與理智。學會享受獨處，在獨處中滋養心靈，您將不再感到淒涼。",
+            "此命推來骨肉輕": "親緣較薄，六親無靠。身為女性，您可能被迫早早獨立，無法依賴娘家。這雖然辛苦，但也訓練出您堅強的生存能力。您像一株野草，雖然無人澆灌，卻能頑強生長。",
+            "此命推來福祿無": "早年物質生活可能較為匱乏，需要為生計操勞。這句詩提醒您要學會理財，精打細算。雖然起步艱難，但只要勤儉持家，積少成多，一樣能改善生活境遇。",
+            "此命推來八字輕": "命格較弱，容易受到環境或他人的擺佈。這提醒您要建立自信，要有主見，不要總是順從他人。學會說「不」，是您掌握自己命運的第一步。",
+            "平生衣祿苦尋求": "一輩子都在為了生活打拼。這反映了傳統女性的辛勞，可能要兼顧家庭與工作。這句詩肯定了您的付出，每一分錢都是乾乾淨淨、辛苦賺來的，值得自豪。",
+            "竹平做事少間量": "形容做事欠考慮，或者缺乏商量的對象。您可能習慣獨自承擔一切，雖然勇敢，但也容易吃虧。建議您多找人商量，不要一個人扛著所有壓力，適度示弱也是一種智慧。",
+            "女命生來八字經": "「八字經」可能指命運多舛，經歷豐富。您的人生像一本寫滿故事的經書，酸甜苦辣都有。這些經歷讓您比別人更成熟、更有韻味，是歲月賦予您的禮物。",
+            "花枝要來性情硬": "形容您外表如花，性格卻硬如枝幹。這是一種「外柔內剛」的特質。您不願服輸，性格剛烈。這能保護您不受欺負，但也可能傷人。適度柔軟，會讓您的人際關係更和諧。",
+
+            // --- Female Poems (3.0 - 3.9) ---
+            "此命推來比郎強": "女強人！您的能力、氣魄可能都勝過您的伴侶。在傳統觀點這可能有壓得住夫運之嫌，但在現代這是對您能力的極大肯定。您是家庭的頂樑柱，只要學會展現溫柔的一面，也能家庭事業雙贏。",
+            "早年行運在忙碌": "年輕時就是個忙碌命，可能要幫忙家計或照顧弟妹。這份忙碌培養了您幹練的辦事能力。別抱怨早年的辛苦，那都是您現在能獨當一面的養分。",
+            "時逢吉神在運中": "運氣開始轉好！雖然有挑戰，但總有「吉神」暗中保佑。逢凶化吉是您的特質。這句詩給您信心，無論遇到什麼困難，相信最後都會有好的結果。",
+            "八字命來張張薄": "「張張薄」形容運勢單薄，積蓄不易。這是在提醒您要有危機意識，未雨綢繆。不要過度樂觀消費，穩健的儲蓄習慣能為您築起一道安全網。",
+            "矮巴勾棗難撈枝": "這句詩用比喻形容「求而不得」的無奈。您可能有心有餘而力不足的感嘆。這是在告訴您要量力而為，設定實際的目標，不要好高騖遠，珍惜手邊能抓住的小確幸。",
+            "女子走冰怕冰薄": "如履薄冰，形容處境小心翼翼。您可能身處複雜的環境，或者性格多疑敏感。這份謹慎是您的保護色，但也讓您活得較累。試著信任他人，放鬆緊繃的神經。",
+            "憂愁常鎖兩眉間": "心思細膩，容易鑽牛角尖。您可能習慣把心事藏在心裡，臉上常帶憂色。這句詩勸您要「開心」一點，多笑一笑，運氣自然會變好。憂愁解決不了問題，樂觀面對才是解藥。",
+            "此命來時運費多": "「運費多」意指波折多，成本高。做什麼事似乎都要比別人多費一番手腳。這不要緊，好事多磨。您的成功雖然來得慢一些，但基礎會打得更穩固。",
+            "鳳鳴岐山聞四方": "大吉之兆！形容您的聲名遠播，才華洋溢。您有機會在職場或社交圈中大放異彩，像鳳凰一樣耀眼。無論走到哪裡，您都是眾人注目的焦點。",
+            "此命推來運不通": "感覺運氣總是差臨門一腳，有種受困的感覺。這其實是黎明前的黑暗。不要因為暫時的「不通」而放棄，這是在考驗您的耐心。轉個彎，或許就能看見新路。",
+
+            // --- Female Poems (4.0 - 4.9) ---
+            "目上月令如運關": "運勢如同過關斬將。雖然關卡重重，但您有能力一一突破。這句詩強調了您的「闖關」能力，每一次的挑戰都讓您變得更強大。您是生活的戰士。",
+            "此命推來普普通通": "平凡就是福。您可能覺得自己不出眾，但這種平實、安穩的生活，是多少人羨慕不來的。沒有大起大落，就是歲月靜好。珍惜這份平凡中的幸福。",
+            "枯井破廢已多年": "這句詩形容「枯木逢春」的奇蹟。或許您曾經歷過一段很長時間的低潮或沉寂，但轉機即將來臨。乾枯的井將湧出泉水，您的生命將重新煥發光彩。",
+            "推車靠涯道路趕": "形容為了生活趕路的情景，辛苦但有方向及目標。您是一個勤奮的實踐者，一步一腳印。雖然路途遙遠，但只要不停下腳步，終點就在前方。",
+            "夜夢金銀醒來空": "理想豐滿，現實骨感。這句詩提醒您不要活在幻想中，要腳踏實地。雖然目前可能還未達成財富目標，但只要將美夢化為具體的行動計畫，夢想也能成真。",
+            "此命終身駁雜多": "「駁雜」意味著經歷豐富但也複雜。您的人生可能涉足多個領域，或感情經歷較多。這讓您看盡世態炎涼，擁有一顆包容萬物的心。複雜不是壞事，它讓您的生命更有厚度。",
+            "孤舟得水離沙灘": "困境解除的吉兆！您就像擱淺的船終於等到了潮水，可以揚帆起航了。這句詩預示著機會的來臨，請做好準備，乘風破浪，去追求您想去的地方。",
+            "時來運轉吉氣發": "好運到了！壞運氣已經走完，現在是吉氣勃發的時候。之前所有的努力將在此時開花結果。請張開雙臂，迎接這遲來的正義與好運。",
+            "一朵鮮花鏡中開": "鏡花水月，提醒您注意「表象」。有些東西看起來很美好，但可能不切實際。在感情或投資上，要保持理智，看清本質，不要被華麗的外表所迷惑。",
+            "此命推來福不輕": "女命中難得的好命。您有福氣，且能旺夫益子。您的存在就是家庭的福星。請善用這份影響力，營造溫馨的家庭氛圍，您的幸福感將會滿溢。",
+
+            // --- Female Poems (5.0 - 7.2) ---
+            "馬氏太公不相和": "引用姜太公典故，暗示早年可能夫妻不和或時運不濟。但這也代表「大器晚成」。只要能熬過早期的磨合與困頓，後面的日子將會倒吃甘蔗，越來越甜。",
+            "肥羊失群入山崗": "因禍得福之象。雖然看似迷路（失群），卻意外進入了草料豐富的山崗。這代表您在變動中反而能找到更好的資源。別害怕改變，改變往往帶來驚喜。",
+            "順風行舟扯起棚": "順風順水，勢不可擋。您的運氣來了，做什麼都順利。這時候要懂得「扯起棚」（張開帆），盡全力去衝刺，讓好運發揮到極致，不要浪費這大好時光。",
+            "此命相貌眉活秀": "形容您面容姣好，氣質出眾。這不僅是外表美，更代表內心的靈秀。您的美貌與氣質是您的優勢，能為您贏得良好的人緣與機遇。",
+            "學問滿腹運氣強": "知識就是力量！您是一位有內涵、有智慧的女性。您的好運來自於您的學識與判斷力。這句詩鼓勵您持續學習，知識將是您永不貶值的嫁妝。",
+            "吉祥平安志量高": "您志向遠大，且一生平安。這是一種很有福氣的野心。您不滿足於現狀，總是追求卓越，而命運也眷顧您，讓您在追夢的路上平安順遂。",
+            "明珠書士離埃來": "珍珠出土，光華再現。形容您曾被埋沒，但終將發光。您的才華掩蓋不住，將被世人所看見。這是一個「脫穎而出」的過程，請保持自信，等待那擦亮您的時刻。",
+            "游魚戲水被網驚": "虛驚一場。雖然會遇到一些驚險或波折，像魚遇到網，但最終能化險為夷（跳過龍門）。這些驚嚇是為了讓您更警覺，最終您將蛻變為龍，成就非凡。",
+            "此命推來閒逛悠": "逍遙自在的貴婦命。您不需要為生活操勞，有大把時間可以「閒逛悠」。這代表經濟富足，心靈自由。這是許多人夢寐以求的生活狀態，請盡情享受。",
+            "雨雪載途泥濘至": "路不好走，充滿泥濘。這是在形容創業或持家的艱辛過程。但泥濘過後必有晴天。這句詩肯定了您的堅韌不拔，您是在風雨中綻放的玫瑰，愈冷愈開花。",
+            "女命八字喜氣和": "喜氣洋洋，一團和氣。您是一個樂天派，走到哪裡都帶笑聲。您的樂觀感染了身邊的人，讓所有困難都迎刃而解。這種「人和」是您最大的財富。",
+            "緣木求魚事多端": "提醒您方法可能用錯了。不要在樹上找魚，要找對方向。這句詩勸您審視目前的追求是否切實際。調整策略，換個方向努力，就能避免徒勞無功。",
+            "指日升高氣象新": "步步高升，氣象一新。您的運勢正在向上爬升，每天都有新的進步。無論是職位、財富還是生活品質，都在往更好的方向發展。保持這股向上的動力。",
+            "五官脫運難抬頭": "這句話在現代解讀為「暫時的低潮」。可能覺得抬不起頭來，或不受重視。但運勢是流動的，「脫運」之後就是「交運」。請蟄伏等待，調整狀態，準備迎接下一次的抬頭。",
+            "俊鳥曾得出籠中": "海闊憑魚躍，天高任鳥飛。您就像衝出籠子的俊鳥，終於獲得了自由。這句詩預示著您將擺脫束縛（如不工作的婚姻、糟糕的環境），展翅高飛，追尋自己的天空。",
+            "時來運轉銳氣周": "氣場全開！您的銳氣與自信回來了。這代表您將掌握主導權，不再是配角。在職場或家庭中，您的意見將受到重視，展現出女王般的風範。",
+            "亂絲無頭定有頭": "剪不斷理還亂，但終究會有頭緒。這句詩形容您善於處理複雜的事務。雖然目前看起來一團亂，但憑藉您的耐心與智慧，一定能抽絲剝繭，理出頭緒，解決難題。",
+            "水庭明月不可撈": "水中撈月，一場空。再次提醒不要追求虛幻的東西。對於不切實際的感情或投資，要懂得放手。放下執念，腳踏實地，才能抓住真正的幸福。",
+            "太公封祖不非凡": "引用歷史典故，形容家世或際遇不凡。您可能出身書香門第或有特殊背景。這份底蘊讓您氣質高雅，見識不凡，是人群中的佼佼者。",
+            "此命推來喜氣新": "天天都有好事發生。這是一種心境的轉化，看什麼都順眼。當您心生喜悅，好運自然相隨。這句詩祝福您每天都活得開心，喜氣洋洋。",
+            "此命推來鴻運交": "鴻運當頭！這是大吉大利的徵兆。運勢交接到了最好的時刻。現在是您人生的黃金期，想做什麼就大膽去做，全世界都會為您讓路。"
+        };
+
+        function getPoemLineExplanation(line, index) {
+            // Priority 1: Check Specific Poem Line Map (1-to-1 Mapping)
+            // Trim punctuation logic handled by raw key matching or simple include check
+            // We use .includes to handle potential punctuation diff "，" vs ","
+            for (const [key, value] of Object.entries(poemLineMap)) {
+                if (line.includes(key)) {
+                    return value;
+                }
+            }
+
+            // Priority 2: Fallback to Context-Aware Engine + Variation System (The generated logic)
+            function getVariant(str, options) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                    hash |= 0;
+                }
+                const idx = Math.abs(hash) % options.length;
+                return options[idx];
+            }
+
+            if (index === 0) { // --- PHASE 1: THE ROOT (命格基調) ---
+                if (line.match(/(短|災|凶|禍|厄|逆|困)/)) return getVariant(line, [
+                    "此句揭示了命格中潛藏的挑戰。您生來可能體質較弱，或容易感受到生命的無常。但請記得，『命由天定，運由人造』，這份先天的警示是為了讓您更懂得惜福與養生，透過後天的修身養性，完全可以轉危為安。",
+                    "詩句點出了先天體質上的弱點。這並非不可逆轉的定局，而是一個善意的提醒。注重養生，保持樂觀心態，往往能逢凶化吉，延年益壽。",
+                    "命格中帶有些許波折的信號。但古人云「大德者不被命縛」，多行善積德，調整生活作息，便能增強元氣，走出屬於自己的康莊大道。"
+                ]);
+                if (line.match(/(寒|冷|微|無|輕|薄|孤|伶|仃|乞)/)) return getVariant(line, [
+                    "這句詩暗示您的起跑點可能較為平凡。祖輩留下的基業不多，讓您從小就養成了獨立自主的性格。這份白手起家的經歷，將是您未來最寶貴的資產。",
+                    "雖無豐厚的祖蔭庇佑，但這正是您展現個人能力的機會。您的每一分成就都將來自於自己的雙手，這種踏實感是任何財富都無法比擬的。",
+                    "起點雖低，但後勢可期。這句詩象徵著您是一顆待磨的鑽石，早期的匱乏是為了激發您內在的潛能，預示著您具有極強的生命韌性。"
+                ]);
+                if (line.match(/(清高|聰|明|智|慧|文|讀|學|才|秀|巧|靈|書|儒)/)) return getVariant(line, [
+                    "這是一個充滿靈氣的開局！您天生氣質出眾，資質聰穎，擁有過人的領悟力。無論從事何種行業，您的才華與智慧都將是您最亮眼的名片。",
+                    "天資聰穎是您最大的優勢。您對事物有獨到的見解，不願隨波逐流。善用您的智慧，在專業領域深耕，定能獲得令人矚目的成就。",
+                    "詩句讚賞您的精神世界豐富且高雅。您擁有文人雅士般的風骨，這份獨特的氣質讓您在人群中格外出眾，容易獲得他人的敬重。"
+                ]);
+                if (line.match(/(福|祿|財|金|榮|貴|堆|玉|厚|清|旺|真|非|凡|君|喜|吉|祥)/)) return getVariant(line, [
+                    "真是令人羨慕的開局！這句詩點出您命中『帶財帶貴』，先天福報深厚。這份與生俱來的福氣，將為您的一生奠定穩固安樂的基礎。",
+                    "命格基調相當優越，象徵著富貴與榮耀。您可能自帶幸運體質，在人生的關鍵時刻總能獲得資源挹注，順風順水。",
+                    "此乃福澤深厚之象。無論是物質生活還是社會地位，您都有極高的起點。珍惜這份福報，並心存善念，運勢將會更加長久。"
+                ]);
+                if (line.match(/(飄|離|移|走|遠|外|遊|忙|碌|東|西|南|北)/)) return getVariant(line, [
+                    "這句詩顯示您有著『驛馬』星動的特質。您注定不是池中之物，家鄉的舞台太小了。別害怕變動，廣闊的世界才是您真正的家。",
+                    "命帶驛馬，動中求財。您的機遇往往在遠方，離開舒適圈反而能激發您的潛能。多出去走走看看，將會為您帶來意想不到的收穫。",
+                    "註定要行萬里路的命格。您適合向外發展，甚至是海外求職。移動不僅能增廣見聞，更是您開啟好運的鑰匙。"
+                ]);
+                if (line.match(/(僧|道|佛|空|緣)/)) return getVariant(line, [
+                    "這句詩帶有濃厚的宗教或哲學色彩。暗示您與佛道有緣，或者性格中有一份超脫世俗的寧靜。您對精神層面的追求往往高於物質享受。",
+                    "命格中透著一份清靜與智慧。您可能對人生哲理有著比常人更深的體悟，這種超然的心境將幫助您度過人生的紛擾。",
+                    "與佛法或玄學有不解之緣。這代表您擁有極強的直覺與悟性，適合從事需要高度精神專注或心靈引導的工作。"
+                ]);
+
+                return getVariant(line, [
+                    "這句總綱詩為您的人生定下了基調。它顯示您擁有獨特的生命韌性，無論起點如何，您的性格中都藏著不服輸的種子。",
+                    "作為命格的開篇，這句詩暗示了您不凡的潛質。這是一個需要自我探索與定義的命格，您的價值將在您認識自己的過程中逐漸展現。",
+                    "這首詩揭示了您性格中的底色。無論外在環境如何變遷，保持內心的定力與初衷，將是您一生最重要的課題。"
+                ]);
+            }
+            else if (index === 1) { // --- PHASE 2: EARLY LIFE ---
+                if (line.match(/(勤|苦|勞|忙|奔|波|難|厄|折|磨|空|徒|費|憂|愁|酸|辣|煎|熬)/)) return getVariant(line, [
+                    "早年運勢顯示為『勞碌』之相。年輕時的您可能為了學業或生計四處奔波，但這些早期的辛苦都是在打磨您的鋒芒，為未來的成就累積能量。",
+                    "年輕時或許會感到比同齡人辛苦，凡事需親力親為。但請相信，所有的汗水都不會白流，這段經歷將培養出您堅不可摧的意志力。",
+                    "這句詩暗示早年多磨練。雖然過程艱辛，但這正是老天爺在擴充您的器量。您因此而獲得的抗壓性與實戰經驗，將是未來成功的基石。"
+                ]);
+                if (line.match(/(成|立|名|顯|高|通|達|標|榜|升|秀|美|好|強|順)/)) return getVariant(line, [
+                    "少年得志之象！您在年輕時期就有機會展露頭角，確立人生志向。早年的成功經驗將帶給您強大的自信，助您在人生賽道上領跑。",
+                    "這句詩預示著您早年運勢亨通。無論是學業還是初入職場，您都能展現出色的才華，獲得長輩或上司的賞識。",
+                    "起步相當順利，如同順風揚帆。您的才華在年輕時就能被看見，這是極大的優勢。請好好把握這段黃金時期，為未來打下堅實基礎。"
+                ]);
+                if (line.match(/(親|兄|弟|妹|無|靠|敗|散|冷|孤|單|獨|支|撐)/)) return getVariant(line, [
+                    "這句詩暗示早年親情緣分較淡，或六親助力難顯。您很早就學會了『靠自己』，這種獨立的性格將讓您在社會競爭中更具優勢。",
+                    "家族助力有限，一切需靠自己打拼。雖然初期會感到孤單，但這也讓您擺脫了人情的束縛，能更自由地追求自己想要的人生。",
+                    "六親緣薄，反而是激勵您向上的動力。您不依賴他人，習慣獨力解決問題，這種強大的獨立性是您最寶貴的特質。"
+                ]);
+                if (line.match(/(吉|祥|順|和|安|平|穩|定|足|盈|全)/)) return getVariant(line, [
+                    "早年運勢順遂，如同順水推舟。成長過程相對平穩，少有大風大浪。這份福氣讓您能心無旁騖地積累知識，為將來做好準備。",
+                    "平穩安樂的早年。您可能在充滿愛的環境中成長，或者求學之路相當順利。這種穩定感是您性格中溫暖與自信的來源。",
+                    "運勢平順，少有挫折。這讓您擁有比別人更健康的心理素質。利用這段平穩期充實自己，將是您未來最大的本錢。"
+                ]);
+                if (line.match(/(婚|姻|夫|妻|郎|配)/)) return getVariant(line, [
+                    "早年的運勢似乎與『緣分』緊密相關。這可能暗示您早婚，或者在年輕時就經歷了深刻的情感課題，教會您如何去愛。",
+                    "情竇初開較早。這句詩暗示感情生活將佔據您早年很大的比重。無論結果如何，這些經歷都將使您的心智更加成熟。",
+                    "姻緣早定之象。您可能很年輕就會遇到生命中重要的人，這段關係將對您的人生軌跡產生深遠的影響。"
+                ]);
+
+                return getVariant(line, [
+                    "這句詩描述了您成長過程中的點滴。或許早年有些許波折，但這正是命運在教導您如何面對世界，塑造了您現在的價值觀。",
+                    "回首早年歲月，無論是苦是樂，都是您生命中不可或缺的養分。這些經歷讓您學會了珍惜，也更加懂得如何在逆境中尋找光亮。",
+                    "早年的際遇深刻影響了您的性格。這段時期的探索與嘗試，雖然懵懂，卻為您後來的人生方向埋下了重要的伏筆。"
+                ]);
+            }
+            else if (index === 2) { // --- PHASE 3: MID-LIFE ---
+                if (line.match(/(三|四|中|年|轉|換|變|改|過|運|限|時|機|枯|木|花)/)) return getVariant(line, [
+                    "中年是您人生的關鍵轉折點！詩句暗示在這個階段，運勢將迎來重大變化。請把握時機大膽求變，這次的轉折往往是『否極泰來』的開始。",
+                    "行至中年，將迎來柳暗花明又一村的契機。過去的累積將在此時發生質變，只要勇於突破現狀，必能看見更廣闊的天空。",
+                    "這是一個破繭成碟的關鍵期。或許會面臨變動與挑戰，但請不要抗拒，因為這正是命運將您推向更高峰的推手。"
+                ]);
+                if (line.match(/(名|利|財|發|旺|興|隆|官|職|權|威|耀|榮|華|富|貴|金|銀|勝|前)/)) return getVariant(line, [
+                    "這是事業騰飛的徵兆！人到中年，過去的努力開始兌現。財源廣進，名利雙收，這句詩鼓勵您在此階段全力衝刺，收穫將超乎想像。",
+                    "中年運勢如日中天，是人生收穫最豐碩的黃金時期。無論是職位晉升還是財富累積，都能達到一個新的高度。",
+                    "名利雙收之象。您在專業領域的地位將在此時確立，多年的耕耘終於結出累累碩果，是值得慶祝的豐收時刻。"
+                ]);
+                if (line.match(/(蹉|跎|難|阻|滯|遲|未|空|夢|虛|妄|費|力|如|水|流|鏡|花)/)) return getVariant(line, [
+                    "中年時期可能仍需經歷一番考驗。目前的進展可能比預期緩慢，有種『好事多磨』的感覺。調整步伐，耐心沉潛，堅持到最後一刻。",
+                    "雖然看似進展停滯，實則是在蓄力。這句詩提醒您不要急躁，時機未到時宜守不宜攻，養精蓄銳等待下一次的爆發。",
+                    "夢想的實現或許會遲到，但不會缺席。中年的波折是為了考驗您的決心，只要不輕言放棄，轉機往往就在下一個路口。"
+                ]);
+                if (line.match(/(貴|人|助|遇|逢|提|攜|合|夥|交|易)/)) return getVariant(line, [
+                    "中年運勢貴人運極旺！在您打拼的過程中，將會遇到賞識您的伯樂。善用您的社交資源，多與人合作，將能突破瓶頸。",
+                    "貴人來相助。這句詩強調人脈的重要性。您身邊將出現強有力的合作夥伴，藉助他人的力量，您將能達成更大的成就。",
+                    "逢凶化吉，遇難呈祥。中年的運勢因「人」而貴。多廣結善緣，這些人際存摺將在關鍵時刻為您提供最大的助力。"
+                ]);
+                if (line.match(/(自|立|更|生|守|舊|安|然|逍|遙)/)) return getVariant(line, [
+                    "中年的運勢趨向平穩，適合守成。這句詩建議您專注於本業，不宜過度冒進。在平淡中尋找確定的幸福，也是一種難得的福氣。",
+                    "穩紮穩打是此階段的上策。不求大富大貴，但求心安理得。這種安然自得的生活態度，將讓您避開許多不必要的風險。",
+                    "逍遙自在之象。您可能不再執著於名利的追逐，轉而追求內心的平靜。這份從容將讓您的中年生活更有品質。"
+                ]);
+
+                return getVariant(line, [
+                    "這句詩點出了您中年時期的運勢走向。這是一段奮鬥與收穫並存的時光。無論目前現狀如何，都請保持積極向上的心態。",
+                    "中年是人生的中流砥柱。這句詩語帶玄機，暗示著您在此階段的選擇將決定後半生的格局，務必審慎而行。",
+                    "行至半途，更見心志。這段時期的經歷將主要圍繞在事業與家庭的平衡，您的智慧將引領您度過每一個關卡。"
+                ]);
+            }
+            else { // --- PHASE 4: LATE LIFE ---
+                if (line.match(/(福|壽|安|樂|休|閒|悠|泰|吉|慶|佳|美|稱|心|如|意|康|健)/)) return getVariant(line, [
+                    "這是最令人嚮往的結局！詩句預示您的晚年生活將充滿福氣與安樂。勞碌半生，終於能卸下重擔，享受清閒的退休生活。",
+                    "晚景優渥，身心安泰。這份寧靜與滿足，是您一生努力最好的回報。請放下牽掛，盡情享受這份歲月靜好的福份。",
+                    "福壽雙全之象。晚年的您將擁有健康的身體與愉悅的心情，無病無災，是修來的好福氣。"
+                ]);
+                if (line.match(/(財|富|金|倉|庫|豐|足|祿|帛|源|堆|積|滿|盈|宏|隆|翁)/)) return getVariant(line, [
+                    "晚景富足之象！您的倉庫將堆滿金玉。您不僅自身財富自由，更有能力庇蔭子孫。這代表您一生的理財規劃相當成功。",
+                    "財星晚年高照，經濟狀況十分寬裕。您將不缺錢花，甚至能過上比年輕時更優渥的生活，是標準的富貴閒人。",
+                    "積玉堆金，晚年無憂。這句詩保證了您物質生活的豐足，過去的辛勤耕耘，將化為晚年最堅實的經濟保障。"
+                ]);
+                if (line.match(/(子|孫|賢|孝|家|興|骨|肉|庭|眷|屬|圓|滿|聚)/)) return getVariant(line, [
+                    "家族興旺的吉兆！晚年的您將享受天倫之樂，子孫賢孝有成。看著後輩成材，家庭和樂融融，這將是您晚年最大的安慰。",
+                    "蘭桂騰芳，滿門俊秀。這句詩強調了家族血脈的成功傳承。您不僅傳承了財富，更傳承了良好的家風，後福無窮。",
+                    "兒孫繞膝，福氣滿門。晚年的幸福來源於親情的滋潤。您將被愛包圍，享受著大家族熱鬧溫馨的氛圍。"
+                ]);
+                if (line.match(/(成|名|顯|達|榮|耀|皇|紫|極|品|威|聲|聞|揚)/)) return getVariant(line, [
+                    "大器晚成，名留青史！即使到了晚年，您的聲望與地位依然不減。您的一生沒有白活，留下了精彩的故事與榜樣。",
+                    "晚年享有極高的社會清望。這句詩意味著您的成就經得起時間考驗，將獲得後輩的敬重與景仰，榮耀滿門。",
+                    "功成名就，光耀門楣。您的晚年將在眾人的掌聲與尊重中度過，這是對您一生貢獻最大的肯定。"
+                ]);
+                if (line.match(/(無|憂|無|慮|不|須|愁|莫|苦|求)/)) return getVariant(line, [
+                    "這是一種『放下』的智慧與福氣。詩句預示您晚年將無憂無慮，不再為世俗瑣事煩心。這種心靈的自由比金錢更珍貴。",
+                    "笑看風雲，安享當下。這句詩代表您心境的豁達與轉化。所有的煩惱都已隨風而去，只留下歲月沉澱後的寧靜。",
+                    "莫苦求，福自來。晚年的您懂得了順其自然，這種知足常樂的心態，將讓您的日子過得比任何人都輕鬆快活。"
+                ]);
+
+                return getVariant(line, [
+                    "這句壓軸詩為您的一生畫下了句點。它預示著一個平靜而有所獲的晚年，您的生命故事終將迎來一個圓滿的章節。",
+                    "夕陽無限好。這句詩象徵著晚年的智慧與圓融，回首來時路，雖有風雨，但更多的是成長與釋懷。",
+                    "結局是美好的。無論過程如何，這句詩保證了您最終能獲得內心的平靜，安享天倫，了無遺憾。"
+                ]);
+            }
         }
 
         // --- FOUR PILLARS PLAIN ANALYSIS ENGINE ---
-        const dayMasterMap = {
-            "甲": { name: "甲木 (參天大樹)", desc: "您就像一棵參天大樹，性格正直仁慈，雖有時不知變通，但擁有強大的上進心與責任感。您不輕易服輸，即使面對風雨也能屹立不摇，是值得信賴的依靠。" },
-            "乙": { name: "乙木 (花草之木)", desc: "您如同蔓藤花草，性格柔順且富有彈性。您適應環境的能力極強，能屈能伸，善於以柔克剛。心思細膩敏感，善於察言觀色，在人際關係中遊刃有餘。" },
-            "丙": { name: "丙火 (太陽之火)", desc: "您是熱情的太陽，充滿活力與朝氣。您待人慷慨豪爽，藏不住心事，情緒來得快去得也快。雖然有時稍顯衝動，但那份積極樂觀的感染力，總能溫暖身邊的人。" },
-            "丁": { name: "丁火 (燈燭之火)", desc: "您像夜裡的燈火，溫文儒雅，看似柔弱，內心卻蘊藏著強大的能量。您思慮縝密，洞察力強，雖然多愁善感，但總能在關鍵時刻發揮犧牲奉獻的精神，照亮他人。" },
-            "戊": { name: "戊土 (城牆之土)", desc: "您如厚實的城牆，穩重踏實，講究誠信。您的包容力極強，不會斤斤計較，給人極大的安全感。雖然反應可能不快，且有時略顯固執，但那份堅定不移的意志是您成功的基石。" },
-            "己": { name: "己土 (田園之土)", desc: "您是培育萬物的田園，性格內斂含蓄，處事謹慎。您多才多藝，具有極強的理解力與學習力。雖然不愛出風頭，但您的度量寬宏，能像大地一樣默默承載並轉化一切。" },
-            "庚": { name: "庚金 (刀劍之金)", desc: "您是剛毅的刀劍，性格果斷，愛恨分明。您講義氣，好打抱不平，不畏強權。雖然有時直言快語容易得罪人，但那份剛直不阿的俠義心腸，讓您具備了開創局面的魄力。" },
-            "辛": { name: "辛金 (珠寶之金)", desc: "您是閃耀的珠寶，氣質高雅，自尊心強。您心思細膩，對美有獨到的見解。雖然表面圓融，但內心有棱有角，好面子，不願輕易示弱。您是經過琢磨才成器的精品。" },
-            "壬": { name: "壬水 (江河之水)", desc: "您是奔騰的江河，聰明智慧，不拘小節。您的思維活躍，適應力強，不喜歡受到束縛。雖然有時情緒起伏較大，如同海浪般洶湧，但在大是大非面前，您擁有容納百川的氣度。" },
-            "癸": { name: "癸水 (雨露之水)", desc: "您是滋潤萬物的雨露，性格溫柔沉靜，外表平靜內心卻波瀾壯闊。您直覺敏銳，善解人意，擁有豐富的想像力。雖然較為內向神秘，卻總能在無聲無息中滲透並改變局勢。" }
+        // --- COMPLEX DAY MASTER ATTRIBUTES (Source of Detailed Analysis) ---
+        const dayMasterAttributes = {
+            "甲": {
+                name: "甲木 (參天大樹)",
+                desc: "正直仁慈，棟樑之材",
+                character: "您的本命元神為「甲木」，象徵參天大樹。這代表您天生具有「向上生長」的意志力，性格正直、仁慈且富責任感。您像大樹一樣不屈不撓，遇到風雨也不輕易低頭。這種特質讓您在人群中容易成為值得信賴的依靠，但有時因過於剛直，不懂變通，容易在無意間得罪人而不自知。",
+                career: "甲木人具備領袖氣質與宏觀視野。您不適合機械式、重複性的工作，而是需要一個能讓您「紮根」並持續成長的舞台。您有很強的保護欲與統籌能力，適合承擔重任。之所以能成大事，是因為您能像大樹一樣，耐得住寂寞，長期耕耘直到開花結果。",
+                wealth: "您的財運多來自於「正財」，即踏實工作所得。大樹成長緩慢但穩固，您的財富也往往是隨年齡增長而累積。不建議追求短線的高風險投機，因為甲木的根基一動，容易傷及元氣。只要專注本業，您的「蔭庇」能力（資產）將越來越豐厚。",
+                love: "在感情中，您是像大樹一樣遮風擋雨的守護者。雖然不擅長甜言蜜語，但給予伴侶的安全感是無可取代的。您傾向於穩定的長久關係，但需注意不要過於大男人/大女人主義，適度的溫柔彎腰，會讓感情更和諧。"
+            },
+            "乙": {
+                name: "乙木 (花草之木)",
+                desc: "柔順靈活，適應力強",
+                character: "您的本命元神為「乙木」，象徵蔓藤花草。主要特質為「以柔克剛」，您擁有極強的環境適應力與韌性。不同於甲木的強硬，您懂得身段柔軟，善於察言觀色與協調人際。這種細膩的心思讓您在處理複雜關係時游刃有餘，但有時也容易因過於敏感而產生依賴心或優柔寡斷。",
+                career: "乙木人是天生的謀略家與協調者。您擅長「藉力使力」，就像藤蔓攀附大樹一樣，您懂得尋找強有力的合作夥伴。您的思維靈活，適合在變化快速的環境中生存。之所以能成功，往往是因為您能看見別人忽略的細節，與能在夾縫中求生存的生存智慧。",
+                wealth: "您的財源非常靈活，往往有多個小的收入來源匯聚成河。您具備敏銳的市場嗅覺，能捕捉到微小的商機。不像大樹需要深根，花草隨風傳播，您的財運也帶有流動性。適合利用人脈生財，口碑與人際網絡是您最大的金礦。",
+                love: "情感豐富且細膩是您的特點。您像纏繞的藤蔓，在感情中容易依賴對方，渴望被呵護。因為心思敏感，容易受到情緒波動影響。建議在感情中培養多一點獨立性，那份溫柔將成為您最迷人的武器。"
+            },
+            "丙": {
+                name: "丙火 (太陽之火)",
+                desc: "熱情豪爽，光耀照人",
+                character: "您的本命元神為「丙火」，象徵天上的太陽。您天生自帶光芒，熱情、開朗、充滿正能量。您心裡藏不住事，喜怒哀樂全寫在臉上，這種真誠讓您極具感染力。您樂於助人，不求回報，就像太陽無私普照大地。但要注意有時熱情過度會變為急躁，或好面子而打腫臉充胖子。",
+                career: "丙火人天生屬於舞台。您需要一份能展現自我、受到關注的工作。您的領袖魅力強大，能夠瞬間點燃團隊的熱情。之所以在職場受歡迎，是因為您從不吝嗇給予他人讚美與溫暖。切記，太陽若被烏雲遮蔽（挫折）會失去光彩，保持自信是您唯一的生存法則。",
+                wealth: "您的財運通常是大進大出。因為慷慨豪爽，交際應酬開銷大，但也因此結識各路英雄好漢，帶來廣闊的財路。您的財富多與「名氣」掛鉤，名氣越大，財運越旺。建立個人品牌或信譽，是您致富的最佳捷徑。",
+                love: "您的愛像正午的陽光，熱烈而直接。喜歡一個人會主動出擊，毫無保留。在感情中您坦率真誠，不喜歡猜忌。但要注意，陽光太強有時會灼傷人，給對方一點私密空間，這段關係會更舒適長久。"
+            },
+            "丁": {
+                name: "丁火 (燈燭之火)",
+                desc: "溫文儒雅，心思縝密",
+                character: "您的本命元神為「丁火」，象徵夜裡的燈燭。不同於太陽的普照，您的光芒是集中且溫暖的。您外表或許溫文儒雅，內心卻蘊藏著強大的爆發力。心思縝密，洞察力極強，往往能看穿事物的本質。您有犧牲奉獻的精神，願意燃燒自己照亮他人，但若長期壓抑，內心容易積累負面情緒。",
+                career: "丁火人是優秀的策劃者與幕後推手。您能在黑暗中指引方向，適合從事需要深度思考或引導他人的工作。您的價值在於「專注」，能將一件小事做到極致。之所以受人敬重，是因為您在關鍵時刻總能提出獨到的見解，或在危機中成為眾人的精神支柱。",
+                wealth: "您的財運來自於專業技術或智慧財。燈火需要燃油（知識/技能）才能長明，因此投資自己是最好的理財。您的財富有積少成多的特質，雖然不像暴發戶般耀眼，但勝在細水長流，晚年財運通常優於早年。",
+                love: "您的感情含蓄而深沉，像燭光晚餐般浪漫。您非常敏感，容易多愁善感。一旦愛上一個人，會把對方放在心尖上呵護。建議您多表達內心的想法，別讓對方猜謎，否則那份深情容易變成一種沉重的負擔。"
+            },
+            "戊": {
+                name: "戊土 (城牆之土)",
+                desc: "穩重厚實，誠信寬容",
+                character: "您的本命元神為「戊土」，象徵厚實的城牆或高山。主要特質是「信」，您給人極大的安全感，答應的事絕不食言。性格穩重、寬容，擁有大將之風。您不容易被外界動搖，但這種堅定有時也會變成固執不知變通。您像大地一樣沉默寡言，卻默默承載著所有的責任與壓力。",
+                career: "戊土人是團隊中的定海神針。您不一定是最衝鋒陷陣的，但一定是最能穩住局面的。適合在大型機構或穩定體系中發展。之所以能身居高位，是因為您的包容力能整合各種不同的人才，且在危機來臨時，您能成為大家最堅實的後盾。",
+                wealth: "土主信，信生財。您的財富建立在良好的信用資產上。雖然發財速度不快，但基礎非常穩固，不易破敗。房地產或土地相關投資往往是您的幸運領域。只要守住「誠信」二字，財富自然會像山嶽一樣越堆越高。",
+                love: "您的愛情像山一樣堅定。不輕易動情，一旦認定就是一輩子。您不懂花言巧語，只會用實際行動來照顧對方。您的伴侶會感到無比的踏實與安全。但要注意，偶爾製造一點浪漫與驚喜，能讓這份如岩石般的愛更具情趣。"
+            },
+            "己": {
+                name: "己土 (田園之土)",
+                desc: "內斂含蓄，多才多藝",
+                character: "您的本命元神為「己土」，象徵培育萬物的田園土壤。您性格內斂、溫和，處事謹慎圓融。您多才多藝，具有極強的吸收力與轉化力，能將前人的智慧轉化為自己的養分。雖然不像高山那樣雄偉，但您擁有滋養萬物的包容心，私底下往往是朋友圈中最好的傾聽者與軍師。",
+                career: "己土人是解決問題的高手。您擅長處理細節與複雜的人際關係。不像戊土那麼剛硬，您懂得用迂迴的方式達成目的。適合從事教育、培訓或服務性質的工作。之所以不可或缺，是因為所有的大樹（人才）都需要您這塊田園提供養分才能成長。",
+                wealth: "您的財富來自於「耕耘」。田園需要播種、施肥才有收穫，所以您不適合投機，而適合透過長期經營來獲利。您善於理財，懂得精打細算。只要像農夫一樣勤奮，您的資產庫就會像豐收的糧倉一樣，年年有餘。",
+                love: "您的感情細膩且包容。在關係中，您往往是付出較多的一方，像土壤滋養植物一樣滋養著伴侶。這是一種潤物細無聲的愛。但要小心，不要過度寵壞對方，要有自己的原則與界線，感情才能健康生長。"
+            },
+            "庚": {
+                name: "庚金 (刀劍之金)",
+                desc: "剛毅果斷，義氣干雲",
+                character: "您的本命元神為「庚金」，象徵鋒利的刀劍或鋼鐵。主要特質是「剛」，您性格豪爽，愛恨分明，做事乾脆俐落，絕不拖泥帶水。您極重義氣，路見不平必拔刀相助。這種剛直的性格讓您極具魄力，但也容易因為說話太直、不懂修飾而無意傷人，就像刀劍太利容易傷手。",
+                career: "庚金人是天生的開拓者與改革者。您不畏艱難，越是混亂的局面越能激發您的鬥志。適合從事軍警、司法、改革性強或需要高度執行力的工作。之所以能成大器，是因為您具備斬斷亂麻的決斷力，在關鍵時刻敢於做別人不敢做的決定。",
+                wealth: "您的財運帶有「肅殺」之氣，意味著財富往往來自於變革或競爭。您有賺大錢的魄力，敢於冒險投資。金子需要火煉才能成器，所以經歷一些財務波折反而能讓您的理財觀念更成熟。適合技術生財或高競爭領域的獲利。",
+                love: "您的愛是霸道總裁式的。愛就愛得轟轟烈烈，不愛就斷得乾乾淨淨。您對伴侶不僅是愛，更有一份責任與保護欲。但要注意，感情不是戰場，不需要分出勝負。學會示弱與溫柔，把百煉鋼化為繞指柔，是您感情修煉的重點。"
+            },
+            "辛": {
+                name: "辛金 (珠寶之金)",
+                desc: "高貴優雅，外柔內剛",
+                character: "您的本命元神為「辛金」，象徵精緻的珠寶首飾。您天生帶有一種貴氣，重視生活品味與儀式感。心思細膩，對美有獨到的鑑賞力。表面上看起來柔和圓融，其實內心自尊心極強，亦有稜角（珠寶雖小卻堅硬）。您好面子，受不得氣，對於輕視您的人會記在心裡。",
+                career: "辛金人是完美的代言人。您做事追求極致，容不下瑕疵。適合從事設計、精品、金融或任何需要精密與品味的工作。您的價值在於「質感」，能將普通的事物提升到藝術的層次。之所以能脫穎而出，是因為您那份與生俱來的高級感與對完美的執著。",
+                wealth: "您的財富如同珠寶，是「藏」起來的。您不喜歡露白，但私底下可能積蓄頗豐。您有獨特的投資眼光，善於發掘潛力股。不像庚金的大開大闔，您的財運是精緻靈巧的，適合透過智取或專業技能獲取高附加價值的報酬。",
+                love: "您希望擁有一段像偶像劇般完美的愛情。對伴侶的要求較高，不僅要條件好，還要有品味。在感情中您比較矜持，希望對方主動。但要記得，人無完人，放下對完美的執著，接納真實的對方，您會發現不完美的愛情更動人。"
+            },
+            "壬": {
+                name: "壬水 (江河之水)",
+                desc: "聰明奔放，海納百川",
+                character: "您的本命元神為「壬水」，象徵奔騰的江河大海。主要特質是「動」，您思維活躍，反應極快，充滿智慧。您不喜歡受到束縛，嚮往自由自在的生活。您的包容力極強，像大海一樣能容納百川，大是大非面前非常有氣度。但有時情緒起伏較大，任性起來就像洪水氾濫，難以控制。",
+                career: "壬水人是天生的策路家與外交官。您適應力極強，到哪裡都能生存。適合從事變動性大、需要創意與口才的工作，如貿易、媒體、或自由業。之所以能成功，是因為您的眼界寬廣，能看見別人看不見的趨勢，且懂得順勢而為，像水一樣繞過障礙奔向大海。",
+                wealth: "水主智，智生財。您的財富來自於流動與智慧。靜止的水會發臭，所以您的錢必須「動」起來才能增值（如貿易、投資）。您有大開大闔的財氣，容易發橫財，但若無堤防（自制力），錢財也容易流失。學會築堤蓄水（儲蓄），是您理財的關鍵。",
+                love: "您的感情像海浪一樣洶湧澎湃。多情、浪漫且充滿魅力，異性緣通常很好。您喜歡聰明有趣的伴侶，受不了沉悶。在感情中您需要很大的自由空間。但要小心，太自由容易讓對方缺乏安全感。給予承諾並落實，是讓感情停泊港灣的錨。"
+            },
+            "癸": {
+                name: "癸水 (雨露之水)",
+                desc: "溫柔細膩，潤物無聲",
+                character: "您的本命元神為「癸水」，象徵滋潤萬物的晨露或雨水。您性格溫柔沉靜，外表看似平靜，內心卻情感豐富波瀾壯闊。您直覺敏銳，善解人意，是最富同理心的人。做事採取滲透戰術，無聲無息中改變局勢。雖然看起來柔弱，但滴水穿石，您的韌性往往超乎想像。",
+                career: "癸水人是最佳的輔佐者與潛移默化者。您不需要在台前大呼小叫，卻能掌控全局。適合心理諮詢、研發、幕後策劃等需要細膩思維的工作。之所以強大，是因為您無孔不入，能滲透到每個人的心裡。您的力量是柔性的，卻能化解最剛硬的障礙。",
+                wealth: "您的財運細水長流。雨露雖小，但積少成多。您適合賺取服務財或腦力財。您對金錢有獨特的直覺，往往能憑感覺避開風險。不像壬水的大起大落，您的財富是透過一點一滴的積累與滲透而來，最終匯聚成湖。",
+                love: "您的愛情是浪漫且夢幻的。您極度渴望靈魂伴侶，對於感覺非常重視。在感情中，您溫柔體貼，願意為對方改變自己（像水適應容器）。但有時過於敏感多疑，容易情緒化。學會建立內心的安全感，不要讓情緒的雨季下得太久，愛情的花朵才能綻放。"
+            }
         };
 
         const zodiacMap = {
-            "子": "聰明機靈，善於社交，觀察力敏銳。",
-            "丑": "勤奮踏實，耐力極佳，但稍顯固執。",
-            "寅": "行動力強，充滿自信，有領袖風範。",
-            "卯": "溫和文靜，心思細膩，但稍顯優柔。",
-            "辰": "氣宇非凡，志向遠大，好勝心強。",
-            "巳": "神秘敏銳，冷靜沈著，處事圓融。",
-            "午": "熱情奔放送，性格開朗，但性急易怒。",
-            "未": "溫柔敦厚，富同情心，外柔內剛。",
-            "申": "活潑好動，多才多藝，機智過人。",
-            "酉": "深思熟慮，勤奮上進，追求完美。",
-            "戌": "忠誠可靠，直率坦白，防衛心強。",
-            "亥": "樂觀豁達，心地善良，不拘小節。"
+            "子": "聰明機靈，善於社交，觀察力敏銳",
+            "丑": "勤奮踏實，耐力極佳，但稍顯固執",
+            "寅": "行動力強，充滿自信，有領袖風範",
+            "卯": "溫和文靜，心思細膩，但稍顯優柔",
+            "辰": "氣宇非凡，志向遠大，好勝心強",
+            "巳": "神秘敏銳，冷靜沈著，處事圓融",
+            "午": "熱情奔放送，性格開朗，但性急易怒",
+            "未": "溫柔敦厚，富同情心，外柔內剛",
+            "申": "活潑好動，多才多藝，機智過人",
+            "酉": "深思熟慮，勤奮上進，追求完美",
+            "戌": "忠誠可靠，直率坦白，防衛心強",
+            "亥": "樂觀豁達，心地善良，不拘小節"
         };
 
-        function renderFourPillarsAnalysis(lunar) {
-            // Get GanZhi strings
+        function renderFourPillarsAnalysis(detail, lunar) {
+            // 1. Fill Text Content from Comprehensive Analysis Detail
+            if (document.getElementById('analysisCharacter')) document.getElementById('analysisCharacter').innerHTML = detail.character;
+            if (document.getElementById('analysisWealth')) document.getElementById('analysisWealth').innerHTML = detail.wealth;
+            if (document.getElementById('analysisCareer')) document.getElementById('analysisCareer').innerHTML = detail.career;
+            if (document.getElementById('analysisLove')) document.getElementById('analysisLove').innerHTML = detail.love;
+
+            // 2. Extra Career Recommendations (from Day Master Element) - Preserving original logic
             const bazi = lunar.getBaZi();
-            const yearStr = bazi[0];
-            const monthStr = bazi[1];
-            const dayStr = bazi[2];
-            const timeStr = bazi[3];
+            const dayGan = bazi[2].substring(0, 1);
+            const dmElement = wuxingMap[dayGan];
 
-            // Get Components (Robust extraction)
-            const dayGan = dayStr.substring(0, 1); // Day Stem
-            const yearZhi = yearStr.substring(1, 2); // Year Branch
+            const careerExtraDiv = document.getElementById('analysisCareerExtra');
+            if (careerExtraDiv) {
+                careerExtraDiv.innerHTML = ""; // Clear previous
 
-            // Update Strings in Cards
-            document.getElementById('fpYearStr').innerText = yearStr;
-            document.getElementById('fpMonthStr').innerText = monthStr;
-            document.getElementById('fpDayStr').innerText = dayStr;
-            document.getElementById('fpTimeStr').innerText = timeStr;
-
-            // 1. Year Analysis
-            const zDesc = zodiacMap[yearZhi] || "";
-            document.getElementById('fpYearZodiac').innerText = `生肖特質：${zDesc.substring(0, 4)}...`;
-            document.getElementById('fpYearDesc').innerText = `您出生於${yearStr}年，生肖特質帶有【${yearZhi}】的能量。${zDesc}年柱代表了您的根基與初運，顯示您在少年時期（16歲前）深受祖輩或長輩的影響，性格底色中帶有${zDesc}的特點。`;
-
-            // 2. Day Analysis
-            const dm = dayMasterMap[dayGan];
-            if (dm) {
-                document.getElementById('fpDayMaster').innerText = dm.name;
-                document.getElementById('fpDayDesc').innerHTML = `<span class="text-red-700 font-bold">${dm.name}</span>：${dm.desc}`;
-            } else {
-                document.getElementById('fpDayDesc').innerText = "資料讀取中...";
+                if (dmElement && wuxingInfo[dmElement]) {
+                    const careers = wuxingInfo[dmElement].careers;
+                    const careerHtml = `
+                        <div class="mt-4 pt-4 border-t border-dashed border-red-100">
+                            <h6 class="text-sm font-bold text-gray-700 mb-3 flex items-center">
+                                <svg class="w-4 h-4 mr-1.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                適合您的職業方向
+                            </h6>
+                            <div class="space-y-2.5">
+                                ${careers.map(c => {
+                        const parts = c.split("：");
+                        const category = parts[0];
+                        const details = parts[1] || "";
+                        return `
+                                    <div class="flex items-start">
+                                        <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded text-xs font-bold bg-red-50 text-red-700 border border-red-100 mr-2 shrink-0">
+                                            ${category}
+                                        </span>
+                                        <p class="text-xs text-gray-600 leading-5 pt-0.5">${details}</p>
+                                    </div>
+                                    `;
+                    }).join('')}
+                            </div>
+                        </div>
+                    `;
+                    careerExtraDiv.innerHTML = careerHtml;
+                }
             }
+        }
+
+        // --- FIVE ELEMENTS LOGIC ---
+        const wuxingMap = {
+            // Heavenly Stems
+            "甲": "wood", "乙": "wood",
+            "丙": "fire", "丁": "fire",
+            "戊": "earth", "己": "earth",
+            "庚": "metal", "辛": "metal",
+            "壬": "water", "癸": "water",
+            // Earthly Branches (Main Qi)
+            "寅": "wood", "卯": "wood",
+            "巳": "fire", "午": "fire",
+            "辰": "earth", "戌": "earth", "丑": "earth", "未": "earth",
+            "申": "metal", "酉": "metal",
+            "亥": "water", "子": "water"
+        };
+
+        const wuxingInfo = {
+            wood: {
+                name: "木",
+                missingReason: "五行缺木，猶如樹木無根，性格上容易缺乏仁愛與惻隱之心。行事往往欠缺條理與恆心，容易半途而廢。在人際與處事上，可能較為剛硬、缺乏彈性與包容力，難以適應環境的變化。思維上較少創新，對於未來的規劃也常感到迷茫，不易定下心來深耕單一領域。",
+                crystals: [
+                    { name: "綠幽靈", desc: "主正財，被譽為『事業水晶』，其綠色光芒對應心輪，能帶來工作上的好運與貴人運。它非屬橫財，而是獎勵努力工作後的正當報酬，能增強您的企圖心與執行力，為木行注入源源不絕的生機與活力。" },
+                    { name: "孔雀石", desc: "具有強大的轉化與保護能量，能吸收外在負面情緒與壓力，撫平內心焦躁。它能讓您的心境回歸平和與包容，重啟木行的仁愛特質，並帶來幸運與希望。" },
+                    { name: "葡萄石", desc: "溫和而具韌性的『希望之石』，能指引人生方向，增強直覺與判斷力。在您迷惘時，它能助您堅定信念，培養木行所需的恆心與毅力，堅持到底。" }
+                ],
+                geodeShape: { shape: "長方形 (木型)", reason: "缺木者常缺定性與持續力。長方形晶洞象徵『向上生長』的力量，能輔助您紮根穩固，增強耐心與事業開創的續航力。" },
+
+                careers: [
+                    "文教相關：教育界、文學創作、出版業、書店、培訓機構",
+                    "自然與生機：園藝、農林業、木材家具、花店、中草藥、素食餐飲",
+                    "設計與藝術：服裝設計、室內設計、文創產業、美術館"
+                ]
+            },
+            fire: {
+                name: "火",
+                missingReason: "五行缺火，猶如寒夜無燈，性格上傾向內向、冷淡，對於周遭事物缺乏熱情與積極的動力。在人群中往往較為沈默，不善於表達情感。做事時容易虎頭蛇尾，缺乏衝勁與冒險精神，遇到困難容易退縮。思維較為悲觀，缺乏自信與領袖魅力，難以帶動團隊氣氛。",
+                crystals: [
+                    { name: "紅紋石", desc: "擁有『愛神小丘比特』之稱，能徹底打開被封閉的心輪，釋放負面記憶。它能讓您重拾對生命的熱情與活力，散發自信粉紅光芒，補足火行缺失的感染力與人緣。" },
+                    { name: "紫水晶", desc: "兼具理性與感性的『社交之石』，能提升社交手腕，招來貴人相助。它能讓您在人群中散發自信與智慧的光芒，同時穩定情緒，改善內向冷淡的特質，激發潛在的領導力。" },
+                    { name: "紅瑪瑙", desc: "象徵友善與堅毅的寶石，能激發體內的陽剛之氣，消除恐懼與猶豫。它能讓您做事更有魄力與衝勁，改善虎頭蛇尾的毛病，不僅美容養顏，更能增強行動力。" }
+                ],
+                geodeShape: { shape: "三角形/不規則尖頂 (火型)", reason: "缺火者易缺乏動力與熱情。三角形晶洞狀似火焰，能有效地激發您的行動力與領導魅力，點燃對生活的熱忱與積極性。" },
+
+                careers: [
+                    "光熱能源：能源產業、電力、照明、燃氣、太陽能",
+                    "美與表演：演藝娛樂、美容美髮、化妝品、攝影、廣告行銷",
+                    "餐飲與服務：熱食餐飲、百貨零售、酒店管理、手工藝品"
+                ]
+            },
+            earth: {
+                name: "土",
+                missingReason: "五行缺土，猶如地基不穩，性格上可能較缺乏穩重感與信用，給人一種漂泊不定、難以捉摸的感覺。內心深處常缺乏安全感，導致行事反覆無常，難以堅持原則。在人際交往中，可能較為現實或缺乏包容力，難以建立深厚長久的信任關係，且容易在居住或職業上頻繁變動。",
+                crystals: [
+                    { name: "黃水晶", desc: "被譽為『財富之石』，其黃色光芒對應太陽輪，能大幅增強自信心與果敢的決策力。它能消除猶豫不決，為不穩定的土行帶來強大的安穩能量，同時招來意想不到的偏財運。" },
+                    { name: "虎眼石", desc: "霸氣之石，擁有如老虎般銳利的眼神，能激發勇氣與執行力，貫徹始終。它能強化氣場，讓您建立威信，改善漂泊不定的心性，帶來如大地般堅定不移的行動力。" },
+                    { name: "鈦晶", desc: "水晶之王，能量極為霸道強勁，兼具招財、化煞、防小人等多重功效。它能賦予您強大的氣勢與權威感，穩固您的根基與信用，適合需要做重大決策時配戴。" }
+                ],
+                geodeShape: { shape: "正梯形/平台 (土型)", reason: "缺土者較缺乏安全感與信賴感。平台型晶洞象徵『穩如泰山』，能為您帶來強大的靠山能量，鎮守財庫，穩定心性與基業。" },
+
+                careers: [
+                    "土地與建設：房地產、建築業、室內裝修、土木工程、物業管理",
+                    "穩定與收納：倉儲物流、古董鑑定、當鋪、殯葬業",
+                    "中介與諮詢：顧問諮詢、仲介服務、秘書、會計、行政管理"
+                ]
+            },
+            metal: {
+                name: "金",
+                missingReason: "五行缺金，猶如刀鋒未開，性格上容易優柔寡斷，缺乏果敢的決斷力與威嚴。做事容易拖泥帶水，顧慮太多而錯失良機。在原則性問題上不夠堅持，容易隨波逐流，缺乏主見。同時也代表思維不夠犀利，缺乏條理性與執行力，難以在競爭激烈的環境中脫穎而出。",
+                crystals: [
+                    { name: "白水晶", desc: "水晶之王，具有最純淨平穩的能量。它能淨化混亂的磁場，提升專注力與記憶力，讓思緒清晰敏捷。它能幫助您屏除雜念，補足金行所需的果斷、條理與執行效率。" },
+                    { name: "月光石", desc: "溫柔的能量能調和焦躁的情緒，帶來冷靜的觀察力。它能幫助您在決策時保持清醒，不被情緒左右，提升直覺與洞察力，展現出金行應有的理性與智慧。" },
+                    { name: "黑髮晶", desc: "領袖之石，內含的黑碧璽針狀物能強力排除濁氣與負能量。它能消除柔弱猶豫，增強領袖魅力與決斷力，讓您展現大將之風，在職場上無往不利。" }
+                ],
+                geodeShape: { shape: "圓形/半圓形 (金型)", reason: "缺金者決斷力較弱，行事易優柔寡斷。圓形晶洞象徵『圓滿周全』與『果斷凝聚』，能提升您的處事魄力，並帶來圓融的人際財富。" },
+
+                careers: [
+                    "金融與法治：銀行、證券、保險、律師、法官、警政人員",
+                    "金屬與機械：機械製造、汽車產業、珠寶銀樓、五金工具、鐘錶",
+                    "科技與決策：高科技產業、企業顧問、執行長、外科醫生"
+                ]
+            },
+            water: {
+                name: "水",
+                missingReason: "五行缺水，猶如源頭乾涸，性格上可能缺乏靈動的智慧與應變能力。思維較為僵化，不善於轉彎，難以應對複雜多變的局勢。雖然終日奔波勞碌，卻往往是事倍功半，難以聚財。在性格上可能較為急躁或固執，缺乏深謀遠慮的眼光，不善於交際應酬與謀略規劃。",
+                crystals: [
+                    { name: "黑曜石", desc: "擁有極度強大的吸納性，能強力吸收負面能量與病氣，是最佳的護身符。它能讓浮躁的心沉澱下來，增強生命力與精神耐力，為水行補充深沉的底蘊與定性。" },
+                    { name: "海藍寶", desc: "勇氣之石，對應喉輪，能大幅提升語言表達與溝通協調能力。它能幫助您思路清晰，靈活應變，補足水行所需的流動性與智慧，適合需要多方交涉的人士。" },
+                    { name: "拉長石", desc: "充滿靈性的寶石，能激發深層的創造力與潛能。其多變的光暈象徵水的多變，能幫助您適應各種環境，提升洞察力與智慧，避免思維僵化。" }
+                ],
+                geodeShape: { shape: "波浪形/不規則彎曲 (水型)", reason: "缺水者思維容易僵化，不知變通。波浪形晶洞象徵『川流不息』的水能量，能活絡您的思維與靈感，增強應變能力，帶來源源不絕的財源。" },
+                careers: [
+                    "流動與交通：航運、物流、交通運輸、旅遊業、貿易進出口",
+                    "資訊與智慧：網路業、軟體開發、記者、大眾傳播、心理諮詢",
+                    "水利與清潔：水利工程、清潔服務、飲料店、酒吧、水族館"
+                ]
+            }
+        };
+
+        const zodiacGeodeMap = {
+            "鼠": { name: "鼠", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "鼠之本命屬水，靈動機敏，然易隨波逐流。波浪形晶洞宛如聚寶盆中的活水，能匯聚四方財氣，將您的聰慧轉化為實質的財富。它象徵源源不絕的的人脈與機運，能大旺偏財，助您在變動的局勢中游刃有餘，財源廣進。" },
+            "牛": { name: "牛", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "牛之本命屬土，敦厚沈穩，但有時過於保守。正梯形晶洞象徵『穩如泰山』的基業，能為您鎮守財庫，防止錢財流失。其厚實的能量能增強您的魄力與決斷力，讓您在穩健中求突破，步步高升，成就百年大業。" },
+            "虎": { name: "虎", element: "木", shape: "長方形 (木型)", shapeName: "長方形", desc: "虎之本命屬木，氣勢威猛，正如參天大樹。長方形直聳的晶洞象徵事業『扶搖直上』，能輔助您開疆闢土，增強領導統御的權威感。它能穩固您的根基，讓你在職場上屹立不搖，招來貴人提攜，成就非凡霸業。" },
+            "兔": { name: "兔", element: "木", shape: "長方形 (木型)", shapeName: "長方形", desc: "兔之本命屬木，心思細膩，如花草般柔韌。長方形晶洞能為您注入強大的『棟樑之氣』，提升您的自信與格局，不再受情緒左右。它能助您在職場上展現獨當一面的能力，將人緣轉化為實質的貴人運，名利雙收。" },
+            "龍": { name: "龍", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "龍之本命屬土，貴氣逼人，如帝王降臨。方正厚實的梯形晶洞最能匹配您的氣場，象徵權勢穩固與地位崇高。它能幫助您鎮壓身邊的小人與煞氣，匯聚天地正氣，讓您的事業運勢如日中天，掌握實質大權。" },
+            "龙": { name: "龍", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "龍之本命屬土，貴氣逼人，如帝王降臨。方正厚實的梯形晶洞最能匹配您的氣場，象徵權勢穩固與地位崇高。它能幫助您鎮壓身邊的小人與煞氣，匯聚天地正氣，讓您的事業運勢如日中天，掌握實質大權。" },
+            "蛇": { name: "蛇", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "蛇之本命屬火，神祕敏銳，洞察力強。火焰狀的尖形晶洞能點燃您內心的熱情與企圖心，將潛藏的才華徹底釋放。它能增強您的名聲運與桃花運，讓您在人群中散發耀眼光芒，事業與人際皆能如火如荼，大展鴻圖。" },
+            "馬": { name: "馬", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "馬之本命屬火，奔放自由，行動力極強。形如火焰的晶洞能與您的陽氣產生共鳴，讓您的行動更加精準有效，避免衝動行事。它象徵運勢『紅紅火火』，能助您在競爭激烈的環境中脫穎而出，快速達成目標，財運亨通。" },
+            "马": { name: "馬", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "馬之本命屬火，奔放自由，行動力極強。形如火焰的晶洞能與您的陽氣產生共鳴，讓您的行動更加精準有效，避免衝動行事。它象徵運勢『紅紅火火』，能助您在競爭激烈的環境中脫穎而出，快速達成目標，財運亨通。" },
+            "羊": { name: "羊", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "羊之本命屬土，外柔內剛，具有極強的韌性。平台形晶洞象徵廣闊大地的包容力，能安定您的心神，消除焦慮與不安。它能為您帶來家庭與事業的雙重穩定，聚氣聚財，讓您在歲月靜好中累積豐厚的資產，福氣綿長。" },
+            "猴": { name: "猴", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "猴之本命屬金，聰慧靈巧。三角形晶洞狀似金字塔，象徵凝聚專注；圓形晶洞則代表圓滿招財。兩者皆能將您的才智轉化為強大的執行力，讓決策果斷犀利，同時廣結善緣，財源廣進。" },
+            "雞": { name: "雞", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "雞之本命屬金，勤奮自信。三角形線條象徵突破與精準，圓形則象徵周全與圓融。這兩種形態皆能強化您的口才與表現力，助您在職場上展現大將之風，既能開拓疆土，也能守成聚財。" },
+            "鸡": { name: "雞", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "雞之本命屬金，勤奮自信。三角形線條象徵突破與精準，圓形則象徵周全與圓融。這兩種形態皆能強化您的口才與表現力，助您在職場上展現大將之風，既能開拓疆土，也能守成聚財。" },
+            "狗": { name: "狗", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "狗之本命屬土，忠誠守信，責任感強。方正穩重的晶洞最能呼應您的特質，象徵『信用即財富』。它能為您累積深厚的信譽資本，讓您在商場上無往不利，同時鎮宅安家，守護您辛苦累積的財富，基業長青。" },
+            "豬": { name: "豬", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "豬之本命屬水，生性樂觀，福氣深厚。蜿蜒流暢的晶洞造型象徵福氣與財富的流轉，能增強您的貴人運與食祿。它能活絡您的思維，帶來意想不到的偏財運，讓您一生衣食無憂，財富如流水般自然匯聚，富貴安康。" },
+            "猪": { name: "豬", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "豬之本命屬水，生性樂觀，福氣深厚。蜿蜒流暢的晶洞造型象徵福氣與財富的流轉，能增強您的貴人運與食祿。它能活絡您的思維，帶來意想不到的偏財運，讓您一生衣食無憂，財富如流水般自然匯聚，富貴安康。" }
+        };
+
+        function analyzeFiveElements(baziArr, lunarObj) {
+            // baziArr e.g., ["甲子", "乙丑", "丙寅", "丁卯"]
+            const userShengXiao = lunarObj.getYearShengXiao(); // 獲取生肖
+            const counts = { wood: 0, fire: 0, earth: 0, metal: 0, water: 0 };
+
+            baziArr.forEach(pillar => {
+                const gan = pillar.substring(0, 1);
+                const zhi = pillar.substring(1, 2);
+
+                if (wuxingMap[gan]) counts[wuxingMap[gan]]++;
+                if (wuxingMap[zhi]) counts[wuxingMap[zhi]]++;
+            });
+
+            const missing = [];
+            for (const [elm, count] of Object.entries(counts)) {
+                if (count === 0) missing.push(elm);
+            }
+
+            // Logic Adjustment: Ensure at least one element is recommended even if none are missing
+            if (missing.length === 0) {
+                // Find the lowest count
+                let min = Infinity;
+                for (const count of Object.values(counts)) {
+                    if (count < min) min = count;
+                }
+                // Add all elements with the lowest count to 'missing' (treating them as 'needs strengthening')
+                for (const [elm, count] of Object.entries(counts)) {
+                    if (count === min) {
+                        missing.push(elm);
+                    }
+                }
+            }
+
+            // User Requirement: Select ONLY ONE element for recommendation
+            if (missing.length > 1) {
+                missing.length = 1; // Keep only the first one found
+            }
+
+            // Render UI
+            const container = document.getElementById('fiveElementsContainer');
+
+            // 1. Zodiac Geode Section (Always shown)
+            const zInfo = zodiacGeodeMap[userShengXiao];
+            const geodeHtml = `
+                <div class="mb-8 border-b border-dashed border-gray-200 pb-8">
+                     <!-- Geode Recommendation (Floating Label) -->
+                    <div class="relative border border-gray-300 rounded-lg p-6 mt-4">
+                        <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
+                            晶洞五行推薦
+                        </h5>
+                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center">
+                                <div class="flex flex-col shrink-0">
+                                <span class="text-xs bg-red-700 text-white px-3 py-1 rounded self-start mb-1 tracking-widest font-bold shadow-sm">
+                                    ${zInfo.name}・${zInfo.element}型
+                                </span>
+                                <span class="text-lg font-bold text-gray-800">
+                                    ${zInfo.shapeName}
+                                </span>
+                                </div>
+                                <p class="text-xs text-gray-500 leading-relaxed text-justify sm:border-l sm:border-gray-200 sm:pl-4 mt-2 sm:mt-0">
+                                ${zInfo.desc}
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Render combined HTML - logic simplified to always show recommendations
+            let combinedHtml = geodeHtml + `<p class="mb-6 text-center text-sm text-gray-600">您的八字五行中需補足：<span class="font-bold text-red-700 text-lg mx-2">${missing.map(m => wuxingInfo[m].name).join('、')}</span></p>`;
+
+            missing.forEach(mKey => {
+                const info = wuxingInfo[mKey];
+                combinedHtml += `
+                        <div class="mb-8 last:mb-0 border-b border-dashed border-gray-200 pb-8 last:pb-0 last:border-0">
+                            <!-- Analysis -->
+                            <div class="mb-4">
+                                <h5 class="font-bold text-gray-800 text-base mb-2 flex items-center">
+                                    <span class="w-1.5 h-6 bg-gray-600 mr-2 rounded-full"></span>
+                                    缺【${info.name}】的影響
+                                </h5>
+                                <p class="text-gray-600 text-sm leading-relaxed text-justify pl-3.5 border-l-2 border-gray-200 ml-1">
+                                    ${info.missingReason}
+                                </p>
+                            </div>
+                            
+                            <!-- Crystal Recommendation Link only -->
+                            <div class="mt-6">
+                                <!-- Crystal Recommendation (Floating Label) -->
+                                <div class="relative border border-gray-300 rounded-lg p-6">
+                                    <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
+                                        隨身開運水晶
+                                    </h5>
+                                    <ul class="space-y-4">
+                                        ${info.crystals.map(c => `
+                                            <li class="group">
+                                                <div class="flex items-center mb-1">
+                                                    <span class="w-1.5 h-1.5 bg-red-800 rounded-sm mr-2 opacity-50 group-hover:opacity-100 transition-opacity"></span>
+                                                    <span class="font-bold text-gray-900 text-sm tracking-wide group-hover:text-red-800 transition-colors">${c.name}</span>
+                                                </div>
+                                                <p class="text-xs text-gray-500 pl-3.5 leading-relaxed text-justify border-l border-gray-100 ml-0.5 group-hover:border-red-100 transition-colors">
+                                                    ${c.desc}
+                                                </p>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            });
+
+            container.innerHTML = combinedHtml;
         }
     </script>
     </div>

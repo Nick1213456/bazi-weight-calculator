@@ -9,22 +9,4 @@
 - **自動計算**: 根據出生年月日時自動計算骨重並顯示對應的詩句解說。
 - **響應式設計**: 在手機與電腦上皆可完美顯示。
 
-## 如何部屬 (GitHub Pages)
 
-本專案是一個靜態網頁，非常適合部屬在 GitHub Pages。
-
-1. 在 GitHub 上建立一個新的 Repository。
-2. 執行以下指令將代碼推送到 GitHub：
-
-```bash
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/你的帳號/你的專案名稱.git
-git push -u origin main
-```
-
-3. 到 Repository 的 **Settings** > **Pages**。
-4. 在 **Source** 選擇 `Deploy from a branch`。
-5. 在 **Branch** 選擇 `main` saving `/root`，然後點擊 Save。
-6. 等待約 1-2 分鐘，你的網站就會上線了！
