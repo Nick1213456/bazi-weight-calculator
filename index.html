@@ -585,23 +585,21 @@
             populateMonths();
             populateDays();
 
-            // Re-bind listeners
-            document.querySelectorAll('input[name="calendarType"]').forEach(el => {
-                el.addEventListener('change', () => {
-                    populateYears();
-                    populateMonths();
-                });
-            });
+            // Re-bind listeners (Removed to prevent resetting date on calendar switch)
+            // document.querySelectorAll('input[name="calendarType"]').forEach(el => { ... });
         };
 
         function populateYears() {
-            const isSolar = document.querySelector('input[name="calendarType"][value="solar"]').checked;
             const select = document.getElementById('inputYear');
             select.innerHTML = '';
             for (let i = 1900; i <= 2050; i++) {
                 const opt = document.createElement('option');
                 opt.value = i;
-                opt.text = i;
+                if (i >= 1912) {
+                    opt.text = `民國 ${i - 1911} 年 (${i})`;
+                } else {
+                    opt.text = `民前 ${1912 - i} 年 (${i})`;
+                }
                 if (i === 1990) opt.selected = true;
                 select.appendChild(opt);
             }
