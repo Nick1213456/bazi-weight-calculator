@@ -310,96 +310,94 @@
                 </div>
 
             </div>
-        </div>
 
-        <div class="dashed-line"></div>
+            <div class="dashed-line"></div>
 
-        <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
-        <div class="space-y-12">
-            <!-- Weight Display -->
-            <div class="text-center">
-                <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
-                <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
-                    <!-- Calculated Weight -->
+            <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
+            <div class="space-y-12">
+                <!-- Weight Display -->
+                <div class="text-center">
+                    <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
+                    <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
+                        <!-- Calculated Weight -->
+                    </div>
+                    <p class="text-xs text-gray-400">
+                        基數 :
+                        年<span id="yearW"></span> +
+                        月<span id="monthW"></span> +
+                        日<span id="dayW"></span> +
+                        時<span id="timeW"></span>
+                    </p>
                 </div>
-                <p class="text-xs text-gray-400">
-                    基數 :
-                    年<span id="yearW"></span> +
-                    月<span id="monthW"></span> +
-                    日<span id="dayW"></span> +
-                    時<span id="timeW"></span>
+
+                <!-- Poem Box -->
+                <div class="red-border-box p-6 text-center">
+                    <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
+                        <!-- Poem goes here -->
+                    </p>
+                </div>
+
+                <!-- Detailed Explanations -->
+                <div class="space-y-2">
+                    <div class="text-center mb-8">
+                        <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+                    </div>
+
+                    <!-- Analysis Items (Generated from Poem) -->
+                    <div id="poemAnalysis" class="space-y-8">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashed-line"></div>
+
+            <!-- 4. Character Analysis -->
+            <div class="text-center mb-4">
+                <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
+            </div>
+
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
+                <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
+                    <!-- Dynamic -->
                 </p>
             </div>
-
-            <!-- Poem Box -->
-            <div class="red-border-box p-6 text-center">
-                <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
-                    <!-- Poem goes here -->
+            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
+                <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
+                    <!-- Dynamic -->
                 </p>
             </div>
-
-            <!-- Detailed Explanations -->
-            <div class="space-y-2">
-                <div class="text-center mb-8">
-                    <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
-                </div>
-
-                <!-- Analysis Items (Generated from Poem) -->
-                <div id="poemAnalysis" class="space-y-8">
-                    <!-- Dynamic Content -->
+            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
+                <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
+                    <!-- Dynamic -->
+                </p>
+            </div>
+            <div class="border-b border-dashed border-gray-200 my-1.5"></div>
+            <div>
+                <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
+                <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
+                    <!-- Dynamic -->
+                </p>
+            </div>
+            <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
+                <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span
+                        id="adviceWeightDisplay">此命</span>
+                    的建議</h4>
+                <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
+                    <!-- Dynamic List -->
                 </div>
             </div>
-        </div>
 
-        <div class="dashed-line"></div>
-
-        <!-- 4. Character Analysis -->
-        <div class="text-center mb-4">
-            <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
+            <button onclick="handleReload()"
+                class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
+                重置
+            </button>
         </div>
-
-        <div>
-            <h4 class="text-red-700 font-bold mb-2 text-sm">性格特質</h4>
-            <p id="descCharacter" class="text-gray-600 text-sm leading-relaxed text-justify">
-                <!-- Dynamic -->
-            </p>
-        </div>
-        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-        <div>
-            <h4 class="text-red-700 font-bold mb-2 text-sm">事業運勢</h4>
-            <p id="descCareer" class="text-gray-600 text-sm leading-relaxed text-justify">
-                <!-- Dynamic -->
-            </p>
-        </div>
-        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-        <div>
-            <h4 class="text-red-700 font-bold mb-2 text-sm">財運運勢</h4>
-            <p id="descWealth" class="text-gray-600 text-sm leading-relaxed text-justify">
-                <!-- Dynamic -->
-            </p>
-        </div>
-        <div class="border-b border-dashed border-gray-200 my-1.5"></div>
-        <div>
-            <h4 class="text-red-700 font-bold mb-2 text-sm">感情與人際</h4>
-            <p id="descLove" class="text-gray-600 text-sm leading-relaxed text-justify">
-                <!-- Dynamic -->
-            </p>
-        </div>
-        <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
-            <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span id="adviceWeightDisplay">此命</span>
-                的建議</h4>
-            <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
-                <!-- Dynamic List -->
-            </div>
-        </div>
-
-        <button onclick="handleReload()"
-            class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
-            重置
-        </button>
-    </div>
-    </div>
-
     </div>
 
     <script>
