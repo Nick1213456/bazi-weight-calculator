@@ -199,36 +199,39 @@
             <!-- 2. Four Pillars Plain Analysis Section -> Refactored to Comprehensive Analysis -->
             <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
                 <!-- Character Card -->
+                <!-- Character Card (Blue Theme) -->
                 <div
-                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    class="bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
                     <div
-                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                        class="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-blue-200 transition-colors">
                     </div>
-                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        性格特質・內在潛能
+                    <h5 class="text-blue-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-blue-700 mr-2 rounded-full"></span>
+                        性格特質
                     </h5>
                     <p class="text-xs text-gray-400 mb-4">個性優勢 | 盲點 | 行事風格</p>
                     <div class="space-y-3">
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisCharacter">
+                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
+                            id="analysisCharacter">
                             <!-- Dynamic Content -->
                         </p>
                     </div>
                 </div>
 
                 <!-- Wealth Card -->
+                <!-- Wealth Card (Emerald/Green Theme) -->
                 <div
-                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    class="bg-gradient-to-br from-white to-emerald-50 border border-emerald-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
                     <div
-                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                        class="absolute top-0 right-0 w-24 h-24 bg-emerald-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-emerald-200 transition-colors">
                     </div>
-                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        財運運勢・致富祕鑰
+                    <h5 class="text-emerald-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-emerald-700 mr-2 rounded-full"></span>
+                        財運運勢
                     </h5>
                     <p class="text-xs text-gray-400 mb-4">正財偏財 | 理財建議 | 財富來源</p>
                     <div class="space-y-3">
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisWealth">
+                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="analysisWealth">
                             <!-- Dynamic Content -->
                         </p>
                     </div>
@@ -241,7 +244,7 @@
                     </div>
                     <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
                         <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        事業運勢・職場格局
+                        事業運勢
                     </h5>
                     <p class="text-xs text-gray-400 mb-4">職涯方向 | 適合領域 | 成功關鍵</p>
                     <div class="space-y-4">
@@ -258,18 +261,19 @@
                 </div>
 
                 <!-- Love Pillar -->
+                <!-- Love Pillar (Pink/Rose Theme) -->
                 <div
-                    class="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group md:col-span-2">
+                    class="bg-gradient-to-br from-white to-pink-50 border border-pink-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
                     <div
-                        class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:bg-red-100 transition-colors">
+                        class="absolute top-0 right-0 w-24 h-24 bg-pink-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-pink-200 transition-colors">
                     </div>
-                    <h5 class="text-red-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        感情人際・幸福密碼
+                    <h5 class="text-pink-700 font-bold mb-1 text-base flex items-center">
+                        <span class="w-2 h-6 bg-pink-700 mr-2 rounded-full"></span>
+                        感情人際
                     </h5>
                     <p class="text-xs text-gray-400 mb-4">桃花運勢 | 相處之道 | 人際魅力</p>
                     <div class="space-y-3">
-                        <p class="text-sm text-gray-600 leading-relaxed text-justify" id="analysisLove">
+                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="analysisLove">
                             <!-- Dynamic -->
                         </p>
                     </div>
@@ -317,18 +321,11 @@
                 </div>
             </div>
 
-            <div class="dashed-line"></div>
-
             <!-- 4. Character Analysis -->
-            <div class="text-center mb-4">
-                <span class="text-lg font-bold text-gray-400 tracking-widest">命格綜合分析</span>
-            </div>
 
 
             <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
-                <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給 <span
-                        id="adviceWeightDisplay">此命</span>
-                    的建議</h4>
+                <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給此命格的建議</h4>
                 <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
                     <!-- Dynamic List -->
                 </div>
@@ -675,7 +672,7 @@
 
                 // Update UI - Weight
                 document.getElementById('totalWeightDisplay').innerText = `${liang}兩 ${qian}錢`;
-                document.getElementById('adviceWeightDisplay').innerText = `${liang}兩${qian}錢`;
+                // document.getElementById('adviceWeightDisplay').innerText = `${liang}兩${qian}錢`;
                 document.getElementById('yearW').innerText = (wYear / 10).toFixed(1);
                 document.getElementById('monthW').innerText = (wMonth / 10).toFixed(1);
                 document.getElementById('dayW').innerText = (wDay / 10).toFixed(1);
@@ -863,23 +860,190 @@
         function getDetails(weight, zodiac, dayMaster, lunar) {
             const zData = zodiacTraits[zodiac] || { adj: "獨特", noun: "行者", advice: "慎始敬終" };
             const dmData = dayMasterAttributes[dayMaster] || dayMasterAttributes["甲"];
-
-            // Get Advanced Analysis (Ten Gods + WuXing + ShenSha)
             const advanced = getAdvancedAnalysis(lunar);
 
-            // Construct Advice Array
+            // 1. Grand Strategy (30 Variations: Weight + Ten Gods Matrix)
+            let strategy = "";
+            const sGods = lunar.getBaZiShiShenGan();
+            const sGodSet = new Set(sGods);
+
+            // Determine Dominant Type (Priority: Power > Wealth > Output > Resource > Self)
+            let sType = "Self";
+            if (sGodSet.has("七殺") || sGodSet.has("正官")) sType = "Power";
+            else if (sGodSet.has("偏財") || sGodSet.has("正財")) sType = "Wealth";
+            else if (sGodSet.has("傷官") || sGodSet.has("食神")) sType = "Output";
+            else if (sGodSet.has("偏印") || sGodSet.has("正印")) sType = "Resource";
+
+            // Determine Weight Level (0-5)
+            let sLevel = 0;
+            if (weight >= 5.5) sLevel = 5;
+            else if (weight >= 4.8) sLevel = 4;
+            else if (weight >= 4.2) sLevel = 3;
+            else if (weight >= 3.6) sLevel = 2;
+            else if (weight >= 3.0) sLevel = 1;
+            // < 3.0 is Level 0
+
+            const strategies = {
+                "Power": [
+                    "【磨劍成鋒格】骨重雖輕但命帶官殺，象徵早年需經歷嚴格的磨練。您就像一把未開封的寶劍，職場初期的挫折是為了讓您更堅韌。建議沈住氣，從基層做起，這段經歷將是您中年掌權的底氣。",
+                    "【潛龍勿用格】具備領導潛力但時機未到。策略是「潛伏」，在組織中累積威望，不要急於出頭。您的貴氣在於內斂，當能力與時運交會時，您將一飛沖天，掌握實權。",
+                    "【循序漸進格】這是一個穩步上升的官貴格。您的升遷之路有跡可循，適合在大型體制內發展。建議按部就班，考取證照或爭取職位，您的權力是隨年資與貢獻疊加的，晚運極佳。",
+                    "【權威建立格】骨重轉重，開始展現主管風範。您天生就有讓人信服的氣場，適合帶領團隊。策略在於「立威」與「立德」並重，打造您的核心班底，成就一番霸業。",
+                    "【獨當一面格】具備高階將帥的命格，能承擔巨大的責任與壓力。您適合開疆闢土或掌管決策。建議眼光放遠，思考產業布局，您的舞台已經不只是公司，而是整個行業的領袖。",
+                    "【登峰造極格】官殺與重骨相輔相成，乃社會領袖或權威人士之命。您的影響力足以撼動局勢。策略在於「濟世」，權力越大責任越大，投身公眾事務將使您的名望流芳百世。"
+                ],
+                "Wealth": [
+                    "【積沙成塔格】財星顯現但骨重較輕，代表財富需靠點滴累積。勿貪求一夜暴富，適合穩健儲蓄與小額投資。您的勤儉是最好的聚寶盆，晚年必有積蓄，福澤子孫。",
+                    "【技藝生財格】財富來自於您的一技之長。不要做投機生意，專注於提升您的專業技能。您是「越老越值錢」的類型，專業口碑就是您的印鈔機，名利雙收。",
+                    "【商機浮現格】您對金錢有敏銳的嗅覺，且骨重適中，有能力捕捉稍縱即逝的機會。建議大膽嘗試副業或投資，在流動中創造財富，別讓資金閒置，錢滾錢最快。",
+                    "【財源廣進格】財星高照，物資豐饒。您適合從事貿易或金流相關的行業。策略是「資源配置」，學會讓錢為您工作，建立被動收入系統，財富將如滾雪球般增長。",
+                    "【點石成金格】骨重與財星皆旺，具備卓越的商業眼光。您能看見別人看不見的價值，適合創業或重整不良資產。您的決策往往能帶來倍數的獲利，是天生的生意人。",
+                    "【富甲一方格】大富大貴之格，財富已非您需擔憂之事。策略在於「佈施」，金錢的流動能帶來更大的福報。投資社會企業或回饋鄉里，將使您的財富格局昇華至精神層次。"
+                ],
+                "Output": [
+                    "【孤芳才子格】才華洋溢但骨重稍輕，早年可能感到懷才不遇。堅持您的創作或理念，不要因為世俗眼光而妥協。您的獨特性將在網路或小眾領域找到死忠知音，大器晚成。",
+                    "【技藝超群格】食傷生財，靠的是真本事。您適合成為特定領域的職人或專家。將一個細節做到極致，市場自然會給您高回報，專注是您唯一的策略，切忌博而不精。",
+                    "【創意無限格】此命格思維活躍，骨重適中支撐您的執行力。適合從事行銷、設計或媒體。策略是「不斷求變」，您的點子就是黃金，永遠走在潮流的前端，引領風騷。",
+                    "【名聲漸起格】您的才華開始獲得大眾認可，名氣轉化為利益。建立「個人品牌」是最佳策略。珍惜您的羽毛，經營好公眾形象，名利雙收指日可待，影響力擴大。",
+                    "【桃李滿門格】食傷代表付出與傳承。骨重厚實，適合從事教育、諮詢或顧問。您的智慧能啟發他人，成就學生或客戶的同時，也成就了崇高的地位，受人景仰。",
+                    "【一代宗師格】才華與福德兼備，是思想或藝術領域的開創者。您的作品或理論將影響後世。策略是「立言」，著書立說，留下精神遺產，讓您的智慧超越時間的限制。"
+                ],
+                "Resource": [
+                    "【清貴守道格】骨重輕而印星重，重視精神世界勝於物質。早年生活或許清貧，但心靈富足。建議從事學術、研究或宗教，在精神領域您將獲得極大的滿足與尊敬，不染塵埃。",
+                    "【學術扎根格】印星護身，適合走升學或公職考運。您的優勢在於學習與吸收。策略是「深造」，學歷或證照是您最好的護身符，知識將改變您的命運，地位穩固。",
+                    "【貴人提攜格】骨重漸增，長輩緣極佳。在職場上容易獲得上司或前輩的賞識。建議多請益、多靠近優秀的長者，站在巨人的肩膀上，您將省去十年奮鬥，平步青雲。",
+                    "【學養深厚格】知識淵博，見解獨到。您是團隊中的智囊，適合幕後策劃或顧問。策略是「洞察」，用您的智慧為他人解惑，您的價值在於看透問題的本質，不可或缺。",
+                    "【德高望重格】骨重優厚，印星轉化為社會聲望。您可能是學術界或行業內的泰斗。策略是「教化」，利用您的影響力導正社會風氣，成為精神領袖，受萬人敬重。",
+                    "【國師之命格】極貴之格，智慧足以安邦定國。您的建議能影響決策核心。保持清明的心性，無私地貢獻您的智慧，您將是歷史上被記住的人物，名垂青史。"
+                ],
+                "Self": [
+                    "【寒梅傲雪格】骨重輕而比劫旺，依靠親友少，全靠自己打拼。這是典型的白手起家格。策略是「獨立」，不要依賴他人，鍛鍊出強大的心志，逆境將是您最強的導師，先苦後甘。",
+                    "【兄弟同心格】比劫代表平輩，骨重稍增。您適合與人合夥或加入團隊。策略是「合作」，單打獨鬥難成氣候，找對隊友，共享利益，團結力量大，共創榮景。",
+                    "【廣結善緣格】四海之內皆兄弟。您的社交手腕是最大資產。策略是「人脈經營」，朋友多路好走。真誠待人，您的貴人往往就隱藏在泛泛之交中，機會無處不在。",
+                    "【競爭得勝格】骨重強健，能在競爭激烈的環境中脫穎而出。適合業務、競技或高壓行業。策略是「敢衝」，狹路相逢勇者勝，您的氣魄能壓倒對手，贏得最終勝利。",
+                    "【義薄雲天格】領袖氣質顯現，重情重義。您是眾人眼中的「大哥/大姐」。策略是「擔當」，照顧好追隨您的人，他們的忠誠將將您推上高位，建立深厚基業。",
+                    "【萬民擁戴格】骨重極重，比劫轉化為群眾魅力。您是天生的政治家或公眾人物。策略是「順勢」，傾聽民意，順應時勢，水能載舟，匯聚民心即可成就霸業，統領一方。"
+                ]
+            };
+
+            if (strategies[sType] && strategies[sType][sLevel]) {
+                strategy = strategies[sType][sLevel];
+            } else {
+                strategy = "【順天應人格】命格獨特，難以歸類。建議您保持善良與努力，順應天時地利，福氣自然會降臨。";
+            }
+
+            // 2. Ten Gods Actionable Advice (More specific)
+            const gods = lunar.getBaZiShiShenGan(); // e.g. ["比肩", "七殺", ...] (Sky stems)
+            // Add Earthly Branches main qi for more depth if needed, but Stems are prominent
+            let actionAdvice = "";
+            let uniqueSet = new Set(gods);
+
+            if (uniqueSet.has("七殺")) {
+                actionAdvice = "命帶「七殺」，代表您骨子裡有股不服輸的衝勁。在職場上，建議您主動爭取高難度、具挑戰性的專案，因為平淡的工作無法激發您的潛能。但切記「剛過易折」，在強勢展現能力的同時，要學會適度的妥協與圓融。";
+            } else if (uniqueSet.has("正官")) {
+                actionAdvice = "命帶「正官」，您天生具有管理者的思維。建議您著重於「建立制度」與「組織優化」。您的強項在於讓混亂的事物變得井井有條，適合考取專業證照或爭取管理職位，按部就班便能登峰造極。";
+            } else if (uniqueSet.has("傷官") || uniqueSet.has("食神")) {
+                actionAdvice = "命帶「食傷」，您的創意與表達能力是最大的資產。不要把自己侷限在死板的框架中，建議嘗試需要高度創意、口才或技術展現的工作。建立「個人品牌」將是您這輩子報酬率最高的投資。";
+            } else if (uniqueSet.has("偏財") || uniqueSet.has("正財")) {
+                actionAdvice = "命帶「財星」，您對商業嗅覺敏銳。建議您培養「理財」與「資源配置」的眼光。若為正財，請專注本業精進；若為偏財，可嘗試多元投資。重點在於將人脈轉化為錢脈，您的社交圈就是您的提款機。";
+            } else if (uniqueSet.has("偏印") || uniqueSet.has("正印")) {
+                actionAdvice = "命帶「印星」，您適合走「學術」或「幕後」路線。建議您終身學習，不斷提升心靈或專業層次。您的智慧能看透他人看不見的盲點，成為團隊中的「軍師」或「顧問」是極佳的定位。";
+            } else {
+                // Bi Jian / Jie Cai
+                actionAdvice = "命帶「比劫」，這意味著競爭與合作是您人生的主題。建議您學會「分享利益」，避免單打獨鬥。找對合夥人或加入強大的團隊，利用群體的力量來放大自己的成果，是您成功的捷徑。";
+            }
+
+            // 3. Day Master & Zodiac Specific Advice (Expanded to 12 Zodiacs)
+            let specificAdvice = "";
+            switch (zodiac) {
+                case "子":
+                    specificAdvice = "身為「子鼠」，您擁有卓越的觀察力與直覺。心性修煉上，建議您要學會「定性」，避免思緒過於發散或多疑。專注於長遠目標，不要被眼前的蠅頭小利干擾，您的機靈才能轉化為大智慧。";
+                    break;
+                case "丑":
+                    specificAdvice = "身為「丑牛」，您的耐力與毅力無人能及。心性修煉上，建議您要學會「變通」。固執雖然能成事，但也容易讓您錯失轉型的良機。試著多聽取年輕人或不同領域的意見，讓您的穩重加上靈活，將無往不利。";
+                    break;
+                case "寅":
+                    specificAdvice = "身為「寅虎」，您天生具有領袖魅力與行動力。心性修煉上，建議您要學會「內斂」。過於強勢或衝動容易招致不必要的樹敵。在展現霸氣的同時，多一份溫柔與傾聽，您的領導將更得人心。";
+                    break;
+                case "卯":
+                    specificAdvice = "身為「卯兔」，您心思細膩且愛好和平。心性修煉上，建議您要學會「果斷」。過度的猶豫或想當好人，往往會讓您陷入糾結。相信您的直覺，勇敢做出決定，並學習承擔被討厭的勇氣。";
+                    break;
+                case "辰":
+                    specificAdvice = "身為「辰龍」，您志向遠大，氣場不凡。心性修煉上，建議您要學會「落地」。夢想再大也需要執行細節來支撐。避免眼高手低，從最小的事情做起，將雲端的理想連結到地面的現實。";
+                    break;
+                case "巳":
+                    specificAdvice = "身為「巳蛇」，您冷靜沈著且洞察力強。心性修煉上，建議您要學會「釋懷」。您敏銳的感受力容易讓您記住他人的過失。練習寬恕與放下，釋放內心的負重，您的智慧將更為清澈。";
+                    break;
+                case "午":
+                    specificAdvice = "身為「午馬」，您熱情奔放且崇尚自由。心性修煉上，建議您要學會「堅持」。您的爆發力強但續航力稍弱，凡事容易三分鐘熱度。培養「善始善終」的習慣，是您通往成功的最後一哩路。";
+                    break;
+                case "未":
+                    specificAdvice = "身為「未羊」，您外柔內剛，富有人情味。心性修煉上，建議您要學會「自信」。您往往過於在意他人的眼光而委屈自己。肯定自我價值，大膽表達您的需求，您會發現世界比想像中更尊重您。";
+                    break;
+                case "申":
+                    specificAdvice = "身為「申猴」，您多才多藝且反應靈敏。心性修煉上，建議您要學會「深耕」。您的聰明讓您學什麼都快，但也容易流於表面。選定一門學問深入鑽研，將聰明轉化為專業，才不會淪為「樣樣通樣樣鬆」。";
+                    break;
+                case "酉":
+                    specificAdvice = "身為「酉雞」，您追求完美且勤奮不懈。心性修煉上，建議您要學會「放鬆」。對細節的過度苛求會讓您與身邊的人都感到緊繃。接受世界的不完美，學會欣賞缺憾之美，您的生活將更具彈性與快樂。";
+                    break;
+                case "戌":
+                    specificAdvice = "身為「戌狗」，您忠誠可靠且正義感強。心性修煉上，建議您要學會「信任」。您的防衛心較重，不容易輕信他人。適度地打開防護罩，給予他人信任的機會，您將獲得更深層的情感連結。";
+                    break;
+                case "亥":
+                    specificAdvice = "身為「亥豬」，您樂觀豁達且福氣深厚。心性修煉上，建議您要學會「積極」。隨遇而安是您的優點，但也可能變成懶散的藉口。為自己設定稍微高一點的標準，激發潛在的鬥志，您的福氣將轉化為巨大的成就。";
+                    break;
+                default:
+                    specificAdvice = "身為此生肖，建議您保持平衡的心態，發揮天賦特長。";
+            }
+
+            // 4. Annual Trend Advice (30 Symbolic Variations - One for each lunar day)
+            const trendVariations = [
+                "【初一・一元復始】萬象更新之際，過去的種種譬如昨日死。這是徹底歸零、重新設定人生目標的最佳時刻，您的每一個新決定都將獲得宇宙能量的加持。",
+                "【初二・陰陽調和】運勢講求平衡，過剛則折，過柔則廢。這段時間請檢視生活中的失衡之處（如工作與家庭），找回中庸之道，運氣自然順遂。",
+                "【初三・新芽初發】機會如雨後春筍般浮現，雖然看似微不足道，但潛力無窮。不要忽視任何一個小提議或新想法，它們可能是未來大樹的種子。",
+                "【初四・蓄勢待發】目前或許還不是全力衝刺的時候，而是「蹲得越低跳得越高」的準備期。充實知識、磨練技能，耐心等待那唯一一次的完美起跳。",
+                "【初五・破土而出】障礙與限制將被突破！這是一股強大的向上能量，您將有能力克服長期以來的瓶頸。勇敢地表達自己，讓世界看見您的存在。",
+                "【初六・六六大順】運勢流暢無阻，諸事皆宜。這是執行力最強的時刻，想做什麼就立刻行動，不要浪費這難得的順風車。",
+                "【初七・七星高照】貴人運極佳，特別是來自長輩或上司的提攜。保持謙虛受教的態度，您將獲得寶貴的經驗傳承與資源挹注。",
+                "【初八・八方來財】財運亨通，投資理財皆有利。這段時間您的商業嗅覺敏銳，適合進行財務規劃或資產配置，為未來累積財富。",
+                "【初九・長長久久】適合規劃長期願景。不要只看眼前的利益，將目光放遠到五年、十年後。現在建立的關係或事業，將具有極強的延續性。",
+                "【初十・十全十美】追求卓越的時刻。這段時間您對品質的要求極高，適合打磨作品或提升專業度。您的精益求精將贏得極高的口碑。",
+                "【十一・孤芳自賞】這是一段適合獨處與內省的時光。不要害怕孤獨，偉大的想法往往誕生於獨處之中。傾聽內心的聲音，找回最真實的自己。",
+                "【十二・寒梅傲雪】環境或許嚴峻，考驗重重，但這正是展現您堅韌品質的舞台。堅持原則，不隨波逐流，您的風骨將贏得對手的尊敬。",
+                "【十三・天賦異稟】您的才華將得到發揮的舞台。不要隱藏您的光芒，大膽展現您的特殊技能或創意，這將是您脫穎而出的關鍵。",
+                "【十四・月盈則虧】運勢達到頂峰，需注意盛極必衰。保持謙卑，懂得急流勇退或適度讓利，才能持盈保泰，將好運延續下去。",
+                "【十五・月圓人圓】圓滿之象，利於人際關係的修復與團聚。主動聯繫許久未見的朋友或化解誤會，人和將帶來意想不到的機遇。",
+                "【十六・大器晚成】或許目前的進度不如預期，但別著急。您的成果需要時間的發酵，持續耕耘，時間將證明您的堅持是正確的。",
+                "【十七・堅若磐石】此時您需要的是信念。外界的風雨可能會動搖您的信心，但只要心志堅定如石，任何困難都無法阻擋您前進的步伐。",
+                "【十八・海納百川】在此階段，包容力是您的致勝武器。接納不同的聲音與意見，整合各方資源，您的格局決定了您的成就高度。",
+                "【十九・雲遊四海】驛馬星動，適合向外發展。旅行、出差或變動居住地都能帶來好運。不要侷限在原地，移動將為您帶來新的視野與靈感。",
+                "【二十・破繭成蝶】痛苦的轉變期，但這是成長必經的過程。您正在經歷脫胎換骨的蛻變，忍受暫時的不適，迎接更美麗的重生。",
+                "【廿一・剛柔並濟】學習水的智慧，遇方則方，遇圓則圓。在原則與變通之間找到平衡點，您的柔軟身段將助您化解強硬的阻力。",
+                "【廿二・雙喜臨門】好運接二連三，可能有意外的驚喜。保持開放與感恩的心，迎接生命中的禮物，記得與人分享您的喜悅。",
+                "【廿三・眾志成城】團隊合作是關鍵。這不是單打獨鬥的時候，學會信任夥伴，分工合作。集眾人之力，無堅不摧。",
+                "【廿四・靜水流深】表面平靜，實則內涵深厚。不要急於表現，充實內在涵養。您的深度與穩重，將讓人在相處中越發敬重。",
+                "【廿五・天道酬勤】一分耕耘，一分收穫。這段時間沒有捷徑，只有腳踏實地的努力。上天不會虧待勤奮的人，您的付出終獲回報。",
+                "【廿六・雷霆萬鈞】行動要快！機會稍縱即逝。當決策時機來臨，展現您的魄力，速戰速決，拖延將導致失敗。",
+                "【廿七・大智若愚】收斂鋒芒，韜光養晦。有時裝傻也是一種智慧，避免鋒芒太露遭人嫉妒。在低調中默默佈局，等待一鳴驚人的時刻。",
+                "【廿八・星月交輝】您將成為他人的指路明燈。利用您的經驗或智慧去幫助迷惘的人，助人為快樂之本，也是累積福報的最佳方式。",
+                "【廿九・枯木逢春】低谷即將過去，生機正在復甦。不要放棄希望，最艱難的時刻往往是轉機的前夜。堅持下去，春天就在眼前。",
+                "【三十・圓滿收官】一個階段的結束，也是新階段的開始。做好總結與反省，放下過去的包袱，輕裝上陣，準備迎接下一個精彩的循環。"
+            ];
+            // Map specifically to Lunar Day (1-30) -> Index (0-29)
+            // lunar.getDay() returns 1-30 typically
+            const trendIndex = (lunar.getDay() - 1) % 30;
+            const trendAdvice = trendVariations[trendIndex];
+
+            // Construct Advice Array (Fully Custom)
             let adviceArray = [
-                `發揮日主優勢：您的本命為${dmData.name}，特質是${dmData.desc}，請善用此天賦。`,
-                `針對性格盲點：生肖${zodiac}可能有時會過於${zData.adj}，建議適時調整。`,
-                `開運幸運指引：${advanced.lucky}`,
-                `命格提升建議：${zData.advice}，並在職場上保持${advanced.career.includes("主管") ? "領導風範" : "專業深耕"}。`
+                `總體運勢：${strategy}`,
+                `行動指引：${actionAdvice}`,
+                `心性修煉：${specificAdvice}`,
+                `流年趨勢：${trendAdvice}`
             ];
 
-            // Insert Shensha highlights if any
-            if (advanced.shensha.length > 0) {
-                // Insert them after character/personality advice to make it flow better
-                adviceArray.splice(2, 0, ...advanced.shensha);
-            }
+            // Insert Shensha highlights dynamically if potent ones usually exist
+            // (Keeping it concise as per "not too many" request, focusing on the 5 points above is solid.)
 
             return {
                 character: `${dmData.character}<br><br><span class="font-bold text-gray-700">【格局補充】</span>${advanced.character} 同時，您還帶有${zodiac}年生肖「${zData.adj}」的特質，這使您成為一位剛柔並濟的${zData.noun}。`,
