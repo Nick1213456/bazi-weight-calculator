@@ -343,6 +343,39 @@
                 </div>
             </div>
 
+            <!-- AI Analysis Button (Zen Ink Style) -->
+            <button onclick="handleAIAnalysis()" id="aiBtn"
+                class="w-full mb-10 relative group bg-stone-100 border-2 border-stone-800 rounded-sm py-5 px-6 shadow-sm hover:bg-white transition-all duration-500">
+                <div class="flex items-center justify-center gap-3">
+                    <span
+                        class="text-stone-900 font-serif text-xl tracking-[0.5em] group-hover:tracking-[0.6em] transition-all">AI開釋</span>
+                </div>
+            </button>
+
+            <!-- AI Result Section (Zen Ink Style) -->
+            <div id="aiResultArea" class="hidden mb-12 relative animate-[fadeIn_1s_ease-out]">
+                <div class="bg-white border-y-4 border-stone-900 py-10 px-8 relative shadow-xl">
+                    <div
+                        class="absolute -top-10 -left-10 w-40 h-40 bg-stone-100 rounded-full opacity-50 mix-blend-multiply filter blur-xl pointer-events-none">
+                    </div>
+
+                    <div class="flex flex-col items-center mb-10 relative z-10">
+                        <h5
+                            class="text-stone-900 font-serif text-2xl tracking-[0.3em] font-light border-b border-stone-300 pb-4">
+                            禪 機 一 語</h5>
+                    </div>
+
+                    <div id="aiContent"
+                        class="relative z-10 text-lg text-stone-800 leading-10 text-justify font-serif tracking-wide px-2 whitespace-pre-wrap">
+                    </div>
+
+                    <div id="aiLoading" class="hidden flex flex-col items-center justify-center py-12 relative z-10">
+                        <div class="w-3 h-3 bg-stone-800 rounded-full animate-ping mb-6"></div>
+                        <span class="text-sm text-stone-500 font-serif tracking-[0.5em]">靜 心 候 教 ...</span>
+                    </div>
+                </div>
+            </div>
+
             <button onclick="handleReload()"
                 class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
                 重置
@@ -729,6 +762,17 @@
                     }
                     adviceContainer.appendChild(p);
                 });
+
+                // Save Data for AI Analysis
+                window.latestBaziData = {
+                    gender: gender,
+                    solarDate: `${y}年${m}月${d}日 ${document.getElementById('inputTime').options[document.getElementById('inputTime').selectedIndex].text}`,
+                    bazi: bazi,
+                    weight: `${liang}兩 ${qian}錢`,
+                    poem: poemText,
+                    detail: detail,
+                    advice: adviceList
+                };
 
                 const resArea = document.getElementById('resultArea');
                 resArea.classList.remove('hidden');
@@ -1715,6 +1759,98 @@
             });
 
             container.innerHTML = combinedHtml;
+        }
+
+        // --- AI Analysis Logic ---
+        window.handleAIAnalysis = async function () {
+            if (!window.latestBaziData) {
+                alert("請先進行八字計算！(若剛載入頁面，請先點擊「開始批算」)");
+                return;
+            }
+            // ... (Rest of logic is preserved, but we target the function head)
+
+            const resultArea = document.getElementById('aiResultArea');
+            const loading = document.getElementById('aiLoading');
+            const content = document.getElementById('aiContent');
+            const aiBtn = document.getElementById('aiBtn');
+
+            // 1. API Key (Hardcoded)
+            const apiKey = "AIzaSyAU_6Wjp7T4bsWsfHy9c-yh3V66vs_5pv0";
+
+            // 2. Prepare UI
+            resultArea.classList.remove('hidden');
+            loading.classList.remove('hidden');
+            content.innerHTML = "";
+            aiBtn.disabled = true;
+            aiBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // 3. Construct Prompt
+            const data = window.latestBaziData;
+            const prompt = `
+你是一位精通八字命理與人生哲學的大師。請根據以下命主資料，進行深度的命理分析與建議。請保持專業、神祕但積極正向的語氣。
+
+【命主資料】
+- 性別：${data.gender === 'male' ? '男' : '女'}
+- 出生時間：${data.solarDate}
+- 八字四柱：${data.bazi.join(' ')} (年 月 日 時)
+- 袁天罡骨重：${data.weight}
+- 核心歌訣：${data.poem}
+- 系統初步分析-性格：${data.detail.character}
+- 系統初步分析-財運：${data.detail.wealth}
+- 系統初步分析-事業：${data.detail.career}
+- 系統初步分析-感情：${data.detail.love}
+- 系統自動建議：${data.advice.join('；')}
+
+【請依序給出以下四點分析 (請使用 HTML 格式輸出，如 <b>, <br>)】
+1. **命格總評**：(請綜合八字與骨重，給出一段深刻的總結，約 100 字)
+2. **潛藏天賦**：(指出命主可能被忽略的潛在優勢或特殊才能)
+3. **感情建議**：(針對命主的感情運勢，給出務實且具體的行動建議)
+4. **流年運勢**：(針對命主的流年，給出屬於2026年後的運勢分析)
+
+請直接輸出內容，不要有多餘的開場白。
+            `;
+
+            try {
+                // 4. Call Gemini API
+                const analysis = await window.callGeminiAPI(apiKey, prompt);
+
+                // 5. Render Output
+                const cleanText = analysis.replace(/```html/g, '').replace(/```/g, '');
+                content.innerHTML = cleanText;
+
+            } catch (error) {
+                console.error(error);
+                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}<br>請檢查 API Key 是否正確，或稍後再試。</span>`;
+                if (error.message.includes('403') || error.message.includes('key')) {
+                    localStorage.removeItem('gemini_api_key');
+                    content.innerHTML += `<br><button onclick="handleAIAnalysis()" class="underline text-blue-600 mt-2">重新輸入 API Key</button>`;
+                }
+            } finally {
+                loading.classList.add('hidden');
+                aiBtn.disabled = false;
+                aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        };
+
+        window.callGeminiAPI = async function (key, text) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
+            const payload = {
+                contents: [{ parts: [{ text: text }] }]
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error?.message || 'API request failed');
+            }
+
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
         }
     </script>
     </div>
