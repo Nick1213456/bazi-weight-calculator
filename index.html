@@ -1768,10 +1768,22 @@
         // Partial Key Logic
         const API_KEY_PREFIX = "AIzaSyCrL4WxeQAX4Qjy87Hi34v7EXShq";
 
-        function showApiKeyModal() {
-            document.getElementById('apiKeyModal').classList.remove('hidden');
-            document.getElementById('inputApiKey').val = '';
+        function showApiKeyModal(errorMsg = '') {
+            const modal = document.getElementById('apiKeyModal');
+            const errorEl = document.getElementById('apiKeyError');
+
+            modal.classList.remove('hidden');
+            document.getElementById('inputApiKey').value = '';
             document.getElementById('inputApiKey').focus();
+
+            if (errorMsg) {
+                errorEl.innerText = errorMsg;
+                errorEl.classList.remove('hidden');
+                document.getElementById('inputApiKey').classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+            } else {
+                errorEl.classList.add('hidden');
+                document.getElementById('inputApiKey').classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+            }
         }
 
         function closeApiKeyModal() {
@@ -1781,8 +1793,8 @@
         function saveApiKey() {
             const input = document.getElementById('inputApiKey');
             const suffix = input.value.trim();
-            if (!suffix || suffix.length < 5) { // slightly loose check
-                alert('請輸入完整的後 6 碼');
+            if (!suffix || suffix.length < 5) {
+                showApiKeyModal('長度不足，請輸入完整的後 6 碼');
                 return;
             }
 
@@ -1869,6 +1881,21 @@
 
             } catch (error) {
                 console.error(error);
+
+                // If invalid key (usually 400 Bad Request with specific message, but we can catch generic API failures too if they imply auth issues)
+                if (error.message.includes('API key not valid') || error.message.includes('400') || error.message.includes('API request failed')) {
+                    localStorage.removeItem('gemini_api_key'); // Clear invald key
+
+                    // Reset UI State for retry
+                    loading.classList.add('hidden');
+                    aiBtn.disabled = false;
+                    aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    resultArea.classList.add('hidden'); // Hide empty result area
+
+                    showApiKeyModal("通關密語錯誤，請確認後重新輸入");
+                    return;
+                }
+
                 content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}<br>請檢查 config.js 中的 API Key 是否正確。</span>`;
             } finally {
                 loading.classList.add('hidden');
@@ -1943,7 +1970,12 @@
                 <div>
 
                     <input type="text" id="inputApiKey" placeholder="請輸入最後 6 碼" maxlength="6"
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-800 text-lg rounded-lg focus:ring-red-800 focus:border-red-800 block p-3 text-center tracking-[0.5em] font-mono font-bold">
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-800 text-lg rounded-lg focus:ring-red-800 focus:border-red-800 block p-3 text-center tracking-[0.5em] font-mono font-bold transition-colors">
+
+                    <p id="apiKeyError" class="hidden text-red-600 text-xs font-bold mt-2 text-center animate-pulse">
+                        <!-- Error Message -->
+                    </p>
+
                     <p class="text-xs text-gray-400 mt-2 text-center">
                         驗證通過後將自動記憶，下次無需再輸入。
                     </p>
