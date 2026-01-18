@@ -1764,15 +1764,60 @@
         }
 
         // --- AI Analysis Logic ---
+
+        // Partial Key Logic
+        const API_KEY_PREFIX = "AIzaSyCrL4WxeQAX4Qjy87Hi34v7EXShq";
+
+        function showApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+            document.getElementById('inputApiKey').val = '';
+            document.getElementById('inputApiKey').focus();
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const input = document.getElementById('inputApiKey');
+            const suffix = input.value.trim();
+            if (!suffix || suffix.length < 5) { // slightly loose check
+                alert('請輸入完整的後 6 碼');
+                return;
+            }
+
+            const fullKey = API_KEY_PREFIX + suffix;
+
+            localStorage.setItem('gemini_api_key', fullKey);
+            closeApiKeyModal();
+            handleAIAnalysis(); // Retry immediately
+        }
+
         window.handleAIAnalysis = async function () {
             if (!window.latestBaziData) {
                 alert("請先進行八字計算！(若剛載入頁面，請先點擊「開始批算」)");
                 return;
             }
 
-            // check config
-            if (typeof CONFIG === 'undefined' || !CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
-                alert("請先設定 API Key！\n\n1. 請打開桌面的 'config.js' 檔案\n2. 將您的 Gemini API Key 填入其中\n3. 存檔後重新整理網頁");
+            // 1. Get API Key strategy: CONFIG (dev) -> LocalStorage (prod/fallback)
+            let apiKey = '';
+
+            // Check CONFIG first (if loaded)
+            if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
+                apiKey = CONFIG.GEMINI_API_KEY;
+            }
+
+            // If no valid config key, try LocalStorage
+            if (!apiKey) {
+                const localKey = localStorage.getItem('gemini_api_key');
+                if (localKey) {
+                    apiKey = localKey;
+                }
+            }
+
+            // If still no key, show input modal
+            if (!apiKey) {
+                showApiKeyModal();
                 return;
             }
 
@@ -1780,9 +1825,6 @@
             const loading = document.getElementById('aiLoading');
             const content = document.getElementById('aiContent');
             const aiBtn = document.getElementById('aiBtn');
-
-            // 1. Get API Key from config.js
-            const apiKey = CONFIG.GEMINI_API_KEY;
 
             // 2. Prepare UI
             resultArea.classList.remove('hidden');
@@ -1887,6 +1929,49 @@
             });
         });
     </script>
+    <!-- API Key Input Modal -->
+    <div id="apiKeyModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-80 z-[200] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+        <div
+            class="bg-white max-w-md w-full mx-4 rounded-xl shadow-2xl p-8 relative transform scale-100 transition-transform border-t-4 border-red-800">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2 tracking-widest">通關密語</h3>
+                <p class="text-gray-500 text-sm">請輸入金鑰的<span class="text-red-700 font-bold mx-1">最後 6 碼</span>以啟動 AI</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <div
+                        class="bg-gray-100 p-3 rounded-lg text-center mb-3 text-gray-500 font-mono text-xs tracking-wider border border-gray-200">
+                        AIzaSyCrL4WxeQAX4Qjy87Hi34v7EXShq******
+                    </div>
+                    <input type="text" id="inputApiKey" placeholder="請輸入最後 6 碼" maxlength="6"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-800 text-lg rounded-lg focus:ring-red-800 focus:border-red-800 block p-3 text-center tracking-[0.5em] font-mono font-bold uppercase">
+                    <p class="text-xs text-gray-400 mt-2 text-center">
+                        驗證通過後將自動記憶，下次無需再輸入。
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="saveApiKey()"
+                        class="flex-1 bg-red-800 hover:bg-red-900 text-white font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest shadow-md">
+                        確認儲存
+                    </button>
+                    <button onclick="closeApiKeyModal()"
+                        class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest">
+                        取消
+                    </button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank"
+                        class="text-xs text-blue-600 hover:underline">
+                        還沒有 Key？點此免費取得
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
