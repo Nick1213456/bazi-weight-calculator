@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>八字批算</title>
+    <title>八字輕重計算器</title>
+    <!-- Load Configuration first -->
+    <script src="config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
@@ -1767,15 +1769,20 @@
                 alert("請先進行八字計算！(若剛載入頁面，請先點擊「開始批算」)");
                 return;
             }
-            // ... (Rest of logic is preserved, but we target the function head)
+
+            // check config
+            if (typeof CONFIG === 'undefined' || !CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
+                alert("請先設定 API Key！\n\n1. 請打開桌面的 'config.js' 檔案\n2. 將您的 Gemini API Key 填入其中\n3. 存檔後重新整理網頁");
+                return;
+            }
 
             const resultArea = document.getElementById('aiResultArea');
             const loading = document.getElementById('aiLoading');
             const content = document.getElementById('aiContent');
             const aiBtn = document.getElementById('aiBtn');
 
-            // 1. API Key (Hardcoded)
-            const apiKey = "AIzaSyAU_6Wjp7T4bsWsfHy9c-yh3V66vs_5pv0";
+            // 1. Get API Key from config.js
+            const apiKey = CONFIG.GEMINI_API_KEY;
 
             // 2. Prepare UI
             resultArea.classList.remove('hidden');
@@ -1820,11 +1827,7 @@
 
             } catch (error) {
                 console.error(error);
-                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}<br>請檢查 API Key 是否正確，或稍後再試。</span>`;
-                if (error.message.includes('403') || error.message.includes('key')) {
-                    localStorage.removeItem('gemini_api_key');
-                    content.innerHTML += `<br><button onclick="handleAIAnalysis()" class="underline text-blue-600 mt-2">重新輸入 API Key</button>`;
-                }
+                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}<br>請檢查 config.js 中的 API Key 是否正確。</span>`;
             } finally {
                 loading.classList.add('hidden');
                 aiBtn.disabled = false;
