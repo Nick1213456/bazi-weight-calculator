@@ -12,6 +12,8 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cnchar/cnchar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cnchar-trad/cnchar.trad.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -78,311 +80,490 @@
 
     <div class="w-full max-w-4xl bg-white shadow-2xl rounded-2xl p-8 md:p-16 relative mx-auto">
 
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold mb-2 text-black">八字批算</h1>
-            <p class="text-gray-500 text-sm tracking-widest">知命而後立命，運籌帷幄之中</p>
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-200 mb-8">
+            <button onclick="switchTab('bazi')" id="tab-btn-bazi"
+                class="flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors">
+                八字批算
+            </button>
+            <button onclick="switchTab('name')" id="tab-btn-name"
+                class="flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors">
+                姓名批算
+            </button>
         </div>
 
-        <!-- Form Section -->
-        <div class="max-w-2xl mx-auto mb-16">
+        <!-- Bazi Content -->
+        <div id="tab-bazi" class="animate-[fadeIn_0.5s_ease-out]">
 
-
-
-            <!-- Gender Selection -->
-            <div class="mb-6">
-                <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
-                <div class="flex gap-6 items-center">
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="radio" name="gender" value="male" checked
-                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                        <span class="ml-2 text-sm">男</span>
-                    </label>
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input type="radio" name="gender" value="female"
-                            class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
-                        <span class="ml-2 text-sm">女</span>
-                    </label>
-                </div>
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-2 text-black">八字批算</h1>
+                <p class="text-gray-500 text-sm tracking-widest">知命而後立命，運籌帷幄之中</p>
             </div>
 
-            <!-- Birth Date Selection -->
-            <div class="mb-8">
-                <label class="block text-gray-700 font-medium mb-2 text-sm">國歷出生時間</label>
-                <div class="flex flex-wrap items-center gap-2">
-                    <div class="relative w-40">
-                        <select id="inputYear"
-                            class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
-                        </select>
-                        <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
-                    </div>
-                    <span class="text-sm text-gray-500">年</span>
+            <!-- Form Section -->
+            <div class="max-w-2xl mx-auto mb-16">
 
-                    <div class="relative w-16">
-                        <select id="inputMonth"
-                            class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                        </select>
-                    </div>
-                    <span class="text-sm text-gray-500">月</span>
 
-                    <div class="relative w-16">
-                        <select id="inputDay"
-                            class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                        </select>
-                    </div>
-                    <span class="text-sm text-gray-500">日</span>
 
-                    <div class="relative w-28">
-                        <select id="inputTime"
-                            class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
-                            <option value="zi">子 (23-01)</option>
-                            <option value="chou">丑 (01-03)</option>
-                            <option value="yin">寅 (03-05)</option>
-                            <option value="mao">卯 (05-07)</option>
-                            <option value="chen">辰 (07-09)</option>
-                            <option value="si">巳 (09-11)</option>
-                            <option value="wu">午 (11-13)</option>
-                            <option value="wei">未 (13-15)</option>
-                            <option value="shen">申 (15-17)</option>
-                            <option value="you">酉 (17-19)</option>
-                            <option value="xu">戌 (19-21)</option>
-                            <option value="hai">亥 (21-23)</option>
-                        </select>
-                        <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                <!-- Gender Selection -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
+                    <div class="flex gap-6 items-center">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="gender" value="male" checked
+                                class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                            <span class="ml-2 text-sm">男</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="gender" value="female"
+                                class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                            <span class="ml-2 text-sm">女</span>
+                        </label>
                     </div>
-                    <span class="text-sm text-gray-500">時</span>
                 </div>
+
+                <!-- Birth Date Selection -->
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-medium mb-2 text-sm">國歷出生時間</label>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="relative w-40">
+                            <select id="inputYear"
+                                class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
+                            </select>
+                            <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                        </div>
+                        <span class="text-sm text-gray-500">年</span>
+
+                        <div class="relative w-16">
+                            <select id="inputMonth"
+                                class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                            </select>
+                        </div>
+                        <span class="text-sm text-gray-500">月</span>
+
+                        <div class="relative w-16">
+                            <select id="inputDay"
+                                class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                            </select>
+                        </div>
+                        <span class="text-sm text-gray-500">日</span>
+
+                        <div class="relative w-28">
+                            <select id="inputTime"
+                                class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                                <option value="zi">子 (23-01)</option>
+                                <option value="chou">丑 (01-03)</option>
+                                <option value="yin">寅 (03-05)</option>
+                                <option value="mao">卯 (05-07)</option>
+                                <option value="chen">辰 (07-09)</option>
+                                <option value="si">巳 (09-11)</option>
+                                <option value="wu">午 (11-13)</option>
+                                <option value="wei">未 (13-15)</option>
+                                <option value="shen">申 (15-17)</option>
+                                <option value="you">酉 (17-19)</option>
+                                <option value="xu">戌 (19-21)</option>
+                                <option value="hai">亥 (21-23)</option>
+                            </select>
+                            <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                        </div>
+                        <span class="text-sm text-gray-500">時</span>
+                    </div>
+                </div>
+
+                <button onclick="handleCalculate()"
+                    class="w-full mt-4 bg-gradient-to-r from-red-800 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-500 transition-all flex items-center justify-center group overflow-hidden relative">
+                    <span
+                        class="absolute w-64 h-64 mt-12 group-hover:-rotate-45 group-hover:-mt-24 transition-all duration-1000 ease-out -left-10 bg-white opacity-10 rotate-45"></span>
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-pulse" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                        開始批算
+                    </span>
+                </button>
+
+                <button onclick="handleReload()"
+                    class="w-full mt-3 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
+                    重置
+                </button>
+
+                <p class="text-xs text-center text-gray-400 mt-4 leading-relaxed">
+                    測算結果僅反映先天的運勢，不代表最終定論。<br>人生充滿變數，積極作為才是改變命運的核心。
+                </p>
             </div>
 
-            <button onclick="handleCalculate()"
-                class="w-full bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 hover:border-gray-400 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
-                開始批算
-            </button>
+            <div class="border-t border-gray-100 my-10"></div>
 
-            <button onclick="handleReload()"
-                class="w-full mt-3 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
-                重置
-            </button>
+            <!-- Result Area -->
+            <div id="resultArea" class="hidden mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
 
-            <p class="text-xs text-center text-gray-400 mt-4 leading-relaxed">
-                測算結果僅反映先天的運勢，不代表最終定論。<br>人生充滿變數，積極作為才是改變命運的核心。
-            </p>
-        </div>
-
-        <div class="border-t border-gray-100 my-10"></div>
-
-        <!-- Result Area -->
-        <div id="resultArea" class="hidden mx-auto space-y-12 animate-[fadeIn_0.5s_ease-out]">
-
-            <!-- 1. Four Pillars Section (Data + Analysis) -->
-            <div class="text-center mb-6 mt-2">
-                <span class="text-lg font-bold text-gray-400 tracking-widest">四柱命盤淺析</span>
-            </div>
-
-            <div class="grid grid-cols-4 gap-4">
-                <div class="bg-gray-50 rounded p-4 text-center">
-                    <div class="text-xs text-gray-400 mb-1">年柱</div>
-                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarYear">- -</div>
+                <!-- 1. Four Pillars Section (Data + Analysis) -->
+                <div class="text-center mb-6 mt-2">
+                    <span class="text-lg font-bold text-gray-400 tracking-widest">四柱命盤淺析</span>
                 </div>
-                <div class="bg-gray-50 rounded p-4 text-center">
-                    <div class="text-xs text-gray-400 mb-1">月柱</div>
-                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarMonth">- -</div>
-                </div>
-                <div class="bg-gray-50 rounded p-4 text-center">
-                    <div class="text-xs text-gray-400 mb-1">日柱</div>
-                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarDay">- -</div>
-                </div>
-                <div class="bg-gray-50 rounded p-4 text-center">
-                    <div class="text-xs text-gray-400 mb-1">時柱</div>
-                    <div class="font-bold text-gray-800 text-lg font-serif" id="pillarTime">- -</div>
-                </div>
-            </div>
 
-            <!-- 2. Four Pillars Plain Analysis Section -> Refactored to Comprehensive Analysis -->
-            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
-                <!-- Character Card -->
-                <!-- Character Card (Blue Theme) -->
-                <div
-                    class="bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="bg-gray-50 rounded p-4 text-center">
+                        <div class="text-xs text-gray-400 mb-1">年柱</div>
+                        <div class="font-bold text-gray-800 text-lg font-serif" id="pillarYear">- -</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-4 text-center">
+                        <div class="text-xs text-gray-400 mb-1">月柱</div>
+                        <div class="font-bold text-gray-800 text-lg font-serif" id="pillarMonth">- -</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-4 text-center">
+                        <div class="text-xs text-gray-400 mb-1">日柱</div>
+                        <div class="font-bold text-gray-800 text-lg font-serif" id="pillarDay">- -</div>
+                    </div>
+                    <div class="bg-gray-50 rounded p-4 text-center">
+                        <div class="text-xs text-gray-400 mb-1">時柱</div>
+                        <div class="font-bold text-gray-800 text-lg font-serif" id="pillarTime">- -</div>
+                    </div>
+                </div>
+
+                <!-- 2. Four Pillars Plain Analysis Section -> Refactored to Comprehensive Analysis -->
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="fourPillarsPlain">
+                    <!-- Character Card -->
+                    <!-- Character Card (Blue Theme) -->
                     <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-blue-200 transition-colors">
-                    </div>
-                    <h5 class="text-blue-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-blue-700 mr-2 rounded-full"></span>
-                        性格特質
-                    </h5>
-                    <p class="text-xs text-gray-400 mb-4">個性優勢 | 盲點 | 行事風格</p>
-                    <div class="space-y-3">
-                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
-                            id="analysisCharacter">
-                            <!-- Dynamic Content -->
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Wealth Card -->
-                <!-- Wealth Card (Emerald/Green Theme) -->
-                <div
-                    class="bg-gradient-to-br from-white to-emerald-50 border border-emerald-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-emerald-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-emerald-200 transition-colors">
-                    </div>
-                    <h5 class="text-emerald-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-emerald-700 mr-2 rounded-full"></span>
-                        財運運勢
-                    </h5>
-                    <p class="text-xs text-gray-400 mb-4">正財偏財 | 理財建議 | 財富來源</p>
-                    <div class="space-y-3">
-                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="analysisWealth">
-                            <!-- Dynamic Content -->
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Career Pillar -->
-                <div
-                    class="bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full -mr-10 -mt-10 opacity-60">
-                    </div>
-                    <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
-                        <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
-                        事業運勢
-                    </h5>
-                    <p class="text-xs text-gray-400 mb-4">職涯方向 | 適合領域 | 成功關鍵</p>
-                    <div class="space-y-4">
-                        <div>
+                        class="bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-blue-200 transition-colors">
+                        </div>
+                        <h5 class="text-blue-700 font-bold mb-1 text-base flex items-center">
+                            <span class="w-2 h-6 bg-blue-700 mr-2 rounded-full"></span>
+                            性格特質
+                        </h5>
+                        <p class="text-xs text-gray-400 mb-4">個性優勢 | 盲點 | 行事風格</p>
+                        <div class="space-y-3">
                             <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
-                                id="analysisCareer">
+                                id="analysisCharacter">
                                 <!-- Dynamic Content -->
                             </p>
                         </div>
-                        <div id="analysisCareerExtra" class="mt-2 text-justify">
-                            <!-- Dynamic Careers List -->
+                    </div>
+
+                    <!-- Wealth Card -->
+                    <!-- Wealth Card (Emerald/Green Theme) -->
+                    <div
+                        class="bg-gradient-to-br from-white to-emerald-50 border border-emerald-100 rounded-xl p-6 shadow-md relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 right-0 w-24 h-24 bg-emerald-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-emerald-200 transition-colors">
+                        </div>
+                        <h5 class="text-emerald-700 font-bold mb-1 text-base flex items-center">
+                            <span class="w-2 h-6 bg-emerald-700 mr-2 rounded-full"></span>
+                            財運運勢
+                        </h5>
+                        <p class="text-xs text-gray-400 mb-4">正財偏財 | 理財建議 | 財富來源</p>
+                        <div class="space-y-3">
+                            <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
+                                id="analysisWealth">
+                                <!-- Dynamic Content -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Career Pillar -->
+                    <div
+                        class="bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
+                        <div
+                            class="absolute top-0 right-0 w-24 h-24 bg-red-100 rounded-bl-full -mr-10 -mt-10 opacity-60">
+                        </div>
+                        <h5 class="text-red-700 font-bold mb-1 text-lg flex items-center">
+                            <span class="w-2 h-6 bg-red-700 mr-2 rounded-full"></span>
+                            事業運勢
+                        </h5>
+                        <p class="text-xs text-gray-400 mb-4">職涯方向 | 適合領域 | 成功關鍵</p>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium"
+                                    id="analysisCareer">
+                                    <!-- Dynamic Content -->
+                                </p>
+                            </div>
+                            <div id="analysisCareerExtra" class="mt-2 text-justify">
+                                <!-- Dynamic Careers List -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Love Pillar -->
+                    <!-- Love Pillar (Pink/Rose Theme) -->
+                    <div
+                        class="bg-gradient-to-br from-white to-pink-50 border border-pink-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
+                        <div
+                            class="absolute top-0 right-0 w-24 h-24 bg-pink-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-pink-200 transition-colors">
+                        </div>
+                        <h5 class="text-pink-700 font-bold mb-1 text-base flex items-center">
+                            <span class="w-2 h-6 bg-pink-700 mr-2 rounded-full"></span>
+                            感情人際
+                        </h5>
+                        <p class="text-xs text-gray-400 mb-4">桃花運勢 | 相處之道 | 人際魅力</p>
+                        <div class="space-y-3">
+                            <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="analysisLove">
+                                <!-- Dynamic -->
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Love Pillar -->
-                <!-- Love Pillar (Pink/Rose Theme) -->
-                <div
-                    class="bg-gradient-to-br from-white to-pink-50 border border-pink-100 rounded-xl p-6 shadow-md relative overflow-hidden group md:col-span-2">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-pink-100 rounded-bl-full -mr-10 -mt-10 opacity-60 group-hover:bg-pink-200 transition-colors">
-                    </div>
-                    <h5 class="text-pink-700 font-bold mb-1 text-base flex items-center">
-                        <span class="w-2 h-6 bg-pink-700 mr-2 rounded-full"></span>
-                        感情人際
-                    </h5>
-                    <p class="text-xs text-gray-400 mb-4">桃花運勢 | 相處之道 | 人際魅力</p>
-                    <div class="space-y-3">
-                        <p class="text-sm text-gray-700 leading-relaxed text-justify font-medium" id="analysisLove">
-                            <!-- Dynamic -->
+
+
+                <div class="dashed-line"></div>
+
+                <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
+                <div class="space-y-12">
+                    <!-- Weight Display -->
+                    <div class="text-center">
+                        <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
+                        <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
+                            <!-- Calculated Weight -->
+                        </div>
+                        <p class="text-xs text-gray-400">
+                            基數 :
+                            年<span id="yearW"></span> +
+                            月<span id="monthW"></span> +
+                            日<span id="dayW"></span> +
+                            時<span id="timeW"></span>
                         </p>
                     </div>
-                </div>
-            </div>
 
-
-
-            <div class="dashed-line"></div>
-
-            <!-- 3. Weight Display + Poem & Analysis (Yuan Tiangang) -->
-            <div class="space-y-12">
-                <!-- Weight Display -->
-                <div class="text-center">
-                    <h3 class="text-red-700 text-xs font-bold mb-2 tracking-wider">袁天罡稱骨</h3>
-                    <div class="text-6xl font-serif text-gray-800 mb-3" id="totalWeightDisplay">
-                        <!-- Calculated Weight -->
-                    </div>
-                    <p class="text-xs text-gray-400">
-                        基數 :
-                        年<span id="yearW"></span> +
-                        月<span id="monthW"></span> +
-                        日<span id="dayW"></span> +
-                        時<span id="timeW"></span>
-                    </p>
-                </div>
-
-                <!-- Poem Box -->
-                <div class="red-border-box p-6 text-center">
-                    <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
-                        <!-- Poem goes here -->
-                    </p>
-                </div>
-
-                <!-- Detailed Explanations -->
-                <div class="space-y-2">
-                    <div class="text-center mb-8">
-                        <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+                    <!-- Poem Box -->
+                    <div class="red-border-box p-6 text-center">
+                        <p id="mainPoem" class="text-xl md:text-xl text-gray-700 leading-loose font-serif">
+                            <!-- Poem goes here -->
+                        </p>
                     </div>
 
-                    <!-- Analysis Items (Generated from Poem) -->
-                    <div id="poemAnalysis" class="space-y-8">
+                    <!-- Detailed Explanations -->
+                    <div class="space-y-2">
+                        <div class="text-center mb-8">
+                            <span class="text-lg font-bold text-gray-400 tracking-widest">歌訣詳解</span>
+                        </div>
+
+                        <!-- Analysis Items (Generated from Poem) -->
+                        <div id="poemAnalysis" class="space-y-8">
+                            <!-- Dynamic Content -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Character Analysis -->
+
+
+                <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
+                    <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給此命格的建議</h4>
+                    <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
+                        <!-- Dynamic List -->
+                    </div>
+                </div>
+
+                <div class="border-b border-dashed border-gray-200 my-6"></div>
+
+                <!-- 2.5 Five Elements & Crystal Section (Moved to Bottom) -->
+                <div class="space-y-6">
+                    <div class="text-center mb-4">
+                        <span class="text-lg font-bold text-gray-400 tracking-widest">五行盈缺與水晶建議</span>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-100" id="fiveElementsContainer">
                         <!-- Dynamic Content -->
                     </div>
                 </div>
-            </div>
 
-            <!-- 4. Character Analysis -->
-
-
-            <div class="mt-8 bg-[#FAFAFA] border-l-[6px] border-[#B91C1C] p-6">
-                <h4 class="text-[#B91C1C] font-bold mb-4 text-lg tracking-wider">給此命格的建議</h4>
-                <div id="descAdvice" class="space-y-3 text-gray-700 text-sm leading-relaxed text-justify">
-                    <!-- Dynamic List -->
-                </div>
-            </div>
-
-            <div class="border-b border-dashed border-gray-200 my-6"></div>
-
-            <!-- 2.5 Five Elements & Crystal Section (Moved to Bottom) -->
-            <div class="space-y-6">
-                <div class="text-center mb-4">
-                    <span class="text-lg font-bold text-gray-400 tracking-widest">五行盈缺與水晶建議</span>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100" id="fiveElementsContainer">
-                    <!-- Dynamic Content -->
-                </div>
-            </div>
-
-            <!-- AI Analysis Button (Zen Ink Style) -->
-            <button onclick="handleAIAnalysis()" id="aiBtn"
-                class="w-full mb-6 relative group bg-stone-100 border-2 border-stone-800 rounded-sm py-5 px-6 shadow-sm hover:bg-white transition-all duration-500">
-                <div class="flex items-center justify-center gap-3">
+                <!-- AI Analysis Button (Zen Ink Style) -->
+                <!-- AI Analysis Button (Updated Style) -->
+                <button onclick="handleAIAnalysis()" id="aiBtn"
+                    class="w-full mb-6 mt-4 bg-gradient-to-r from-red-800 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-500 transition-all flex items-center justify-center group overflow-hidden relative">
                     <span
-                        class="text-stone-900 font-serif text-xl tracking-[0.5em] group-hover:tracking-[0.6em] transition-all">AI總結</span>
+                        class="absolute w-64 h-64 mt-12 group-hover:-rotate-45 group-hover:-mt-24 transition-all duration-1000 ease-out -left-10 bg-white opacity-10 rotate-45"></span>
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-pulse" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                        八字AI總結
+                    </span>
+                </button>
+
+                <!-- AI Result Section (Zen Ink Style) -->
+                <div id="aiResultArea" class="hidden mb-6 relative animate-[fadeIn_1s_ease-out]">
+                    <div class="bg-white border-y-4 border-stone-900 py-10 px-8 relative shadow-xl">
+                        <div
+                            class="absolute -top-10 -left-10 w-40 h-40 bg-stone-100 rounded-full opacity-50 mix-blend-multiply filter blur-xl pointer-events-none">
+                        </div>
+
+                        <div class="flex flex-col items-center mb-10 relative z-10">
+                            <h5
+                                class="text-stone-900 font-serif text-2xl tracking-[0.3em] font-light border-b border-stone-300 pb-4">
+                                禪 機 一 語</h5>
+                        </div>
+
+                        <div id="aiContent"
+                            class="relative z-10 text-base text-stone-800 leading-8 text-justify font-serif tracking-wide px-2 whitespace-pre-wrap">
+                        </div>
+
+                        <div id="aiLoading"
+                            class="hidden flex flex-col items-center justify-center py-12 relative z-10">
+                            <div class="w-3 h-3 bg-stone-800 rounded-full animate-ping mb-6"></div>
+                            <span class="text-sm text-stone-500 font-serif tracking-[0.5em]">靜 心 候 教 ...</span>
+                        </div>
+                    </div>
                 </div>
-            </button>
 
-            <!-- AI Result Section (Zen Ink Style) -->
-            <div id="aiResultArea" class="hidden mb-6 relative animate-[fadeIn_1s_ease-out]">
-                <div class="bg-white border-y-4 border-stone-900 py-10 px-8 relative shadow-xl">
-                    <div
-                        class="absolute -top-10 -left-10 w-40 h-40 bg-stone-100 rounded-full opacity-50 mix-blend-multiply filter blur-xl pointer-events-none">
-                    </div>
+                <button onclick="handleReload()"
+                    class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
+                    重置
+                </button>
+            </div>
+            <p class="text-xs text-center text-gray-400 mt-6 leading-relaxed">
+                名字是父母給的第一份禮物，但人生是自己走出來的路。<br>此分析旨在探索潛藏的性格特質，希望為您提供一些有趣的視角，而非絕對的定義。
+            </p>
+        </div> <!-- End tab-bazi -->
 
-                    <div class="flex flex-col items-center mb-10 relative z-10">
-                        <h5
-                            class="text-stone-900 font-serif text-2xl tracking-[0.3em] font-light border-b border-stone-300 pb-4">
-                            禪 機 一 語</h5>
-                    </div>
-
-                    <div id="aiContent"
-                        class="relative z-10 text-lg text-stone-800 leading-10 text-justify font-serif tracking-wide px-2 whitespace-pre-wrap">
-                    </div>
-
-                    <div id="aiLoading" class="hidden flex flex-col items-center justify-center py-12 relative z-10">
-                        <div class="w-3 h-3 bg-stone-800 rounded-full animate-ping mb-6"></div>
-                        <span class="text-sm text-stone-500 font-serif tracking-[0.5em]">靜 心 候 教 ...</span>
-                    </div>
-                </div>
+        <!-- Name Content -->
+        <div id="tab-name" class="hidden animate-[fadeIn_0.5s_ease-out]">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-2 text-black">姓名批算</h1>
+                <p class="text-gray-500 text-sm tracking-widest">名不正則言不順，言不順則事不成</p>
             </div>
 
-            <button onclick="handleReload()"
-                class="w-full bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
-                重置
-            </button>
+            <div class="max-w-2xl mx-auto mb-16">
+                <div class="flex gap-4 mb-6">
+                    <div class="flex-1">
+                        <label class="block text-gray-700 font-medium mb-2 text-sm">姓氏</label>
+                        <input type="text" id="inputSurname"
+                            class="w-full form-input py-2.5 focus:border-red-800 outline-none" placeholder="輸入姓氏">
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-gray-700 font-medium mb-2 text-sm">名字</label>
+                        <input type="text" id="inputName"
+                            class="w-full form-input py-2.5 focus:border-red-800 outline-none" placeholder="輸入名字">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2 text-sm">性別</label>
+                    <div class="flex gap-6 items-center justify-center">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="genderName" value="male" checked
+                                class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                            <span class="ml-2 text-sm">男</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="genderName" value="female"
+                                class="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300">
+                            <span class="ml-2 text-sm">女</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Birth Date Selection (Name Analysis) -->
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-medium mb-2 text-sm">國歷出生時間</label>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="relative w-40">
+                            <select id="inputNameYear"
+                                class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
+                            </select>
+                            <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                        </div>
+                        <span class="text-sm text-gray-500">年</span>
+
+                        <div class="relative w-16">
+                            <select id="inputNameMonth"
+                                class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                            </select>
+                        </div>
+                        <span class="text-sm text-gray-500">月</span>
+
+                        <div class="relative w-16">
+                            <select id="inputNameDay"
+                                class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                            </select>
+                        </div>
+                        <span class="text-sm text-gray-500">日</span>
+
+                        <div class="relative w-28">
+                            <select id="inputNameTime"
+                                class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                                <option value="zi">子 (23-01)</option>
+                                <option value="chou">丑 (01-03)</option>
+                                <option value="yin">寅 (03-05)</option>
+                                <option value="mao">卯 (05-07)</option>
+                                <option value="chen">辰 (07-09)</option>
+                                <option value="si">巳 (09-11)</option>
+                                <option value="wu">午 (11-13)</option>
+                                <option value="wei">未 (13-15)</option>
+                                <option value="shen">申 (15-17)</option>
+                                <option value="you">酉 (17-19)</option>
+                                <option value="xu">戌 (19-21)</option>
+                                <option value="hai">亥 (21-23)</option>
+                            </select>
+                            <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                        </div>
+                        <span class="text-sm text-gray-500">時</span>
+                    </div>
+                </div>
+
+                <!-- Direct AI Analysis Button -->
+                <button onclick="handleDirectNameAI()" id="aiNameBtn"
+                    class="w-full mt-4 bg-gradient-to-r from-red-800 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-500 transition-all flex items-center justify-center group overflow-hidden relative">
+                    <span
+                        class="absolute w-64 h-64 mt-12 group-hover:-rotate-45 group-hover:-mt-24 transition-all duration-1000 ease-out -left-10 bg-white opacity-10 rotate-45"></span>
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-pulse" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                        姓名AI總結
+                    </span>
+                </button>
+
+                <button onclick="handleReload()"
+                    class="w-full mt-3 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
+                    重置
+                </button>
+
+                <p class="text-xs text-center text-gray-400 mt-6 leading-relaxed">
+                    名字是父母給的第一份禮物，但人生是自己走出來的路。<br>此分析旨在探索姓名特質，希望提供一些有趣的視角，而非絕對的定義。
+                </p>
+
+                <!-- Name Result Area (AI Only) -->
+                <div id="nameResultArea" class="hidden mt-10 space-y-6">
+                    <!-- AI Name Analysis Result Box -->
+                    <div id="aiNameResultArea" class="hidden relative">
+                        <!-- Loading State -->
+                        <div id="aiNameLoading"
+                            class="absolute inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-10 hidden">
+                            <div
+                                class="animate-spin rounded-full h-10 w-10 border-4 border-gray-200 border-t-red-800 mb-3">
+                            </div>
+                            <p class="text-red-800 font-bold animate-pulse text-sm tracking-widest">AI正在分析...
+                            </p>
+                        </div>
+
+                        <div class="prose prose-red max-w-none bg-gray-50 p-6 rounded-lg shadow-inner text-sm leading-relaxed text-gray-700"
+                            id="aiNameContent">
+                            <!-- AI Content -->
+                        </div>
+
+                        <button onclick="handleReload()" id="nameAiResetBtn"
+                            class="w-full mt-6 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
+                            重置
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid for Ge -->
+
+            </div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -569,16 +750,49 @@
 
         // Init
         window.onload = function () {
-            populateYears();
-            populateMonths();
-            populateDays();
+            checkExpiration();
+            populateYears('inputYear');
+            populateMonths('inputMonth');
+            populateDays('inputDay');
+
+            // Populate Name Analysis Tab inputs as well
+            populateYears('inputNameYear');
+            populateMonths('inputNameMonth');
+            populateDays('inputNameDay');
 
             // Re-bind listeners (Removed to prevent resetting date on calendar switch)
             // document.querySelectorAll('input[name="calendarType"]').forEach(el => { ... });
         };
 
-        function populateYears() {
-            const select = document.getElementById('inputYear');
+        function checkExpiration() {
+            if (!CONFIG.EXPIRATION_DATE) return;
+
+            const today = new Date();
+            const expDate = new Date(CONFIG.EXPIRATION_DATE);
+            // Allow the entire expiration day (set to end of day)
+            expDate.setHours(23, 59, 59, 999);
+
+            if (today > expDate) {
+                document.body.innerHTML = `
+                    <div class="min-h-screen flex items-center justify-center bg-gray-100 font-sans">
+                        <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm mx-auto border-t-4 border-red-600">
+                            <div class="text-red-600 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">出現未知錯誤</h2>
+                            <p class="text-gray-500 text-sm mt-2">錯誤碼: 1135</p>
+                        </div>
+                    </div>
+                 `;
+                throw new Error("Application Expired");
+            }
+        }
+
+        function populateYears(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
             select.innerHTML = '';
             for (let i = 1900; i <= 2050; i++) {
                 const opt = document.createElement('option');
@@ -592,8 +806,9 @@
                 select.appendChild(opt);
             }
         }
-        function populateMonths() {
-            const select = document.getElementById('inputMonth');
+        function populateMonths(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
             select.innerHTML = '';
             for (let i = 1; i <= 12; i++) {
                 let opt = document.createElement('option');
@@ -602,8 +817,9 @@
                 select.appendChild(opt);
             }
         }
-        function populateDays() {
-            const select = document.getElementById('inputDay');
+        function populateDays(elementId) {
+            const select = document.getElementById(elementId);
+            if (!select) return;
             select.innerHTML = '';
             for (let i = 1; i <= 31; i++) {
                 let opt = document.createElement('option');
@@ -637,13 +853,504 @@
 
         function handleReload() {
             showLoading(() => {
+                // If in Name tab, clear name fields
+                const nameTab = document.getElementById('tab-name');
+                if (!nameTab.classList.contains('hidden')) {
+                    document.getElementById('inputSurname').value = '';
+                    document.getElementById('inputName').value = '';
+                    document.getElementById('nameResultArea').classList.add('hidden');
+                    return;
+                }
+                // If in Bazi tab, checking reload
                 location.reload();
             });
         }
 
-        function calculateBazi() {
-            const gender = document.querySelector('input[name="gender"]:checked').value;
+        // --- TAB LOGIC ---
+        function switchTab(tab) {
+            const baziTab = document.getElementById('tab-bazi');
+            const nameTab = document.getElementById('tab-name');
+            const baziBtn = document.getElementById('tab-btn-bazi');
+            const nameBtn = document.getElementById('tab-btn-name');
 
+            if (tab === 'bazi') {
+                baziTab.classList.remove('hidden');
+                nameTab.classList.add('hidden');
+
+                baziBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
+                nameBtn.className = "flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors";
+            } else {
+                baziTab.classList.add('hidden');
+                nameTab.classList.remove('hidden');
+
+                nameBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
+                baziBtn.className = "flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors";
+            }
+        }
+
+        // --- NAME ANALYSIS LOGIC ---
+
+        // 五行 helper
+        function getWuXing(num) {
+            const n = num % 10;
+            if (n === 1 || n === 2) return { type: "木", icon: "🌲", color: "text-green-600" };
+            if (n === 3 || n === 4) return { type: "火", icon: "🔥", color: "text-red-500" };
+            if (n === 5 || n === 6) return { type: "土", icon: "⛰️", color: "text-yellow-600" };
+            if (n === 7 || n === 8) return { type: "金", icon: "🪙", color: "text-gray-500" };
+            return { type: "水", icon: "💧", color: "text-blue-500" }; // 9, 0
+        }
+
+        // 三才配置邏輯 (Success & Foundation)
+        function getSanCaiDesc(tian, ren, di) {
+            const wT = getWuXing(tian).type;
+            const wR = getWuXing(ren).type;
+            const wD = getWuXing(di).type;
+
+            // 五行生剋關係表 (Generative: 1, Destructive: -1, Same: 0)
+            const relations = {
+                "木木": 0, "木火": 1, "木土": -1, "木金": -1, "木水": 1, // 水生木(Rev), 木生火
+                "火木": 1, "火火": 0, "火土": 1, "火金": -1, "火水": -1,
+                "土木": -1, "土火": 1, "土土": 0, "土金": 1, "土水": -1,
+                "金木": -1, "金火": -1, "金土": 1, "金金": 0, "金水": 1,
+                "水木": 1, "水火": -1, "水土": -1, "水金": 1, "水水": 0
+            };
+
+            // Note: In San Cai:
+            // Upper (Tian) -> Middle (Ren) : Success Luck (Can Ren be supported by Tian?)
+            // Middle (Ren) -> Lower (Di) : Foundation Luck (Can Ren support Di? Or implies stability)
+
+            // Check Success (Tian vs Ren)
+
+            let successScore = "";
+            let foundationScore = "";
+
+            // Simplified Relationship Logic for Demo
+            // Success (Ren vs Tian)
+            const relRT = relations[wR + wT];
+
+            const combo = wT + wR + wD;
+
+            // Specific famous combinations (Demo subset)
+            const specificCombos = {
+                "木木木": { t: "大吉", d: "配置甚佳，基礎安泰，希望達利，且得長壽。" },
+                "木火土": { t: "大吉", d: "向上進取，容易成功而富貴，基礎安穩，心身獲得長壽。" },
+                "火土金": { t: "吉", d: "得祖徒之陰德，惠澤深厚，成功順達，無障礙而向上發展。" },
+                "金水木": { t: "大吉", d: "成功運佳，境遇安盛，健康長壽。" },
+                "水木火": { t: "大吉", d: "流動順暢，成功運佳，基礎安定，心身健全。" },
+            };
+
+            if (specificCombos[combo]) {
+                return {
+                    combo: `${wT} - ${wR} - ${wD}`,
+                    result: specificCombos[combo].t,
+                    desc: specificCombos[combo].d
+                };
+            }
+
+            // Generic Logic
+            // 1. Foundation (Ren -> Di)
+            let fText = "基礎運一般。";
+            if (relations[wR + wD] === 1) fText = "基礎安泰，能得下屬或晚輩擁護。";
+            else if (relations[wR + wD] === -1) fText = "基礎不穩，易生變動，需防下屬或家庭問題。";
+            else if (relations[wR + wD] === 0) fText = "基礎穩固，但稍顯單調。";
+
+            // 2. Success (Ren -> Tian)
+            let sText = "成功運平平。";
+            if (relations[wT + wR] === 1) sText = "得上級提拔，成功順利。"; // Tian generates Ren
+            else if (relations[wR + wT] === 1) sText = "能因長上之助而成功。"; // Ren generates Tian
+            else if (relations[wT + wR] === -1 || relations[wR + wT] === -1) sText = "與長輩或上司不和，成功受阻。";
+
+            return {
+                combo: `${wT} - ${wR} - ${wD}`,
+                result: (fText.includes("不穩") || sText.includes("受阻")) ? "平/凶" : "吉",
+                desc: `${sText} ${fText} (此為五行生剋推演)`
+            };
+        }
+
+        const STROKE_81 = {
+            1: { t: "吉", d: "宇宙起源，天地開泰，大展鴻圖。", detail: "這是萬物起源之數，象徵著巨大的創造力與生命力。擁有此數者，意志堅強，具備領導才能，能夠白手起家，成就一番大事業。身體健康，名利雙收，是極佳的首領運。" },
+            2: { t: "凶", d: "混沌未定，分離破敗，無力回天。", detail: "此數象徵動盪不安，運勢起伏不定。雖然看似努力，但往往事倍功半，難以達成目標。六親緣薄，易陷於孤獨無助之境，需培養堅強的毅力以補不足。" },
+            3: { t: "吉", d: "陰陽和合，萬物化育，名利雙收。", detail: "陰陽調和的吉祥數理。象徵著順利、發達與成功。擁有此數者，才智過人，處事圓融，容易得到貴人相助，在社會上能夠立足並獲得眾人的敬仰，財運與名聲兼備。" },
+            4: { t: "凶", d: "破壞滅亡，前途坎坷，多病多災。", detail: "此數暗示著破壞與變動，人生充滿了艱難與挑戰。易遭遇挫折、病痛或意外，身心俱疲。意志薄弱者難以承受，需特別注意身體健康，並修身養性以化解戾氣。" },
+            5: { t: "吉", d: "福祿長壽，德行廣大，陰陽和合。", detail: "五行之數，中正平和。象徵著圓滿、穩健與富貴。性格溫和敦厚，人緣極佳，能夠在穩定的環境中發展事業，獲得長輩與上司的提拔，一生平安順遂，晚年得享天倫之樂。" },
+            6: { t: "吉", d: "安穩餘慶，家道興隆，天降幸運。", detail: "此數象徵著天之賜福，運勢平穩安樂。為人豪爽，信守承諾，能夠繼承家業或得長輩庇蔭。雖然未必是大富大貴的驚人成就，但生活富足，名利安穩，是一生無憂的吉祥數。" },
+            7: { t: "吉", d: "剛毅果斷，勇往直前，必獲成功。", detail: "陽剛之氣極強的數理。象徵著意志堅定，不畏艱難，具備排除萬難的勇氣與決心。適合獨立創業或從事開創性的工作，雖然過程可能充滿挑戰，但終能獲得巨大的成功。" },
+            8: { t: "吉", d: "意志堅強，貫徹始終，大器晚成。", detail: "象徵著如鐵石般的堅強意志。雖然早年可能較為辛苦，面臨諸多考驗，但只要能堅持到底，不輕言放棄，中年過後運勢將逐漸開展，獲得遲來的成功與榮譽。" },
+            9: { t: "凶", d: "興盡無力，財力難望，孤獨困苦。", detail: "此數雖然暗示著才華洋溢，但運勢卻如窮途末路。往往有才無命，懷才不遇。易陷入孤獨、貧困或病痛的困境，人生的大起大落較為劇烈，需防意外之災。" },
+            10: { t: "凶", d: "萬事終局，空虛無力，雪上加霜。", detail: "數理中最凶之數之一，象徵著黑暗與空虛。努力往往徒勞無功，事業難成，家運不濟。容易遭遇連串的不幸與打擊，需特別注意心理健康，尋求心靈的寄託。" },
+            11: { t: "吉", d: "草木逢春，枝葉沾露，穩健著實。", detail: "如旱地逢甘霖，象徵著復甦與生機。性格冷靜沉著，做事循序漸進，不急躁。雖然進展可能較緩慢，但基礎穩固，能夠一步一腳印地邁向成功，得享富貴榮華。" },
+            12: { t: "凶", d: "薄弱無力，孤立無援，外祥內苦。", detail: "此數暗示著意志薄弱，缺乏決斷力。雖然外表看似風光，但內心常感孤獨與無助。易受他人影響，隨波逐流，難以從事獨立性的工作，宜依附強者或與人合作。" },
+            13: { t: "吉", d: "才藝多能，智謀奇略，忍柔當事。", detail: "充滿智慧與才華的數理。擁有此數者，頭腦靈活，反應敏捷，具備多方面的才能。擅長謀略，能夠應對各種複雜的局勢，在學術、藝術或技藝方面易獲得成就。" },
+            14: { t: "凶", d: "忍得苦難，必有後福，是成是敗。", detail: "此數為勞碌之數，人生充滿了考驗。雖然具備才華，但運勢往往不濟，容易遭遇挫折與失敗。若能培養超人的毅力，忍受常人所不能忍，或許能在大難之後獲得成功。" },
+            15: { t: "吉", d: "謙恭做事，外得人和，大事成就。", detail: "最大的吉祥數之一。象徵著謙虛、圓融與德行。為人謙和有禮，深受他人喜愛與敬重，能夠匯聚人氣，獲得貴人提拔。事業順利，家庭美滿，富貴榮華之運。" },
+            16: { t: "吉", d: "能獲眾望，成就大業，名利雙收。", detail: "具備領袖氣質的數理。擁有此數者，胸懷大志，氣度恢弘，能夠領導眾人，成就一番大事業。因得人心，故能集聚眾望，在社會上享有崇高的地位與名聲。" },
+            17: { t: "吉", d: "排除萬難，有貴人助，把握時機。", detail: "象徵著突破與剛毅。雖然個性較為固執，容易得罪人，但因具備堅強的意志與不屈不撓的精神，能夠突破重重困難。若能修正過於剛硬的個性，善用貴人助力，定能獲得成功。" },
+            18: { t: "吉", d: "經商做事，順利昌隆，如能慎始。", detail: "此數為權力與智謀的象徵。擁有此數者，意志堅定，具備謀略，適合從事公職或管理工作。雖然可能會經歷一些波折，但最終能夠克服困難，達成目標，功成名就。" },
+            19: { t: "凶", d: "成功雖早，慎防空虧，內外不和。", detail: "此數暗示著聰明反被聰明誤。雖然早年可能展露頭角，獲得一時的成功，但因缺乏定性與人和，容易中途夭折或陷入困境。需防意外之災與病痛。" },
+            20: { t: "凶", d: "智高志大，歷盡艱難，焦心憂勞。", detail: "雖然志向遠大，才華橫溢，但運勢卻如逆水行舟，困難重重。往往付出多而收穫少，內心常感焦慮與不安。易陷入進退兩難的局面，需防精神衰弱。" },
+            21: { t: "吉", d: "專心經營，善用智慧，霜雪梅花。", detail: "象徵著如梅花般傲雪凌霜的精神。擁有此數者，獨立心強，不依賴他人，能夠憑藉自己的實力開創事業。雖然是女性的孤寡數，但對於事業發展卻是極佳的數理。" },
+            22: { t: "凶", d: "秋草逢霜，懷才不遇，憂愁怨苦。", detail: "此數暗示著才華雖高，但機運不佳。如秋草逢霜，滿腹才華無處施展。容易遭遇挫折，內心充滿怨氣與不滿。人生多波折，需修身養性，培養樂觀的心態。" },
+            23: { t: "吉", d: "旭日東升，名顯四方，漸次進展。", detail: "如旭日東升般氣勢磅礡的吉祥數。象徵著充滿活力與希望。擁有此數者，氣度非凡，具備領導才能，能夠在激烈的競爭中脫穎而出，成就偉大的事業。但女性需防過於強勢。" },
+            24: { t: "吉", d: "錦繡前程，須靠自力，多用智謀。", detail: "白手起家的吉祥數理。象徵著聰明才智與勤奮努力。雖然起步可能一無所有，但憑藉著智慧與雙手，能夠逐步累積財富，晚年大富大貴，子孫滿堂。" },
+            25: { t: "吉", d: "天時地利，再得人和，講信修睦。", detail: "資性英敏，具有獨特的才能。為人怪癖，不與人同流合汙，但因具備真才實學，仍能獲得他人的尊重。若能收斂高傲的個性，善與人處，成功指日可待。" },
+            26: { t: "凶", d: "波瀾起伏，千變萬化，凌駕萬難。", detail: "此數為波瀾萬丈之象，人生充滿了變數與傳奇。雖然具備俠義心腸與英雄氣概，但運勢起伏過於劇烈，成敗往往在一線之間。需經得起大風大浪的考驗，方能有所成就。" },
+            27: { t: "凶", d: "一成一敗，一盛一衰，惟靠謹慎。", detail: "此數暗示著自我中心，容易因固執己見而招致失敗。雖然中途可能獲得成功，但因缺乏人和，往往難以此持久。易受誹謗與攻擊，需多聽取他人意見，修正自己的缺失。" },
+            28: { t: "凶", d: "魚臨旱地，難逃惡運，此數大凶。", detail: "數理極凶，象徵著災難與不幸。雖然豪氣干雲，但往往因行事魯莽而招致禍端。家庭運不佳，六親緣薄，易陷於孤獨。宜修身養性，行善積德，以求化解。" },
+            29: { t: "吉", d: "如龍得水，青雲直上，智謀奮進。", detail: "大吉大利之數。象徵著才華橫溢，智謀過人。擁有此數者，如龍得水，能夠在社會上大展拳腳。適合從事政治、商業或與權力有關的工作，名利雙收，權勢顯達。" },
+            30: { t: "凶", d: "吉凶參半，得失相伴，投機取巧。", detail: "此數為浮沉不定之象。吉凶難料，成敗全憑機運。擁有此數者，往往好賭成性，喜歡投機取巧。人生大起大落，缺乏安全感。需腳踏實地，戒除貪念。" },
+            31: { t: "吉", d: "此數大吉，名利雙收，漸進向上。", detail: "智勇兼備的吉祥數理。象徵著腳踏實地，穩步向前。擁有此數者，意志堅定，做事有計劃，能夠排除萬難，達成目標。人際關係良好，家庭美滿，晚年運勢更佳。" },
+            32: { t: "吉", d: "池中之龍，風雲際會，一躍上天。", detail: "如困龍得水，一飛沖天。象徵著機遇與幸運。擁有此數者，往往能在偶然的機會下獲得成功。貴人運極佳，能夠得到有力的提拔與幫助，事業發展迅速。" },
+            33: { t: "吉", d: "意氣用事，人和必失，如能慎始。", detail: "此數為極剛之數，象徵著權威與果斷。擁有此數者，才華出眾，自信滿滿。但因個性過於剛烈，容易得罪人，導致人和不佳。需學習謙虛與包容，方能長保富貴。" },
+            34: { t: "凶", d: "災難不絕，難望成功，此數大凶。", detail: "數理極凶，象徵著破壞與毀滅。人生充滿了災難與不幸，病痛纏身，家庭破碎。雖然可能具備才華，但運勢極差，難有發揮之地。宜改名換運，修德積福。" },
+            35: { t: "吉", d: "處事嚴謹，進退保守，學智兼具。", detail: "溫和文雅的吉祥數理。象徵著文學、藝術與學術的成就。擁有此數者，性格內向，喜愛思考，適合從事靜態的工作。雖然缺乏開創性，但能在穩定的領域中獲得成功。" },
+            36: { t: "凶", d: "波瀾重疊，常陷窮困，動不如靜。", detail: "此數暗示著捨己救人，但往往好心沒好報。人生波折不斷，辛苦勞碌卻所獲無幾。易陷於財務困境或感情糾紛。宜安分守己，避免冒險。" },
+            37: { t: "吉", d: "逢凶化吉，吉人天相，以德取眾。", detail: "象徵著忠誠與信義。擁有此數者，意志堅定，為人正直，深得他人信任。雖然早年可能較為辛苦，但中年過後運勢大開，事業有成，名利雙收。" },
+            38: { t: "凶", d: "名雖可得，利則難獲，藝界發展。", detail: "此數為技藝之數。擁有此數者，心靈手巧，在藝術或技藝方面有獨特的天賦。但財運較差，往往名氣大而實利少。適合從事創作、設計等工作。" },
+            39: { t: "吉", d: "雲開見月，雖有勞碌，光明坦途。", detail: "象徵著否極泰來。雖然早年可能遭遇困難與阻礙，但因具備堅強的意志與奮鬥精神，終能撥雲見日，獲得成功。晚年運勢極佳，福壽雙全。" },
+            40: { t: "凶", d: "一盛一衰，浮沉不定，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運時令人羨慕，壞運時令人同情。因為缺乏定性與智謀，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
+            40: { t: "凶/吉", d: "一盛一衰，運勢不穩，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運與壞運交替出現。因為可能缺乏定性，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
+            41: { t: "吉", d: "天賦吉運，德望兼備，繼續努力。", detail: "德高望重的吉祥數理。象徵著博愛與寬容。擁有此數者，心胸寬廣，樂於助人，受人敬仰。事業發展順利，財源廣進，是一生福氣滿滿的數理。" },
+            42: { t: "凶", d: "事業不專，博而不精，專心進取。", detail: "【博而不精】興趣廣泛，但可能缺乏持久力與專注力，往往樣樣通樣樣鬆。事業多變動，難以有大成就。需培養專一的精神，方能有所突破。" },
+            43: { t: "凶", d: "外祥內苦，需防誘惑，忍耐自重。", detail: "外表看似光鮮亮麗，內心卻可能有不為人知的苦楚。象徵著虛有其表。易遭遇金錢或感情的誘惑，需潔身自愛，防範未然。晚年運勢需多規劃。" },
+            44: { t: "凶", d: "費盡心機，事難遂願，需改心性。", detail: "【需防失誤】此數暗示著過於算計可能反招致失敗。往往因小失大。雖然可能獲得一時的利益，但終將得不償失。需誠信待人，方能扭轉命運。" },
+            45: { t: "吉", d: "楊柳遇春，綠葉發枝，衝破難關。", detail: "象徵著順應自然，生機勃勃。擁有此數者，智慧過人，處事圓滑，能夠克服一切困難，達成目標。事業發展順利，名利雙收，是一生幸運的數理。" },
+            46: { t: "凶", d: "坎坷不平，艱難重重，磨練心志。", detail: "【懷才不遇】才華雖高，但生不逢時，運勢多舛。易面臨生活壓力或親友無助的狀況。需培養堅強的意志，忍辱負重，在逆境中尋求生機。" },
+            47: { t: "吉", d: "有貴人助，可成大業。", detail: "【開花結果】象徵收穫與成功。為人誠實，做事負責，深得信賴。能獲貴人提拔，在事業上取得巨大成就。家庭美滿，子孫賢孝。" },
+            48: { t: "吉", d: "美化豐實，名利俱全。", detail: "【青松立鶴】才德兼備的吉祥數。象徵高貴與優雅。氣質出眾，才華洋溢，能在社會上脫穎而出。名利雙收，富貴榮華。" },
+            49: { t: "凶/吉", d: "吉凶未定，浮沉多端，惟靠謹慎。", detail: "【吉凶參半】此數為吉凶混合之數。運勢的好壞全憑環境與心境而定。若能心存善念，行善積德，則能逢凶化吉；反之，則易招致問題。需謹言慎行，修身養性。" },
+            50: { t: "凶/吉", d: "吉凶互見，一成一敗。", detail: "【大起大落】此數暗示著大起大落。雖然可能獲得一時成功，但往往曇花一現，難以持久。晚年運勢需多加注意，宜未雨綢繆，積穀防饑。" },
+            51: { t: "凶", d: "一盛一衰，運勢起伏，需養定性。", detail: "【不穩定】運勢好壞參半。做事容易虎頭蛇尾，缺乏恆心。雖然偶有好運，但難以把握。需培養定性，堅持到底，方能有所成就。" },
+            52: { t: "吉", d: "草木逢春，雨過天晴。", detail: "【先苦後甘】先苦後甘的吉祥數。具備遠見與卓識。眼光獨到，能洞燭機先，抓住機會。雖然早年可能較辛苦，但晚年運勢極佳，名利雙收。" },
+            53: { t: "凶", d: "盛衰參半，外祥內苦。", detail: "【金玉其外】此數暗示著金玉其外，敗絮其中。外表光鮮，內心卻充滿憂愁。早年運勢尚可，但晚年容易陷入困境。需防晚景淒涼，宜早作規劃。" },
+            54: { t: "凶", d: "雖傾全力，難望成功，宜守不宜進。", detail: "【考驗重重】數理較弱，象徵孤獨與阻礙。人生充滿挑戰，身體健康需注意。雖然努力奮鬥，但回報可能不如預期。宜心存善念，多行善事以改運。" },
+            55: { t: "凶", d: "外觀隆昌，內隱隱憂，需防危機。", detail: "【外強中乾】此數為外強中乾之象。表面成功，實則危機四伏。意志稍弱，缺乏決斷力，易受人左右。需培養獨立自主精神，方能化險為夷。" },
+            56: { t: "凶", d: "事與願違，欲速不達，腳踏實地。", detail: "【缺乏實力】此數暗示著主觀願望與客觀實力有差距。心比天高，但執行力需加強。做事避免眼高手低，難以達成目標。需腳踏實地，量力而為。" },
+            57: { t: "吉", d: "努力經營，花開富貴。", detail: "【苦盡甘來】苦盡甘來的吉祥數。象徵堅忍不拔的毅力。能忍受常人所不能忍的痛苦，最終獲得成功。晚年運勢極佳，得享天倫之樂。" },
+            58: { t: "吉", d: "半兇半吉，始凶終吉。", detail: "【先難後易】此數為先難後易之象。早年運勢波折，面臨考驗。但只要堅持下去，中年過後運勢好轉，獲得成功與幸福。" },
+            59: { t: "凶", d: "遇事猶疑，難望成事，需斷毅力。", detail: "【意志薄弱】此數暗示著意志薄弱，缺乏決斷力。做事猶豫不決，錯失良機。易受他人影響，隨波逐流。需培養自信心與決斷力，方能有所成就。" },
+            60: { t: "凶", d: "前路未明，心迷意亂，尋求指引。", detail: "【迷失方向】數理較凶，象徵混亂與迷失。人生似失去方向，不知何去何從。做事反覆無常，難以取信於人。宜尋求明師或長輩指點，重拾信心。" },
+            61: { t: "吉", d: "雲遮半月，應自謹慎。", detail: "【名利雙收】象徵名利雙收。聰明才智，具備領導才能。雖然可能經歷風波與修煉，但最終獲得成功與榮譽。需防驕傲自滿，以免招致失敗。" },
+            62: { t: "凶", d: "煩惱懊悔，事業難成，需築基礎。", detail: "【基礎薄弱】此數暗示著基礎薄弱，缺乏信譽。做事容易半途而廢，難以達成目標。人際關係不佳，易受孤立。需加強修養，建立良好人際關係。" },
+            63: { t: "吉", d: "萬物化育，專心一意。", detail: "【吉祥如意】吉祥如意之數。象徵順利與成功。心地善良，樂於助人，深得他人喜愛。事業發展順利，家庭美滿，是一生幸福的數理。" },
+            64: { t: "凶", d: "見異思遷，徒勞無功，培養耐心。", detail: "【缺乏恆心】此數暗示著缺乏恆心與毅力。做事三分鐘熱度，難以持久。容易因為小挫折就放棄，導致一事無成。需培養恆心與毅力，方能有所成就。" },
+            65: { t: "吉", d: "吉運自來，能享盛名。", detail: "【福運雙全】福運雙全的吉祥數。象徵富貴與長壽。運勢極佳，做事順利，容易獲得成功。家庭和睦，子孫賢孝，晚年得享清福。" },
+            66: { t: "凶", d: "困頓難行，內外不和，尋求突破。", detail: "【內憂外患】此數暗示著內憂外患。家庭不和，親友無助，事業受阻。人生充滿艱難與挑戰，心情常感壓抑。需保持樂觀心態，主動尋求解決之道。" },
+            67: { t: "吉", d: "獨營事業，功成名就。", detail: "【通達順利】象徵通達與順利。頭腦靈活，善於交際，能左右逢源。事業發展迅速，財源廣進，是一生富貴的數理。" },
+            68: { t: "吉", d: "思慮周詳，不失先機。", detail: "【智謀出眾】智謀出眾的吉祥數。象徵聰明與智慧。思考縝密，做事有計劃，不打沒把握的仗。能抓住機會，獲得成功。" },
+            69: { t: "凶", d: "動搖不安，不得時運，守成為上。", detail: "【運勢坎坷】此數暗示著運勢坎坷，波折不斷。雖然努力奮鬥，但往往事倍功半。易遭遇小病痛或挫折，身心俱疲。需防意外，多行善積德。" },
+            70: { t: "凶", d: "慘淡經營，運勢衰退，宜守不宜進。", detail: "【險阻重重】數理較凶，象徵衰退。人生充滿挑戰，可能面臨家庭或健康的考驗。雖然具備才華，但環境限制發揮。宜保守經營，尋求轉機。" },
+            71: { t: "凶", d: "吉凶參半，惟賴勇氣，堅持到底。", detail: "【勞苦耕耘】此數為勞苦之數。付出很多，但收穫甚微。內心常感空虛與無奈。需培養堅強意志，忍受孤獨，堅持到底方有一線生機。" },
+            72: { t: "凶", d: "外強中乾，得而復失，戒除驕傲。", detail: "【外表光鮮】此數暗示著外表光鮮，內心空虛。雖然可能獲得一時成功，但難以持久。容易因為驕傲自滿而招致失敗。晚年運勢較差，需防孤獨與貧困。" },
+            73: { t: "吉", d: "安樂自來，力行不懈。", detail: "【平平安安】平平安安的吉祥數。象徵小康與知足。雖無大富大貴，但生活無憂，家庭和睦。性格溫和，樂天知命，晚年得享清福。" },
+            74: { t: "凶", d: "利不及費，坐食山空，需勤奮起。", detail: "【需勤需儉】此數暗示著可能缺乏進取心，整日無所事事，坐吃山空。晚年容易陷入經濟困難。需振作精神，努力工作，方能改變命運。" },
+            75: { t: "凶", d: "吉中帶凶，欲速不達，保守平安。", detail: "【退守平安】此數為退守之數。運勢平平，難有大發展。若強求名利，反而容易招致失敗。宜安分守己，保守經營，方保平安。" },
+            76: { t: "凶", d: "運勢傾頹，破產之象，急流勇退。", detail: "【傾家蕩產】數理極凶，象徵財運不佳。人生充滿挫折與失敗，財散人離。雖然可能具備才華，但時運不濟，難以翻身。宜保守理財，尋求新生。" },
+            77: { t: "吉/凶", d: "先苦後甘，如能守成。", detail: "【過山車】半凶半吉之數。運勢如過山車般起伏不定。早年可能辛苦，但晚年運勢好轉；或早年風光，晚年淒涼。全憑個人造化與努力。" },
+            78: { t: "凶", d: "有得有失，華而不實，養成儲蓄。", detail: "【財來財去】此數暗示著財來財去，難以積聚。雖然可能賺得不少錢財，但往往因為各種原因而流失。晚年容易陷入貧困。需養成儲蓄習慣，量入為出。" },
+            79: { t: "凶", d: "前途未明，希望渺茫，尋求信仰。", detail: "【黑暗絕望】數理較凶，象徵迷茫與無助，看不到未來。易遭遇災難與不幸，身心俱疲。宜尋求宗教信仰，寄託心靈，以求平靜。" },
+            80: { t: "凶", d: "得而復失，枉費心機，修身養性。", detail: "【徒勞無功】此數暗示著徒勞無功。雖然付出了很多努力，但最終卻是一場空。健康運較差，易生病痛。需看淡名利，修身養性，方保平安。" },
+            81: { t: "吉", d: "最極之數，能得繁業。", detail: "【圓滿回歸】大吉大利之數。象徵圓滿與回歸。經歷九九八十一難，終於修成正果。福壽雙全，名利雙收，是一生最完美的結局。" }
+        };
+
+        function getLuck(num) {
+            const n = num > 81 ? num % 81 || 81 : num;
+            return STROKE_81[n] || { t: "平", d: "吉凶未定", detail: "此數理含義較為中性，需視配合而定。" };
+        }
+
+        function getStrokes(char) {
+            try {
+                // Try traditional count first via cnchar api if available
+                let n = cnchar.stroke(char);
+                return n > 0 ? n : 1;
+            } catch (e) {
+                return 1;
+            }
+        }
+
+        // New function to handle everything in one go
+        function handleDirectNameAI() {
+            const surname = document.getElementById('inputSurname').value.trim();
+            const name = document.getElementById('inputName').value.trim();
+
+            if (!surname || !name) {
+                alert("請輸入姓氏與名字");
+                return;
+            }
+
+            // Ensure cnchar is loaded
+            if (typeof cnchar === 'undefined') {
+                alert("字庫資源載入中，請稍後再試...");
+                return;
+            }
+
+            showLoading(async () => {
+                try {
+                    // 1. Calculate Strokes
+                    const sChars = surname.split('');
+                    const nChars = name.split('');
+
+                    const s1 = getStrokes(sChars[0]);
+                    const s2 = sChars.length > 1 ? getStrokes(sChars[1]) : null;
+                    const n1 = getStrokes(nChars[0]);
+                    const n2 = nChars.length > 1 ? getStrokes(nChars[1]) : null;
+
+                    // 2. Define 5 Gates (Wu-Ge)
+                    let tian, ren, di, wai, zong;
+
+                    if (!s2 && !n2) { // Single S, Single N
+                        tian = s1 + 1; ren = s1 + n1; di = n1 + 1; wai = 2; zong = s1 + n1;
+                    } else if (!s2 && n2) { // Single S, Double N
+                        tian = s1 + 1; ren = s1 + n1; di = n1 + n2; wai = n2 + 1; zong = s1 + n1 + n2;
+                    } else if (s2 && !n2) { // Double S, Single N
+                        tian = s1 + s2; ren = s2 + n1; di = n1 + 1; wai = s1 + 1; zong = s1 + s2 + n1;
+                    } else { // Double S, Double N
+                        tian = s1 + s2; ren = s2 + n1; di = n1 + n2; wai = s1 + n2; zong = s1 + s2 + n1 + n2;
+                    }
+
+                    // 3. Get Luck (Logic needed for AI context, but no UI update)
+                    const tianL = getLuck(tian);
+                    const renL = getLuck(ren);
+                    const diL = getLuck(di);
+                    const waiL = getLuck(wai);
+                    const zongL = getLuck(zong);
+
+                    // 4. San Cai
+                    const sanCai = getSanCaiDesc(tian, ren, di);
+
+                    // 5 NO UI Update for Local Results anymore
+
+                    // 6. Bazi Context for AI
+                    let y = parseInt(document.getElementById('inputNameYear').value);
+                    let m = parseInt(document.getElementById('inputNameMonth').value);
+                    let d = parseInt(document.getElementById('inputNameDay').value);
+                    const timeKey = document.getElementById('inputNameTime').value;
+
+                    // Validate Date
+                    if (isNaN(y) || isNaN(m) || isNaN(d)) {
+                        const now = new Date();
+                        y = now.getFullYear(); m = now.getMonth() + 1; d = now.getDate();
+                    }
+
+                    const genderElements = document.getElementsByName('genderName');
+                    let gender = 'male';
+                    for (const el of genderElements) { if (el.checked) gender = el.value; }
+
+                    const timeMap = { "zi": 0, "chou": 2, "yin": 4, "mao": 6, "chen": 8, "si": 10, "wu": 12, "wei": 14, "shen": 16, "you": 18, "xu": 20, "hai": 22 };
+                    const hour = timeMap[timeKey] !== undefined ? timeMap[timeKey] : 12;
+
+                    let solar = Solar.fromYmdHms(y, m, d, hour, 0, 0);
+                    const lunar = solar.getLunar();
+                    const bazi = lunar.getBaZi();
+
+                    window.latestNameContext = {
+                        surname: surname,
+                        name: name,
+                        gender: gender,
+                        birthDate: `${y}年${m}月${d}日 ${timeKey}時`,
+                        bazi: bazi,
+                        wuge: {
+                            tian: { val: tian, wx: getWuXing(tian).type },
+                            ren: { val: ren, wx: getWuXing(ren).type },
+                            di: { val: di, wx: getWuXing(di).type },
+                            wai: { val: wai, wx: getWuXing(wai).type },
+                            zong: { val: zong, wx: getWuXing(zong).type }
+                        },
+                        sancai: sanCai
+                    };
+
+                    // Show Result Area but keep specific content logic to AI Handler
+                    document.getElementById('nameResultArea').classList.remove('hidden');
+
+                    // Trigger AI Analysis
+                    await window.handleNameAIAnalysis();
+
+                } catch (e) {
+                    console.error("Calculation/AI Error:", e);
+                    alert("分析過程發生錯誤: " + e.message);
+                }
+            });
+        }
+
+        window.handleNameAIAnalysis = async function () {
+            if (!window.latestNameContext) {
+                alert("請先輸入姓名並點擊分析！");
+                return;
+            }
+
+            let apiKey = '';
+            if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
+                apiKey = CONFIG.GEMINI_API_KEY;
+            }
+            if (!apiKey) apiKey = localStorage.getItem('gemini_api_key');
+
+            if (!apiKey) {
+                showApiKeyModal();
+                return;
+            }
+
+            const resultArea = document.getElementById('aiNameResultArea');
+            const loading = document.getElementById('aiNameLoading');
+            const content = document.getElementById('aiNameContent');
+            const aiBtn = document.getElementById('aiNameBtn');
+            const resetBtn = document.getElementById('nameAiResetBtn');
+
+            resultArea.classList.remove('hidden');
+            loading.classList.remove('hidden');
+            if (resetBtn) resetBtn.classList.add('hidden'); // Hide reset button during loading
+
+            content.innerHTML = "";
+            aiBtn.disabled = true;
+            aiBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            const ctx = window.latestNameContext;
+            const prompt = `
+你是一位精通姓名學與八字命理的大師。請結合「八字命盤」與「姓名五格」，為命主進行姓名吉凶鑒定。
+
+【命主資料】
+- 姓名：${ctx.surname}${ctx.name}
+- 性別：${ctx.gender === 'male' ? '男' : '女'}
+- 出生：${ctx.birthDate}
+- 八字：${ctx.bazi.join(' ')} (年 月 日 時)
+
+【姓名格局】
+- 五行配置：天格(${ctx.wuge.tian.wx})、人格(${ctx.wuge.ren.wx})、地格(${ctx.wuge.di.wx})、外格(${ctx.wuge.wai.wx})、總格(${ctx.wuge.zong.wx})
+- 三才配置：${ctx.sancai.combo} (${ctx.sancai.result})
+
+【分析要求】
+請嚴格按照以下 HTML 結構輸出內容，**不要**使用 Markdown，直接輸出 HTML 代碼。
+重點部分或關鍵吉凶判斷，請使用 <span class="text-red-700 font-bold">重點文字</span> 包裹。
+**請勿**使用綠色或其他顏色標註負面詞彙，統一使用紅色標註重點即可。
+
+請依序輸出以下四個區塊，保持排版現代且結構化，**除此之外不要輸出任何其他內容**：
+
+<!-- 1. 三才五格簡析 (儀表板佈局) -->
+<div class="mb-8">
+    <h3 class="flex items-center text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+        <span class="bg-gray-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
+        三才五格格局簡析
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-700 mb-2">基礎個性</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">(在此分析三才靈動數對命主內在性格的影響)</p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-700 mb-2">事業發展</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">(分析人格與地格對工作的影響)</p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-700 mb-2">財運分析</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">(分析總格與外格對財運的靈動力)</p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-bold text-gray-700 mb-2">人際與婚姻</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">(分析对外格與地格的影響)</p>
+        </div>
+    </div>
+</div>
+
+<!-- 2. 八字與姓名配合度 (卡片列表樣式) -->
+<div class="mb-8">
+    <h3 class="flex items-center text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+        <span class="bg-gray-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span>
+        命盤與姓名配合度
+    </h3>
+    <div class="mb-8 text-center">
+        <div class="inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-4 border-red-100 bg-white shadow-lg mb-4">
+            <span class="text-4xl font-extrabold text-red-600 leading-none">(分數)</span>
+            <span class="text-xs font-bold text-gray-400 mt-1">綜合評分</span>
+        </div>
+    </div>
+    <div class="space-y-4">
+        <div class="border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 border-b border-gray-200">八字格局強弱與喜用</div>
+            <div class="p-4 text-gray-700 leading-relaxed bg-white">
+                (分析命盤強弱及所需的五行喜用神，內容要白話易懂，**不要使用斜體**)
+            </div>
+        </div>
+        <div class="border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 border-b border-gray-200">姓名五行補救作用</div>
+            <div class="p-4 text-gray-700 leading-relaxed bg-white">
+                (詳細說明名字是否補足了八字缺失，有無相剋？內容要白話易懂，**不要使用斜體**)
+            </div>
+        </div>
+         <div class="border border-gray-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-4 py-2 font-bold text-slate-700 border-b border-gray-200">綜合配合度判斷</div>
+            <div class="p-4 text-gray-700 leading-relaxed bg-white">
+                (總結姓名對此命盤是加分還是減分，內容要白話易懂，**不要使用斜體**)
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. 改運建議 (溫馨信箋樣式) -->
+<div class="mb-4">
+    <h3 class="flex items-center text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+        <span class="bg-gray-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">3</span>
+        改運建議
+    </h3>
+    <div class="bg-amber-50 rounded-xl p-6 relative">
+        <span class="absolute top-4 left-4 text-4xl text-amber-200 leading-none">❝</span>
+        <div class="pl-8 pt-2 space-y-4">
+             <div>
+                <span class="font-bold text-amber-900 block mb-2">適合產業方向：</span>
+                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                    <li>(列表項目：適合產業1)</li>
+                    <li>(列表項目：適合產業2)</li>
+                    <li>(列表項目：適合產業3)</li>
+                </ul>
+            </div>
+            <div>
+                <span class="font-bold text-amber-900 block mb-2">水晶建議：</span>
+                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                    <li>(列表項目：適合水晶1)</li>
+                    <li>(列表項目：適合水晶2)</li>
+                </ul>
+             </div>
+             <div>
+                <span class="font-bold text-amber-900 block mb-2">勉勵：</span>
+                <p class="text-gray-700 leading-relaxed">
+                   (給予心態勉勵與正能量祝福，**不要使用斜體**)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+語氣請專業、客觀，用「你」稱呼命主，內容務必白話易懂，**嚴禁使用斜體**。
+            `;
+
+            try {
+                const analysis = await window.callGeminiAPI(apiKey, prompt);
+                const cleanText = analysis.replace(/```html/g, '').replace(/```/g, '');
+                content.innerHTML = cleanText;
+            } catch (error) {
+                console.error(error);
+                if (error.message.includes('API key not valid') || error.message.includes('400')) {
+                    localStorage.removeItem('gemini_api_key');
+                    showApiKeyModal("金鑰失效，請重新輸入");
+                }
+                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}</span>`;
+            } finally {
+                loading.classList.add('hidden');
+                aiBtn.disabled = false;
+                aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                const resetBtn = document.getElementById('nameAiResetBtn');
+                if (resetBtn) resetBtn.classList.remove('hidden');
+            }
+        };
+
+        function calculateBazi() {
+
+            // Retrieve selected gender
+            const genderElements = document.getElementsByName('gender');
+            let gender = 'male'; // Default
+            for (const el of genderElements) {
+                if (el.checked) {
+                    gender = el.value;
+                    break;
+                }
+            }
 
             let y = parseInt(document.getElementById('inputYear').value);
             let m = parseInt(document.getElementById('inputMonth').value);
@@ -731,10 +1438,10 @@
                     const div = document.createElement('div');
                     let explanation = getPoemLineExplanation(line, index);
                     div.innerHTML = `
-                        <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
-                        <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
-                        ${index < parts.length - 1 ? '<div class="border-b border-dashed border-gray-200 my-1.5"></div>' : ''}
-                    `;
+                                <h4 class="text-red-700 font-bold mb-2 text-sm">${line}</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">${explanation}</p>
+                                ${index < parts.length - 1 ? '<div class="border-b border-dashed border-gray-200 my-1.5"></div>' : ''}
+                                `;
                     analysisContainer.appendChild(div);
                 });
 
@@ -1505,13 +2212,13 @@
                 if (dmElement && wuxingInfo[dmElement]) {
                     const careers = wuxingInfo[dmElement].careers;
                     const careerHtml = `
-                        <div class="mt-4 pt-4 border-t border-dashed border-red-100">
-                            <h6 class="text-sm font-bold text-gray-700 mb-3 flex items-center">
-                                <svg class="w-4 h-4 mr-1.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                適合您的職業方向
-                            </h6>
-                            <div class="space-y-2.5">
-                                ${careers.map(c => {
+                                                <div class="mt-4 pt-4 border-t border-dashed border-red-100">
+                                                    <h6 class="text-sm font-bold text-gray-700 mb-3 flex items-center">
+                                                        <svg class="w-4 h-4 mr-1.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                                        適合您的職業方向
+                                                    </h6>
+                                                    <div class="space-y-2.5">
+                                                        ${careers.map(c => {
                         const parts = c.split("：");
                         const category = parts[0];
                         const details = parts[1] || "";
@@ -1524,9 +2231,9 @@
                                     </div>
                                     `;
                     }).join('')}
-                            </div>
-                        </div>
-                    `;
+                                                    </div>
+                                                </div>
+                                                `;
                     careerExtraDiv.innerHTML = careerHtml;
                 }
             }
@@ -1693,28 +2400,28 @@
             // 1. Zodiac Geode Section (Always shown)
             const zInfo = zodiacGeodeMap[userShengXiao];
             const geodeHtml = `
-                <div class="mb-8 border-b border-dashed border-gray-200 pb-8">
-                     <!-- Geode Recommendation (Floating Label) -->
-                    <div class="relative border border-gray-300 rounded-lg p-6 mt-4">
-                        <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
-                            晶洞五行推薦
-                        </h5>
-                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center">
-                                <div class="flex flex-col shrink-0">
-                                <span class="text-xs bg-red-700 text-white px-3 py-1 rounded self-start mb-1 tracking-widest font-bold shadow-sm">
-                                    ${zInfo.name}・${zInfo.element}型
-                                </span>
-                                <span class="text-lg font-bold text-gray-800">
-                                    ${zInfo.shapeName}
-                                </span>
-                                </div>
-                                <p class="text-xs text-gray-500 leading-relaxed text-justify sm:border-l sm:border-gray-200 sm:pl-4 mt-2 sm:mt-0">
-                                ${zInfo.desc}
-                                </p>
-                        </div>
-                    </div>
-                </div>
-            `;
+                                                <div class="mb-8 border-b border-dashed border-gray-200 pb-8">
+                                                    <!-- Geode Recommendation (Floating Label) -->
+                                                    <div class="relative border border-gray-300 rounded-lg p-6 mt-4">
+                                                        <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
+                                                            晶洞五行推薦
+                                                        </h5>
+                                                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center">
+                                                            <div class="flex flex-col shrink-0">
+                                                                <span class="text-xs bg-red-700 text-white px-3 py-1 rounded self-start mb-1 tracking-widest font-bold shadow-sm">
+                                                                    ${zInfo.name}・${zInfo.element}型
+                                                                </span>
+                                                                <span class="text-lg font-bold text-gray-800">
+                                                                    ${zInfo.shapeName}
+                                                                </span>
+                                                            </div>
+                                                            <p class="text-xs text-gray-500 leading-relaxed text-justify sm:border-l sm:border-gray-200 sm:pl-4 mt-2 sm:mt-0">
+                                                                ${zInfo.desc}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                `;
 
             // Render combined HTML - logic simplified to always show recommendations
             let combinedHtml = geodeHtml + `<p class="mb-6 text-center text-sm text-gray-600">您的八字五行中需補足：<span class="font-bold text-red-700 text-lg mx-2">${missing.map(m => wuxingInfo[m].name).join('、')}</span></p>`;
@@ -1722,27 +2429,27 @@
             missing.forEach(mKey => {
                 const info = wuxingInfo[mKey];
                 combinedHtml += `
-                        <div class="mb-8 last:mb-0 border-b border-dashed border-gray-200 pb-8 last:pb-0 last:border-0">
-                            <!-- Analysis -->
-                            <div class="mb-4">
-                                <h5 class="font-bold text-gray-800 text-base mb-2 flex items-center">
-                                    <span class="w-1.5 h-6 bg-gray-600 mr-2 rounded-full"></span>
-                                    缺【${info.name}】的影響
-                                </h5>
-                                <p class="text-gray-600 text-sm leading-relaxed text-justify pl-3.5 border-l-2 border-gray-200 ml-1">
-                                    ${info.missingReason}
-                                </p>
-                            </div>
-                            
-                            <!-- Crystal Recommendation Link only -->
-                            <div class="mt-6">
-                                <!-- Crystal Recommendation (Floating Label) -->
-                                <div class="relative border border-gray-300 rounded-lg p-6">
-                                    <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
-                                        隨身開運水晶
-                                    </h5>
-                                    <ul class="space-y-4">
-                                        ${info.crystals.map(c => `
+                                                <div class="mb-8 last:mb-0 border-b border-dashed border-gray-200 pb-8 last:pb-0 last:border-0">
+                                                    <!-- Analysis -->
+                                                    <div class="mb-4">
+                                                        <h5 class="font-bold text-gray-800 text-base mb-2 flex items-center">
+                                                            <span class="w-1.5 h-6 bg-gray-600 mr-2 rounded-full"></span>
+                                                            缺【${info.name}】的影響
+                                                        </h5>
+                                                        <p class="text-gray-600 text-sm leading-relaxed text-justify pl-3.5 border-l-2 border-gray-200 ml-1">
+                                                            ${info.missingReason}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Crystal Recommendation Link only -->
+                                                    <div class="mt-6">
+                                                        <!-- Crystal Recommendation (Floating Label) -->
+                                                        <div class="relative border border-gray-300 rounded-lg p-6">
+                                                            <h5 class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-gray-400 tracking-widest uppercase">
+                                                                隨身開運水晶
+                                                            </h5>
+                                                            <ul class="space-y-4">
+                                                                ${info.crystals.map(c => `
                                             <li class="group">
                                                 <div class="flex items-center mb-1">
                                                     <span class="w-1.5 h-1.5 bg-red-800 rounded-sm mr-2 opacity-50 group-hover:opacity-100 transition-opacity"></span>
@@ -1753,11 +2460,11 @@
                                                 </p>
                                             </li>
                                         `).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                `;
             });
 
             container.innerHTML = combinedHtml;
@@ -1788,6 +2495,27 @@
 
         function closeApiKeyModal() {
             document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function showLoading(callback) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.remove('hidden');
+
+            // Force a small delay to allow UI to render the loading spinner
+            setTimeout(() => {
+                try {
+                    callback();
+                } catch (e) {
+                    console.error("Error during execution:", e);
+                    alert("執行發生錯誤，請稍後再試。\n" + e.message);
+                } finally {
+                    // Always hide overlay even if error occurs
+                    // Add a small delay for better UX (so spinner doesn't flash too fast)
+                    setTimeout(() => {
+                        overlay.classList.add('hidden');
+                    }, 500);
+                }
+            }, 100);
         }
 
         function saveApiKey() {
@@ -1848,24 +2576,24 @@
             // 3. Construct Prompt
             const data = window.latestBaziData;
             const prompt = `
-你是一位精通八字命理與人生哲學的大師。請根據以下命主資料，進行深度的命理分析與建議。請保持專業、白話、積極正向的語氣，並且回復時以男生或女生判斷用"你"或"妳"回復，不要用命主來稱呼，詞語上不要有太肯定的表達。
+                                                你是一位精通八字命理與人生哲學的大師。請根據以下命主資料，進行深度的命理分析與建議。請保持專業、白話、積極正向的語氣，並且回復時以男生或女生判斷用"你"或"妳"回復，不要用命主來稱呼，詞語上不要有太肯定的表達。
 
-【命主資料】
-- 性別：${data.gender === 'male' ? '男' : '女'}
-- 出生時間：${data.solarDate}
-- 八字四柱：${data.bazi.join(' ')} (年 月 日 時)
-- 袁天罡骨重：${data.weight}
-- 核心歌訣：${data.poem}
+                                                【命主資料】
+                                                - 性別：${data.gender === 'male' ? '男' : '女'}
+                                                - 出生時間：${data.solarDate}
+                                                - 八字四柱：${data.bazi.join(' ')} (年 月 日 時)
+                                                - 袁天罡骨重：${data.weight}
+                                                - 核心歌訣：${data.poem}
 
 
-【請依序給出以下四點分析 (請使用 HTML 格式輸出，如 <b>, <br>)】
-1. **命格總評**：(請綜合八字與骨重，給出一段深刻的總結，約 100 字，一段式)
-2. **潛藏天賦**：(指出命主的潛在優勢或特殊才能，約 100 字，一段式)
-3. **感情緣分**：(針對命主的感情緣分，給出正緣時機與建議，約 100 字，一段式)
-4. **流年運勢**：(針對命主的流年，給出屬於2026年後的運勢分析)
+                                                【請依序給出以下四點分析 (請使用 HTML 格式輸出，如 <b>, <br>)】
+                                                    1. **命格總評**：(請綜合八字與骨重，給出一段深刻的總結，約 100 字，一段式)
+                                                    2. **潛藏天賦**：(指出命主的潛在優勢或特殊才能，約 100 字，一段式)
+                                                    3. **感情建議**：(針對命主的2026年後的感情運勢，給出具體心態與建議，約 100 字，一段式)
+                                                    4. **流年運勢**：(針對命主的流年，給出屬於2026年後的運勢分析)
 
-請直接輸出內容，不要有多餘的開場白。
-            `;
+                                                    請直接輸出內容，不要有多餘的開場白。
+                                                    `;
 
             try {
                 // 4. Call Gemini API
@@ -1903,7 +2631,10 @@
         window.callGeminiAPI = async function (key, text) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
             const payload = {
-                contents: [{ parts: [{ text: text }] }]
+                contents: [{ parts: [{ text: text }] }],
+                generationConfig: {
+                    temperature: 0.1 // Lower variance for consistent answers
+                }
             };
 
             const response = await fetch(url, {
