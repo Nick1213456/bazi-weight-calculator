@@ -419,9 +419,6 @@
                     重置
                 </button>
             </div>
-            <p class="text-xs text-center text-gray-400 mt-6 leading-relaxed">
-                名字是父母給的第一份禮物，但人生是自己走出來的路。<br>此分析旨在探索潛藏的性格特質，希望為您提供一些有趣的視角，而非絕對的定義。
-            </p>
         </div> <!-- End tab-bazi -->
 
         <!-- Name Content -->
@@ -535,34 +532,45 @@
 
                 <!-- Name Result Area (AI Only) -->
                 <div id="nameResultArea" class="hidden mt-10 space-y-6">
-                    <!-- AI Name Analysis Result Box -->
-                    <div id="aiNameResultArea" class="hidden relative">
-                        <!-- Loading State -->
+                    <div id="aiNameResultArea" class="hidden relative min-h-[400px]">
+
+                        <!-- Loading State (Yin Yang Pulse) -->
                         <div id="aiNameLoading"
-                            class="absolute inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-10 hidden">
-                            <div
-                                class="animate-spin rounded-full h-10 w-10 border-4 border-gray-200 border-t-red-800 mb-3">
+                            class="absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center z-10 hidden transition-all duration-300">
+                            <div class="relative w-24 h-24 mb-6 animate-[spin_4s_linear_infinite]">
+                                <div class="absolute inset-0 rounded-full border-4 border-gray-200"></div>
+                                <div
+                                    class="absolute inset-0 rounded-full border-t-4 border-l-4 border-black box-border opacity-80">
+                                </div>
+                                <div
+                                    class="absolute top-1/2 left-1/2 w-4 h-4 bg-black rounded-full -translate-x-1/2 -translate-y-3 shadow-lg">
+                                </div>
+                                <div
+                                    class="absolute top-1/2 left-1/2 w-4 h-4 bg-white border border-gray-200 rounded-full -translate-x-1/2 translate-y-[-0.2rem]">
+                                </div>
                             </div>
-                            <p class="text-red-800 font-bold animate-pulse text-sm tracking-widest">AI正在分析...
-                            </p>
+                            <p class="text-gray-800 font-serif text-lg tracking-[0.3em] animate-pulse font-medium">陰陽調和
+                                運算中...</p>
                         </div>
 
-                        <div class="prose prose-red max-w-none bg-gray-50 p-6 rounded-lg shadow-inner text-sm leading-relaxed text-gray-700"
-                            id="aiNameContent">
-                            <!-- AI Content -->
-                        </div>
-
-                        <button onclick="handleReload()" id="nameAiResetBtn"
-                            class="w-full mt-6 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
-                            重置
-                        </button>
                     </div>
+
+                    <div class="prose prose-red max-w-none bg-gray-50 p-6 rounded-lg shadow-inner text-sm leading-relaxed text-gray-700"
+                        id="aiNameContent">
+                        <!-- AI Content -->
+                    </div>
+
+                    <button onclick="handleReload()" id="nameAiResetBtn"
+                        class="w-full mt-6 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-3 rounded shadow-sm transition-all text-sm tracking-widest">
+                        重置
+                    </button>
                 </div>
-
-                <!-- Grid for Ge -->
-
             </div>
+
+            <!-- Grid for Ge -->
+
         </div>
+    </div>
     </div>
     </div>
 
