@@ -765,7 +765,7 @@
         };
 
         function checkExpiration() {
-            if (!CONFIG.EXPIRATION_DATE) return;
+            if (typeof CONFIG === 'undefined' || !CONFIG.EXPIRATION_DATE) return;
 
             const today = new Date();
             const expDate = new Date(CONFIG.EXPIRATION_DATE);
