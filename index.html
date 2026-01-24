@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 
 <head>
@@ -391,7 +391,15 @@
                     </div>
                 </div>
 
-                <!-- AI Analysis Button (Zen Ink Style) -->
+                <div class="mt-8 mb-6 bg-white p-10 shadow-xl border-t-4 border-red-900 text-center animate-[fadeIn_0.5s_ease-out]"
+                    id="editorDesign6">
+                    <span class="text-xs font-bold text-red-900 uppercase tracking-[0.2em] mb-4 block">2026 Special
+                        Edition</span>
+                    <h3 class="font-serif text-6xl text-black mb-8 badge-title"></h3>
+                    <div class="w-16 h-1 bg-black mx-auto mb-8"></div>
+                    <div class="content-area max-w-lg mx-auto"></div>
+                </div>
+
                 <!-- AI Analysis Button (Updated Style) -->
                 <button onclick="handleAIAnalysis()" id="aiBtn"
                     class="w-full mb-6 mt-4 bg-gradient-to-r from-red-800 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-500 transition-all flex items-center justify-center group overflow-hidden relative">
@@ -403,7 +411,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
-                        八字AI總結
+                        AI總結
                     </span>
                 </button>
 
@@ -594,14 +602,7 @@
     <script>
         // --- DATA & LOGIC ---
         // (Reusing existing logic logic with updated DOM targets)
-        const jiaZi = [
-            "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
-            "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
-            "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
-            "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
-            "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
-            "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
-        ];
+
 
         // Simplified weights for demo
         const yearWeightsMap = {
@@ -732,46 +733,6 @@
             }
         };
 
-        // Lunar Calendar Helper (Legacy compressed data)
-        const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x04da0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63];
-
-        function getLunarYearDays(y) {
-            let i, sum = 348;
-            for (i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
-            return (sum + leapDays(y));
-        }
-        function leapDays(y) {
-            if (leapMonth(y)) return ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29);
-            else return (0);
-        }
-        function leapMonth(y) {
-            return (lunarInfo[y - 1900] & 0xf);
-        }
-        function monthDays(y, m) {
-            return ((lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29);
-        }
-        function solarToLunar(objDate) {
-            let i, leap = 0, temp = 0;
-            let offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
-            let dayCyl = offset + 40;
-            let monCyl = 14;
-            for (i = 1900; i < 2051 && offset > 0; i++) { temp = getLunarYearDays(i); offset -= temp; monCyl += 12; }
-            if (offset < 0) { offset += temp; i--; monCyl -= 12; }
-            let year = i;
-            let yearCyl = i - 1864;
-            leap = leapMonth(i);
-            let isLeap = false;
-            for (i = 1; i < 13 && offset > 0; i++) {
-                if (leap > 0 && i == (leap + 1) && isLeap == false) { --i; isLeap = true; temp = leapDays(year); }
-                else { temp = monthDays(year, i); }
-                if (isLeap == true && i == (leap + 1)) isLeap = false;
-                offset -= temp;
-                if (isLeap == false) monCyl++;
-            }
-            if (offset == 0 && leap > 0 && i == leap + 1) { if (isLeap) { isLeap = false; } else { isLeap = true; --i; --monCyl; } }
-            if (offset < 0) { offset += temp; --i; --monCyl; }
-            return { y: year, m: i, d: offset + 1, isLeap: isLeap };
-        }
 
         // Init
         window.onload = function () {
@@ -1475,7 +1436,11 @@
                 renderFourPillarsAnalysis(detail, lunar);
 
                 // 4. Five Elements Analysis
-                analyzeFiveElements(bazi, lunar); // Pass lunar for Zodiac calculation
+                analyzeFiveElements(bazi, lunar);
+
+                // 2026 Zodiac Analysis (New)
+                const zKey = getZodiacKey(m, d);
+                updateZodiacInfo(zKey);
 
                 // Render Advice List
                 const adviceContainer = document.getElementById('descAdvice');
@@ -1534,23 +1499,7 @@
 
 
 
-        const weightTemplates = {
-            low: { // < 3.5
-                char: ["性格堅毅，有著不服輸的韌性。", "為人樸實，能夠吃苦耐勞。", "個性獨立，習慣靠自己解決問題。"],
-                career: ["早年需經歷一番磨練，屬大器晚成之格。", "事業起步較緩，但基礎穩固。", "適合專精一技之長，靠實力說話。"],
-                wealth: ["財運如涓涓細流，需積少成多。", "前半生財來財去，後半生漸入佳境。", "正財運佳，不宜投機，勤儉致富。"]
-            },
-            mid: { // 3.5 - 5.0
-                char: ["處事圓融，具有良好的適應力。", "性格穩重，給人可靠的安全感。", "才思敏捷，善於把握機會。"],
-                career: ["職場發展順遂，易得貴人提攜。", "事業運勢平穩上升，中年可擔大任。", "適合團隊合作，能發揮協調長才。"],
-                wealth: ["衣食無憂，財運穩健。", "擅長理財，能守能攻。", "正偏財皆有斬獲，生活優渥。"]
-            },
-            high: { // > 5.0
-                char: ["氣宇軒昂，具有天生的領袖風範。", "心胸寬廣，格局遠大。", "充滿自信，勇於承擔重任。"],
-                career: ["官運亨通，有機會掌權或成為業界權威。", "事業宏大，能成就一番偉業。", "名利雙收，社會地位崇高。"],
-                wealth: ["一生富貴，財源廣進。", "聚寶盆之命，富澤子孫。", "財富格局大，適合大型投資。"]
-            }
-        };
+
 
 
 
@@ -2199,20 +2148,7 @@
             }
         };
 
-        const zodiacMap = {
-            "子": "聰明機靈，善於社交，觀察力敏銳",
-            "丑": "勤奮踏實，耐力極佳，但稍顯固執",
-            "寅": "行動力強，充滿自信，有領袖風範",
-            "卯": "溫和文靜，心思細膩，但稍顯優柔",
-            "辰": "氣宇非凡，志向遠大，好勝心強",
-            "巳": "神秘敏銳，冷靜沈著，處事圓融",
-            "午": "熱情奔放送，性格開朗，但性急易怒",
-            "未": "溫柔敦厚，富同情心，外柔內剛",
-            "申": "活潑好動，多才多藝，機智過人",
-            "酉": "深思熟慮，勤奮上進，追求完美",
-            "戌": "忠誠可靠，直率坦白，防衛心強",
-            "亥": "樂觀豁達，心地善良，不拘小節"
-        };
+
 
         function renderFourPillarsAnalysis(detail, lunar) {
             // 1. Fill Text Content from Comprehensive Analysis Detail
@@ -2603,6 +2539,8 @@
             if (carNum) extraInfo += `\n- 車牌號碼：${carNum}`;
             if (phoneNum) extraInfo += `\n- 電話號碼：${phoneNum}`;
 
+            const hasNumberInput = carNum || phoneNum;
+
             const prompt = `
                                                 你是一位精通八字命理與人生哲學的大師。請根據以下命主資料，進行深度的命理分析與建議。請保持專業、白話、積極正向的語氣，並且回復時以男生或女生判斷用"你"或"妳"回復，不要用命主來稱呼，詞語上不要有太肯定的表達。
 
@@ -2614,12 +2552,12 @@
                                                 - 核心歌訣：${data.poem}${extraInfo}
 
 
-                                                【請依序給出以下五點分析 (請使用 HTML 格式輸出，如 <b>, <br>)】
+                                                【請依序給出以下${hasNumberInput ? '五' : '四'}點分析 (請使用 HTML 格式輸出，如 <b>, <br>)】
                                                     1. **命格總評**：(請綜合八字與骨重，給出一段深刻的總結，約 100 字，一段式)
                                                     2. **潛藏天賦**：(指出命主的潛在優勢或特殊才能，約 100 字，一段式)
                                                     3. **感情建議**：(針對命主的2026年後的感情運勢，給出具體心態與建議，約 100 字，一段式)
                                                     4. **流年運勢**：(針對命主的流年，給出屬於2026年後的運勢分析)
-                                                    5. **幸運數字${(carNum || phoneNum) ? '與號碼解析' : ''}**：(請提供 1-4 個適合該八字的幸運數字並簡述原因。${(carNum || phoneNum) ? '並根據這些幸運數字，簡單分析上方提供的車牌或電話號碼之吉凶(電話號碼請忽略前兩碼09)。' : ''})
+${hasNumberInput ? '5. **號碼分析**：(請先分析上方提供的車牌或電話號碼之吉凶(電話號碼請忽略前兩碼但不用說出來)。**只有當分析結果為【需補強】時，才推薦1-4 個適合該八字的幸運數字**；若號碼為【吉】，則恭喜命主即可，無須刻意推薦數字。)' : ''}
 
                                                     請直接輸出內容，不要有多餘的開場白。
                                                     `;
@@ -2752,6 +2690,225 @@
             </div>
         </div>
     </div>
+    <script>
+        // 2026 Zodiac Data (Source: Chianchi & Web Search)
+        // 2026 Zodiac Data (Source: Chianchi & Web Search)
+        const zodiacData = {
+            aries: {
+                name: "牡羊座",
+                dates: "03.21 - 04.19",
+                focus: "沉穩、聚焦、持久",
+                color: "火磚紅、鮮橘色",
+                crystal: "紫水晶 (Amethyst)",
+                crystalDesc: "紫水晶能幫助牡羊座在做決定前多一分思考，避免意氣用事。有助於穩定情緒，在面對職場競爭或高壓環境時，依然能保持頭腦清晰。",
+                personality: "熱情直率，行動力強，勇於面對挑戰。但有時過於衝動，缺乏耐心。",
+                desc: "2026年是你的轉型之年。雖然你天生充滿爆發力，但今年需要學會「慢下來」。將你的熱情轉化為持久的續航力，避免一時的意氣用事。工作上專注於長遠目標，感情上則要多一份細膩與體貼。"
+            },
+            taurus: {
+                name: "金牛座",
+                dates: "04.20 - 05.20",
+                focus: "變通、人緣、收穫",
+                color: "嫩芽綠、櫻花粉",
+                crystal: "東菱玉 (Green Aventurine)",
+                crystalDesc: "東菱玉散發積極與樂觀的心態，幫助金牛座克服對改變的恐懼，願意嘗試新的投資或工作模式。東菱玉有助於吸引貴人與好運，能讓固執的性格稍微軟化。",
+                personality: "務實穩重，重視享受與安全感。個性溫和但固執，一旦決定就很難改變。",
+                desc: "面對快速變動的馬年，你最大的課題是「彈性」。試著放下一些既有的堅持，擁抱新的規則與變化。今年的人際運勢極佳，多參與社交活動將為你帶來意想不到的收穫。"
+            },
+            gemini: {
+                name: "雙子座",
+                dates: "05.21 - 06.21",
+                focus: "選擇、真相、創新",
+                color: "檸檬黃、天藍色",
+                crystal: "黃水晶 (Citrine)",
+                crystalDesc: "黃水晶擁有溫暖且強大的凝聚力，能幫助穩定意念，將注意力集中在當下的目標上，減少三心二意的狀況。黃水晶能讓你在談判或溝通時更具說服力。",
+                personality: "機智靈活，好奇心強，善於溝通。但容易分心，情緒變化快。",
+                desc: "今年是充滿變數但也潛藏契機的一年，關鍵字是「選擇與真相」。宇宙會推動你離開舒適圈，誠實面對自己真正的方向。天王星的進駐將開啟你長達十年的創新期。感情上人氣高漲，單身者有機會結識頻率相投的對象。"
+            },
+            cancer: {
+                name: "巨蟹座",
+                dates: "06.22 - 07.22",
+                focus: "突破、領導、重塑",
+                color: "珍珠白、銀灰色",
+                crystal: "月光石 (Moonstone)",
+                crystalDesc: "月光石能幫助情緒回歸平靜，也有助於提升個人的氣質與魅力，讓你在與人相處時更加圓融，減少因情緒化而產生的誤會。幫助巨蟹座看清身邊人的真偽。",
+                personality: "溫柔體貼，重視家庭與情感。防衛心強，容易情緒化。",
+                desc: "今年是你「踏出熟悉界限」的一年。你將被推上領導位置，在事業和財運方面有極佳的機會。這是一個重新定義安全感的時刻，不再依賴他人，而是自己建立。雖然家庭方面可能有小插曲，但你能展現柔韌的領導力。"
+            },
+            leo: {
+                name: "獅子座",
+                dates: "07.23 - 08.22",
+                focus: "自信、展現、行動",
+                color: "金黃色、皇家藍",
+                crystal: "虎眼石 (Tiger's Eye)",
+                crystalDesc: "虎眼石擁有如王者般正向強大的能量，在面臨重大挑戰或領導團隊時，能驅散內心的陰霾與自我懷疑。讓獅子座在展現領導力的同時，增強氣場與執行力。",
+                personality: "自信大方，有領導魅力，喜歡成為焦點。自尊心強，有時過於強勢。",
+                desc: "下半年將進入12年一度的幸運期！今年的主題是「It's me！」，請大膽展現你的光芒。過去的夢想有望重新實現，只要你「想做」，就立即行動。財運方面，投資於「心靈激動的體驗」會為你帶來更多財富。"
+            },
+            virgo: {
+                name: "處女座",
+                dates: "08.23 - 09.22",
+                focus: "放鬆、梳理、品質",
+                color: "海軍藍、卡其色",
+                crystal: "藍紋瑪瑙 (Blue Lace Agate)",
+                crystalDesc: "藍紋瑪瑙能幫助你們抽離過度緊繃的狀態，帶來心靈上的自由與放鬆。引導你們用更樂觀、更豁達的角度去看待事情，提升溝通的自信。",
+                personality: "細心完美主義，分析能力強，注重細節。容易神經緊張，對自己太過嚴苛。",
+                desc: "今年你將體驗到久違的放鬆感。生活中的壓力逐漸緩解，前四個月是提升生活品質的好時機。雖然生活中可能會有突發的變動，但這些都是為了讓你過得更好。在人際溝通上需多加留意，避免被情緒勒索。"
+            },
+            libra: {
+                name: "天秤座",
+                dates: "09.23 - 10.23",
+                focus: "價值、協調、晉升",
+                color: "粉紅色、淺藍色",
+                crystal: "粉晶 (Rose Quartz)",
+                crystalDesc: "粉晶能幫助思緒清晰，從紛亂的資訊中找到核心重點。增強表達能力與溝通技巧，減少因外界干擾而產生的搖擺不定。能提升你的人緣與魅力，化解衝突。",
+                personality: "優雅迷人，追求平衡與和諧，社交能力強。優柔寡斷，容易受他人影響。",
+                desc: "今年的主題是「建立新價值觀」。在保持與人協調的同時，更要專注於自己的內心。高遠的目標將為你帶來夥伴與支持者，事業上有晉升的機會。雖然人際關係可能變得複雜，但這也是你展現整合能力的時刻。"
+            },
+            scorpio: {
+                name: "天蠍座",
+                dates: "10.24 - 11.22",
+                focus: "轉化、務實、豐收",
+                color: "深紅色、黑色",
+                crystal: "黑曜石 (Obsidian)",
+                crystalDesc: "黑曜石能阻擋外來的負面干擾與小人算計，讓天蠍座能專注於自己的目標。當情緒過於激動時，黑曜石能讓心情迅速恢復平靜與理智，專注於收穫。",
+                personality: "神秘深沉，直覺敏銳，意志力堅強。佔有慾強，愛恨分明。",
+                desc: "今年你的感情傾向務實，在職場中常扮演「救火隊」的關鍵角色。正財運極佳，過去的辛勤耕耘將在此時獲得豐厚回報。這是一個轉化與重生的年份，面對挑戰時，你的洞察力將是最大武器。"
+            },
+            sagittarius: {
+                name: "射手座",
+                dates: "11.23 - 12.21",
+                focus: "成熟、創意、桃花",
+                color: "紫色、深藍色",
+                crystal: "拉長石 (Labradorite)",
+                crystalDesc: "拉長石能激發你的靈感與潛能，並在現實挑戰中保護你的能量。被認為能帶來好運與友誼，幫助結識志同道合的朋友。穩定浮躁心性，保有腳踏實地的務實感。",
+                personality: "樂觀自由，愛好冒險，追求真理。有時過於理想化，缺乏責任感。",
+                desc: "你需要處理家庭、工作或金錢等現實議題，這是你走向成熟的必經過程。雖然壓力較大，但也是「轉大人」的關鍵期。令人振奮的是，你的創意將大爆發，且桃花運極旺，有望脫單！"
+            },
+            capricorn: {
+                name: "摩羯座",
+                dates: "12.22 - 01.19",
+                focus: "重整、覺醒、偏財",
+                color: "深褐色、灰色",
+                crystal: "石榴石 (Garnet)",
+                crystalDesc: "石榴石對應海底輪，象徵生命力與耐力。當你感到疲憊時，能幫助你堅持下去。有助於緩解內心的孤獨感，提醒你要懂得享受生活，助你在變動中穩固基礎。",
+                personality: "堅忍沈穩，責任感強，重視紀律與成就。個性嚴肅。",
+                desc: "今年是「重整人生版圖」的一年。你需要從家庭、事業各方面重新出發，舊有的結構可能會瓦解，但這也是靈魂覺醒的轉捩點。財運方面有望低調發財，下半年偏財運旺盛。"
+            },
+            aquarius: {
+                name: "水瓶座",
+                dates: "01.20 - 02.18",
+                focus: "自由、創造、不再忍耐",
+                color: "電光藍、螢光綠",
+                crystal: "水藍寶 (Aquamarine)",
+                crystalDesc: "水藍寶能幫助你整合零散的資訊，增強你的表達能力，讓你的創意被世界看見。激發出更多創新的靈感，同時保持思緒的清明與客觀。",
+                personality: "獨立前衛，富有創意，博愛理性。特立獨行，有時顯得冷漠疏離。",
+                desc: "今年是「不再忍耐」的一年。放下過度努力的工作方式，找回自己的步調吧！你的創造才能將閃耀，在自媒體或新興領域有極佳的表現機會。雖然上半年壓力較大，但只要堅持自我，便能開創格局。"
+            },
+            pisces: {
+                name: "雙魚座",
+                dates: "02.19 - 03.20",
+                focus: "夢想成真、實際、正財",
+                color: "海洋藍、湖水綠",
+                crystal: "海藍寶 (Aquamarine)",
+                crystalDesc: "海藍寶帶有海洋般深層淨化的能量，能淨化你的思緒，讓你在現實與夢想間找到完美的平衡。在情緒混亂時，海藍寶能帶來平靜感，清晰表達感受與需求。",
+                personality: "浪漫感性，富有同情心，想像力豐富。容易逃避現實，意志力薄弱。",
+                desc: "今年是挑戰與機遇並存的一年。你將從過去的白日夢中清醒，開始追求實際的成就。事業上雖有壓力，但正財運極佳，辛勤耕耘終有回報。這是夢想成真的時刻，只要你願意腳踏實地。"
+            }
+        };
+
+        function getZodiacKey(m, d) {
+            // Adjust dates for Zodiacs
+            if ((m == 3 && d >= 21) || (m == 4 && d <= 19)) return "aries";
+            if ((m == 4 && d >= 20) || (m == 5 && d <= 20)) return "taurus";
+            if ((m == 5 && d >= 21) || (m == 6 && d <= 21)) return "gemini";
+            if ((m == 6 && d >= 22) || (m == 7 && d <= 22)) return "cancer";
+            if ((m == 7 && d >= 23) || (m == 8 && d <= 22)) return "leo";
+            if ((m == 8 && d >= 23) || (m == 9 && d <= 22)) return "virgo";
+            if ((m == 9 && d >= 23) || (m == 10 && d <= 23)) return "libra";
+            if ((m == 10 && d >= 24) || (m == 11 && d <= 22)) return "scorpio";
+            if ((m == 11 && d >= 23) || (m == 12 && d <= 21)) return "sagittarius";
+            if ((m == 12 && d >= 22) || (m == 1 && d <= 19)) return "capricorn";
+            if ((m == 1 && d >= 20) || (m == 2 && d <= 18)) return "aquarius";
+            return "pisces";
+        }
+
+        function updateZodiacInfo(key) {
+            const data = zodiacData[key];
+            if (!data) return;
+
+            // Color Helper
+            const colorMap = {
+                "火磚紅": "#B22222", "鮮橘色": "#FFA500",
+                "嫩芽綠": "#90EE90", "櫻花粉": "#FFB7C5",
+                "檸檬黃": "#FFF700", "天藍色": "#87CEEB",
+                "珍珠白": "#F8F6F0", "銀灰色": "#C0C0C0",
+                "金黃色": "#FFD700", "皇家藍": "#4169E1",
+                "海軍藍": "#000080", "卡其色": "#F0E68C",
+                "粉紅色": "#FFC0CB", "淺藍色": "#ADD8E6",
+                "深紅色": "#8B0000", "黑色": "#000000",
+                "紫色": "#800080", "深藍色": "#00008B",
+                "深褐色": "#654321", "灰色": "#808080",
+                "電光藍": "#7DF9FF", "螢光綠": "#00FF00",
+                "海洋藍": "#0077BE", "湖水綠": "#2D6A4F"
+            };
+
+            const getSwatches = (colorStr) => {
+                return `<span class="flex gap-1 items-center inline-flex align-middle ml-2">` +
+                    colorStr.split('、').map(c => {
+                        const hex = colorMap[c.trim()] || '#EEE';
+                        return `<span class="w-3 h-3 rounded-full border border-gray-300 shadow-sm" style="background-color: ${hex};" title="${c}"></span>`;
+                    }).join('') +
+                    `</span>`;
+            };
+
+            // Helper to split string: "Focus Keyword"
+            const focusShort = data.focus.split('、')[0];
+
+
+
+            // 6. The Centered Elegance
+            const d6 = document.getElementById('editorDesign6');
+            if (d6) {
+                d6.querySelector('.badge-title').innerText = data.name;
+                d6.querySelector('.content-area').innerHTML = `
+                    <div class="text-center mb-6">
+                        <p class="text-2xl font-serif italic text-gray-500 mb-2">" ${focusShort} "</p>
+                        <p class="text-sm font-bold text-gray-800 uppercase tracking-widest border-b border-gray-200 pb-2 inline-block">
+                            — ${data.personality} —
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 mb-8 text-center">
+                        <div class="flex flex-col items-center gap-4">
+                            <!-- Color Section -->
+                            <div class="flex flex-col items-center">
+                                <span class="text-xs text-gray-400 mb-1 tracking-wider uppercase">Lucky Colors</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-gray-700">${data.color}</span>
+                                    ${getSwatches(data.color)}
+                                </div>
+                            </div>
+                            
+                            <div class="w-12 h-px bg-gray-200 my-1"></div>
+
+                            <!-- Crystal Section -->
+                            <div class="flex flex-col items-center">
+                                <span class="text-xs text-gray-400 mb-1 tracking-wider uppercase">Guardian Crystal</span>
+                                <span class="font-medium text-gray-700 mb-1">${data.crystal}</span>
+                                <p class="text-xs text-gray-500 italic max-w-xs leading-relaxed mt-1">${data.crystalDesc}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm leading-8 font-medium text-gray-800 text-justify">
+                        ${data.desc}
+                    </p>
+                `;
+            }
+
+        }
+
+    </script>
 </body>
 
 </html>
