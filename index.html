@@ -1317,8 +1317,22 @@
                 if (error.message.includes('API key not valid') || error.message.includes('400')) {
                     localStorage.removeItem('gemini_api_key');
                     showApiKeyModal("金鑰失效，請重新輸入");
+                    return;
                 }
-                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}</span>`;
+
+                content.innerHTML = `
+                    <div class="flex flex-col items-center gap-2 p-4 bg-red-50 rounded-lg border border-red-100">
+                        <span class="text-red-600 font-bold">分析發生錯誤</span>
+                        <span class="text-xs text-gray-600 font-mono bg-white px-2 py-1 rounded border border-gray-200">${error.message}</span>
+                        <p class="text-xs text-center text-gray-500 my-1">若是 API 額度不足或網路問題，<br>您可以嘗試輸入新的 Key。</p>
+                        <button onclick="showApiKeyModal()" class="mt-1 px-4 py-2 bg-red-800 text-white rounded hover:bg-red-700 transition-colors text-sm font-bold shadow-sm flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            更換 API Key 並重試
+                        </button>
+                    </div>
+                `;
             } finally {
                 loading.classList.add('hidden');
                 resultArea.classList.remove('min-h-[400px]'); // Remove fixed height to fit content
@@ -2494,7 +2508,13 @@
 
             localStorage.setItem('gemini_api_key', fullKey);
             closeApiKeyModal();
-            handleAIAnalysis(); // Retry immediately
+
+            // Retry based on active tab
+            if (!document.getElementById('tab-bazi').classList.contains('hidden')) {
+                handleAIAnalysis();
+            } else if (!document.getElementById('tab-name').classList.contains('hidden') && window.handleNameAIAnalysis) {
+                window.handleNameAIAnalysis();
+            }
         }
 
         window.handleAIAnalysis = async function () {
@@ -2580,7 +2600,7 @@ ${hasNumberInput ? '5. **號碼分析**：(請先分析上方提供的車牌或�
             } catch (error) {
                 console.error(error);
 
-                // If invalid key (usually 400 Bad Request with specific message, but we can catch generic API failures too if they imply auth issues)
+                // If invalid key
                 if (error.message.includes('API key not valid') || error.message.includes('400') || error.message.includes('API request failed')) {
                     localStorage.removeItem('gemini_api_key'); // Clear invald key
 
@@ -2588,13 +2608,26 @@ ${hasNumberInput ? '5. **號碼分析**：(請先分析上方提供的車牌或�
                     loading.classList.add('hidden');
                     aiBtn.disabled = false;
                     aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    resultArea.classList.add('hidden'); // Hide empty result area
+                    resultArea.classList.add('hidden');
 
                     showApiKeyModal("通關密語錯誤，請確認後重新輸入");
                     return;
                 }
 
-                content.innerHTML = `<span class="text-red-500">分析發生錯誤：${error.message}<br>請檢查 config.js 中的 API Key 是否正確。</span>`;
+                content.innerHTML = `
+                    <div class="flex flex-col items-center gap-3 p-4 bg-red-50 rounded-lg border border-red-100">
+                        <span class="text-red-600 font-serif font-bold text-lg">分析發生錯誤</span>
+                         <span class="text-sm text-gray-700 bg-white px-3 py-2 rounded border border-gray-200 font-mono">${error.message}</span>
+                        <p class="text-xs text-gray-500 mt-1">可能是網路不穩、模型忙碌，或 API Key 額度已滿。</p>
+                        <button onclick="showApiKeyModal()" class="mt-2 px-5 py-2.5 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition-colors text-sm font-bold flex items-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                           </svg>
+                           更換 API Key 並重試
+                        </button>
+                         <p class="text-[10px] text-gray-400">請確認 config.js 或更換上方 Key</p>
+                    </div>
+                `;
             } finally {
                 loading.classList.add('hidden');
                 aiBtn.disabled = false;
