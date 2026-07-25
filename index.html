@@ -618,7 +618,8 @@
                                 <select id="inputLifeYear"
                                     class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
                                 </select>
-                                <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                                <span
+                                    class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
                             </div>
                             <span class="text-sm text-gray-500 shrink-0">年</span>
                         </div>
@@ -671,75 +672,121 @@
                     <div class="dashed-line"></div>
 
                     <!-- VIEW 3: 雙欄白金展覽卡 (Showcase Banner Layout) -->
-                    <div id="lifeStyleView3"
-                        class="font-serif">
+                    <div id="lifeStyleView3" class="font-serif">
                         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             <!-- Left Column: Hero Character Showcase (5 Cols) -->
-                            <div class="lg:col-span-5 bg-gradient-to-b from-stone-100/90 via-stone-50 to-red-50/30 border border-stone-200 p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden flex flex-col justify-between items-center shadow-xs">
+                            <div
+                                class="lg:col-span-5 bg-gradient-to-b from-stone-100/90 via-stone-50 to-red-50/30 border border-stone-200 p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden flex flex-col justify-between items-center shadow-xs">
                                 <div class="w-full">
-                                    <span class="js-lifeHeaderLabel text-xs font-mono uppercase tracking-[2px] text-stone-500 block mb-0.5 font-bold">你的生命靈數</span>
-                                    <div class="js-lifeFinalNumber text-6xl sm:text-7xl lg:text-6xl font-black font-serif text-red-900 my-1 leading-none drop-shadow-xs">1</div>
-                                    <div class="js-lifeNumRatio text-xs font-mono text-stone-500 mt-0.5 font-bold">人口比例：約 - -</div>
+                                    <span
+                                        class="js-lifeHeaderLabel text-base sm:text-lg lg:text-xs font-mono uppercase tracking-[2px] text-stone-500 block mb-0.5 font-bold">你的生命靈數</span>
+                                    <div
+                                        class="js-lifeFinalNumber text-7xl sm:text-8xl lg:text-6xl font-black font-serif text-red-900 my-1.5 leading-none drop-shadow-xs">
+                                        1</div>
+                                    <div
+                                        class="js-lifeNumRatio text-base sm:text-lg lg:text-xs font-mono text-stone-500 mt-3.5 sm:mt-4 font-bold tracking-wider">
+                                        人口比例：約 - -</div>
                                 </div>
 
                                 <!-- Large Showcase Character Image -->
-                                <div class="my-2.5 w-full flex items-center justify-center">
+                                <div class="my-3 w-full flex items-center justify-center">
                                     <img src="img/life_1.png" alt="靈數代表角色"
-                                        class="js-lifeNumImage h-40 sm:h-48 lg:h-40 object-contain object-bottom drop-shadow-md transition-transform duration-300 hover:scale-105">
+                                        class="js-lifeNumImage h-44 sm:h-52 lg:h-40 object-contain object-bottom drop-shadow-md transition-transform duration-300 hover:scale-105">
                                 </div>
 
-                                <div class="js-lifePersonalProcessBlock w-full space-y-2 pt-2.5 border-t border-stone-200/80">
-                                    <div class="text-left bg-white/90 p-2.5 rounded-lg border border-stone-200/60 shadow-2xs">
-                                        <span class="text-[11px] text-stone-400 font-mono font-bold block mb-0.5">先天數拆解</span>
-                                        <div class="js-lifeOriginalNumbers font-mono font-bold text-red-900 text-xs sm:text-sm tracking-wider">- -</div>
+                                <!-- 大師數說明區塊（形象圖片下方特別點綴） -->
+                                <div
+                                    class="js-lifeMasterNumberBlock hidden w-full my-2.5 relative overflow-hidden bg-gradient-to-br from-amber-50/95 via-amber-50/50 to-stone-50/90 p-3.5 sm:p-4 rounded-xl border border-amber-300/80 shadow-2xs text-left space-y-1.5">
+                                    <h3
+                                        class="text-lg sm:text-xl lg:text-sm font-black text-amber-950 border-b border-amber-200/80 pb-1 flex items-center gap-1.5">
+                                        <span class="text-amber-800 text-sm">✦</span> 大師數 <span
+                                            class="js-lifeMasterNumberValue text-amber-900 font-bold"></span>
+                                    </h3>
+                                    <p
+                                        class="js-lifeMasterNumberDesc text-amber-950/95 leading-relaxed text-base sm:text-lg lg:text-xs font-medium">
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="js-lifePersonalProcessBlock w-full space-y-2.5 pt-3 border-t border-stone-200/80">
+                                    <div
+                                        class="text-left bg-white/90 p-3 rounded-xl border border-stone-200/60 shadow-2xs">
+                                        <span
+                                            class="text-sm sm:text-base lg:text-[11px] text-stone-400 font-mono font-bold block mb-0.5">先天數拆解</span>
+                                        <div
+                                            class="js-lifeOriginalNumbers font-mono font-bold text-red-900 text-base sm:text-lg lg:text-xs tracking-wider">
+                                            - -</div>
                                     </div>
-                                    <div class="text-left bg-white/90 p-2.5 rounded-lg border border-stone-200/60 shadow-2xs">
-                                        <span class="text-[11px] text-stone-400 font-mono font-bold block mb-0.5">計算過程</span>
-                                        <div class="js-lifeCalcProcess font-mono font-bold text-red-900 text-xs sm:text-sm break-words tracking-wider">- -</div>
+                                    <div
+                                        class="text-left bg-white/90 p-3 rounded-xl border border-stone-200/60 shadow-2xs">
+                                        <span
+                                            class="text-sm sm:text-base lg:text-[11px] text-stone-400 font-mono font-bold block mb-0.5">計算過程</span>
+                                        <div
+                                            class="js-lifeCalcProcess font-mono font-bold text-red-900 text-base sm:text-lg lg:text-xs break-words tracking-wider">
+                                            - -</div>
                                     </div>
-                                    <div class="js-lifeBirthDateBlock pt-0.5 text-center">
-                                        <span class="js-lifeBirthDate font-mono font-bold text-stone-700 text-xs tracking-wider">- -</span>
+                                    <div class="js-lifeBirthDateBlock pt-1 text-center">
+                                        <span
+                                            class="js-lifeBirthDate font-mono font-bold text-stone-700 text-base sm:text-lg lg:text-xs tracking-wider">-
+                                            -</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Right Column: Content Grid (7 Cols) -->
-                            <div class="lg:col-span-7 space-y-4">
-                                <div class="pb-2.5 border-b border-stone-200">
-                                    <div class="js-lifeNumKeywords grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5"></div>
+                            <div class="lg:col-span-7 space-y-5">
+                                <div class="pb-3 border-b border-stone-200">
+                                    <div class="js-lifeNumKeywords grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                                    </div>
                                 </div>
 
-                                <div class="space-y-3.5">
+                                <div class="space-y-4">
                                     <!-- 你是誰 -->
-                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
-                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 你是誰
+                                    <div
+                                        class="bg-stone-50/70 p-4 sm:p-5 rounded-xl border border-stone-200/80 shadow-2xs space-y-2.5">
+                                        <h3
+                                            class="text-xl sm:text-2xl lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-2 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-red-800"></span> 你是誰
                                         </h3>
-                                        <div class="js-lifeNumWho space-y-2 text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></div>
+                                        <div
+                                            class="js-lifeNumWho space-y-2.5 text-stone-900 leading-[1.85] text-lg sm:text-xl lg:text-base font-medium">
+                                        </div>
                                     </div>
 
                                     <!-- 適合什麼樣的工作 -->
-                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
-                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 適合什麼樣的工作
+                                    <div
+                                        class="bg-stone-50/70 p-4 sm:p-5 rounded-xl border border-stone-200/80 shadow-2xs space-y-2.5">
+                                        <h3
+                                            class="text-xl sm:text-2xl lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-2 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-red-800"></span> 適合什麼樣的工作
                                         </h3>
-                                        <p class="js-lifeNumCareer text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                        <p
+                                            class="js-lifeNumCareer text-stone-900 leading-[1.85] text-lg sm:text-xl lg:text-base font-medium">
+                                        </p>
                                     </div>
 
                                     <!-- 在感情是什麼模樣 -->
-                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
-                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 在感情是什麼模樣
+                                    <div
+                                        class="bg-stone-50/70 p-4 sm:p-5 rounded-xl border border-stone-200/80 shadow-2xs space-y-2.5">
+                                        <h3
+                                            class="text-xl sm:text-2xl lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-2 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-red-800"></span> 在感情是什麼模樣
                                         </h3>
-                                        <p class="js-lifeNumLove text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                        <p
+                                            class="js-lifeNumLove text-stone-900 leading-[1.85] text-lg sm:text-xl lg:text-base font-medium">
+                                        </p>
                                     </div>
 
                                     <!-- 需要注意些什麼 -->
-                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
-                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 需要注意些什麼
+                                    <div
+                                        class="bg-stone-50/70 p-4 sm:p-5 rounded-xl border border-stone-200/80 shadow-2xs space-y-2.5">
+                                        <h3
+                                            class="text-xl sm:text-2xl lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-2 flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full bg-red-800"></span> 需要注意些什麼
                                         </h3>
-                                        <p class="js-lifeNumAdvice text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                        <p
+                                            class="js-lifeNumAdvice text-stone-900 leading-[1.85] text-lg sm:text-xl lg:text-base font-medium">
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -747,9 +794,11 @@
                     </div>
 
                     <!-- Shared Switch 1~9 Buttons Bar -->
-                    <div class="bg-[#FDFBF7] border border-stone-200/90 rounded-2xl p-6 shadow-xs space-y-4 font-serif" id="lifeNumSwitchContainer">
+                    <div class="bg-[#FDFBF7] border border-stone-200/90 rounded-2xl p-6 shadow-xs space-y-4 font-serif"
+                        id="lifeNumSwitchContainer">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                            <div class="flex items-center gap-2.5 text-xl sm:text-2xl font-black text-stone-900 font-serif">
+                            <div
+                                class="flex items-center gap-2.5 text-xl sm:text-2xl font-black text-stone-900 font-serif">
                                 <span class="text-red-800 text-lg">❖</span>
                                 <span>探索其他 1~9 號人</span>
                             </div>
@@ -1070,6 +1119,21 @@
             }
         };
 
+        const MASTER_NUMBER_INFO = {
+            11: {
+                title: "直覺大師數",
+                desc: "在計算過程中出現「11」，代表你的靈魂蘊藏著雙倍的 1 號開創能量，並揉合為 2 號的深刻洞察。11 是極致敏銳的「靈感天線」與天生的心靈導師。你擁有超凡的直覺天賦與精神感知力，總能瞬間看透事物的本質與他人的內心情緒。你的思維充滿前瞻性與啟發力；但雙倍能量也帶來高度的神經敏感與理想張力。學會穩定內心氣場、將靈感紮實落地，你將成為照亮他人的強大燈塔。"
+            },
+            22: {
+                title: "建造大師數",
+                desc: "在計算過程中出現「22」，代表你的靈魂蘊藏著雙倍 2 號的深刻洞察，並轉化為 4 號無與倫比的建構力量。22 是極具宏觀視野的「建造大師」。你兼具深邃的理想與極致堅毅的實踐力，能將抽象的夢想轉化為具體制度或跨世代的宏大基業。你肩負著改變世界架構的崇高使命；但這份巨大格局也伴隨著沉重的責任與壓力。學會適度調節身心負載、踏實邁步，你將建構出撼動時代的輝煌版圖。"
+            },
+            33: {
+                title: "導師大師數",
+                desc: "在計算過程中出現「33」，代表你的靈魂蘊藏著雙倍 3 號的熱情靈感，並昇華為 6 號超越個人的大愛奉獻。33 是象徵無私療癒的「宇宙導師」。你具備極高頻的靈性天賦與共情能量，渴望用愛、智慧與創作關懷眾生、教化世界。你的靈魂散發著溫暖的光芒；但也容易因過度擔憂與無私犧牲而耗盡自己。學會先關照好自己的心靈能量，才能源源不絕地將這份神聖的光與熱散播人間。"
+            }
+        };
+
         const LIFE_NUM_SHORT_TITLES = {
             1: "開創數",
             2: "協調數",
@@ -1086,6 +1150,7 @@
         let currentActiveLifeNum = null;
         window.latestLifeOrigStr = '- -';
         window.latestLifeProcStr = '- -';
+        window.latestLifeMasterNumber = null;
 
         function selectLifeNumber(num) {
             currentActiveLifeNum = num;
@@ -1100,7 +1165,7 @@
             const yearVal = document.getElementById('inputLifeYear')?.value || '1990';
             const monthVal = document.getElementById('inputLifeMonth')?.value || '1';
             const dayVal = document.getElementById('inputLifeDay')?.value || '1';
-            
+
             const birthStr = `${yearVal} 年 ${monthVal} 月 ${dayVal} 日`;
             const origStr = window.latestLifeOrigStr || '- -';
             const procStr = window.latestLifeProcStr || '- -';
@@ -1109,8 +1174,24 @@
             const view = document.getElementById('lifeStyleView3');
             if (!view) return;
 
+            const masterNumber = (isOriginal && window.latestLifeMasterNumber) ? window.latestLifeMasterNumber : null;
+
             const elNumber = view.querySelector('.js-lifeFinalNumber');
-            if (elNumber) elNumber.innerText = num;
+            if (elNumber) elNumber.innerText = masterNumber ? `${masterNumber}/${num}` : num;
+
+            const masterBlock = view.querySelector('.js-lifeMasterNumberBlock');
+            if (masterBlock) {
+                if (masterNumber) {
+                    const masterInfo = MASTER_NUMBER_INFO[masterNumber];
+                    masterBlock.classList.remove('hidden');
+                    const elMasterValue = masterBlock.querySelector('.js-lifeMasterNumberValue');
+                    if (elMasterValue) elMasterValue.innerText = `${masterNumber}（${masterInfo.title}）`;
+                    const elMasterDesc = masterBlock.querySelector('.js-lifeMasterNumberDesc');
+                    if (elMasterDesc) elMasterDesc.innerText = masterInfo.desc;
+                } else {
+                    masterBlock.classList.add('hidden');
+                }
+            }
 
             const elHeaderLabel = view.querySelector('.js-lifeHeaderLabel');
             if (elHeaderLabel) elHeaderLabel.innerText = headerLabelText;
@@ -1142,8 +1223,8 @@
             if (keywordsContainer && info.keyword) {
                 const keywordsArray = info.keyword.split('❖').map(k => k.trim()).filter(Boolean);
                 keywordsContainer.innerHTML = keywordsArray.map(kw => `
-                    <span class="w-full px-3 py-1.5 rounded-lg bg-red-50/90 border border-red-200 text-red-900 text-xs font-serif font-bold flex items-center justify-center gap-1.5 shadow-2xs text-center">
-                        <span class="text-red-800 text-xs">❖</span><span>${kw}</span>
+                    <span class="w-full px-3.5 py-2.5 sm:py-2 rounded-xl bg-red-50/90 border border-red-200 text-red-900 text-base sm:text-lg lg:text-xs font-serif font-bold flex items-center justify-center gap-1.5 shadow-2xs text-center">
+                        <span class="text-red-800 text-sm sm:text-base lg:text-xs">❖</span><span>${kw}</span>
                     </span>
                 `).join('');
             }
@@ -1229,7 +1310,11 @@
 
                 processSteps.push(currentNumbers.join('+') + ` = ${currentSum}`);
 
+                let masterNumberFound = null;
                 while (currentSum >= 10) {
+                    if (currentSum === 11 || currentSum === 22 || currentSum === 33) {
+                        masterNumberFound = currentSum;
+                    }
                     const nextNumbers = currentSum.toString().split('').map(Number);
                     const nextSum = nextNumbers.reduce((a, b) => a + b, 0);
                     processSteps.push(nextNumbers.join('+') + ` = ${nextSum}`);
@@ -1242,6 +1327,7 @@
 
                 window.latestLifeOrigStr = origStr;
                 window.latestLifeProcStr = procStr;
+                window.latestLifeMasterNumber = masterNumberFound;
 
                 calculatedOriginalLifeNum = finalLifeNumber;
                 currentActiveLifeNum = finalLifeNumber;
