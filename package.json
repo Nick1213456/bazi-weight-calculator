@@ -1,0 +1,7 @@
+{
+  "name": "bazi-weight-calculator",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "python -m http.server 5173"
+  }
+}

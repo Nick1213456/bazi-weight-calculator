@@ -82,8 +82,12 @@
 
         <!-- Tabs -->
         <div class="flex border-b border-gray-200 mb-8">
-            <button onclick="switchTab('bazi')" id="tab-btn-bazi"
+            <button onclick="switchTab('life')" id="tab-btn-life"
                 class="flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors">
+                生命靈數
+            </button>
+            <button onclick="switchTab('bazi')" id="tab-btn-bazi"
+                class="flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors">
                 八字批算
             </button>
             <button onclick="switchTab('name')" id="tab-btn-name"
@@ -93,7 +97,7 @@
         </div>
 
         <!-- Bazi Content -->
-        <div id="tab-bazi" class="animate-[fadeIn_0.5s_ease-out]">
+        <div id="tab-bazi" class="hidden animate-[fadeIn_0.5s_ease-out]">
 
             <!-- Header -->
             <div class="text-center mb-8">
@@ -153,7 +157,7 @@
                             <select id="inputTime"
                                 class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
                                 <option value="zi">子 (23-01)</option>
-                                <option value="chou">丑 (01-03)</option>
+                                <option value="chou">醜 (01-03)</option>
                                 <option value="yin">寅 (03-05)</option>
                                 <option value="mao">卯 (05-07)</option>
                                 <option value="chen">辰 (07-09)</option>
@@ -514,7 +518,7 @@
                             <select id="inputNameTime"
                                 class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
                                 <option value="zi">子 (23-01)</option>
-                                <option value="chou">丑 (01-03)</option>
+                                <option value="chou">醜 (01-03)</option>
                                 <option value="yin">寅 (03-05)</option>
                                 <option value="mao">卯 (05-07)</option>
                                 <option value="chen">辰 (07-09)</option>
@@ -595,7 +599,168 @@
             <!-- Grid for Ge -->
 
         </div>
-    </div>
+
+        <!-- Life Number Content -->
+        <div id="tab-life" class="animate-[fadeIn_0.5s_ease-out]">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-2 text-black">生命靈數</h1>
+                <p class="text-gray-500 text-sm tracking-widest uppercase">解碼先天數理，參悟命途玄機</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto mb-16">
+                <!-- Birth Date Selection (Life Number) -->
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-medium mb-2 text-sm">國曆出生日期</label>
+                    <div class="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:gap-2">
+                        <!-- 第一行：年 -->
+                        <div class="flex items-center gap-2">
+                            <div class="relative flex-1 sm:w-40 sm:flex-initial">
+                                <select id="inputLifeYear"
+                                    class="w-full form-input appearance-none bg-white pr-6 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800">
+                                </select>
+                                <span class="absolute right-2 top-1.5 text-xs text-gray-400 pointer-events-none">▼</span>
+                            </div>
+                            <span class="text-sm text-gray-500 shrink-0">年</span>
+                        </div>
+
+                        <!-- 第二行：月與日 -->
+                        <div class="flex items-center gap-2 flex-1">
+                            <div class="relative flex-1 sm:w-20 sm:flex-initial">
+                                <select id="inputLifeMonth"
+                                    class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                                </select>
+                            </div>
+                            <span class="text-sm text-gray-500 shrink-0">月</span>
+
+                            <div class="relative flex-1 sm:w-20 sm:flex-initial">
+                                <select id="inputLifeDay"
+                                    class="w-full form-input appearance-none bg-white pr-4 cursor-pointer text-sm py-1.5 focus:outline-none focus:border-red-800 text-center">
+                                </select>
+                            </div>
+                            <span class="text-sm text-gray-500 shrink-0">日</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculate Button -->
+                <button onclick="handleCalculateLife()" id="btnCalculateLife"
+                    class="w-full mt-4 bg-gradient-to-r from-red-800 to-red-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-500 transition-all flex items-center justify-center group overflow-hidden relative">
+                    <span
+                        class="absolute w-64 h-64 mt-12 group-hover:-rotate-45 group-hover:-mt-24 transition-all duration-1000 ease-out -left-10 bg-white opacity-10 rotate-45"></span>
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-pulse" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        開始計算
+                    </span>
+                </button>
+
+                <button onclick="handleReload()"
+                    class="w-full mt-3 bg-gray-100 border border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700 font-medium py-2.5 rounded shadow-sm transition-all text-sm">
+                    重置
+                </button>
+
+                <p class="text-xs text-center text-gray-400 mt-6 leading-relaxed">
+                    數字是天生隨行的密碼，但人生是自己創造的篇章。<br>此分析旨在探索數理軌跡，希望提供一些有趣的視角，僅供參考，而非絕對的定義。
+                </p>
+
+                <!-- Life Number Result Area -->
+                <div id="lifeResultArea" class="hidden mt-10 space-y-6 animate-[fadeIn_0.5s_ease-out]">
+                    <div class="dashed-line"></div>
+
+                    <!-- VIEW 3: 雙欄白金展覽卡 (Showcase Banner Layout) -->
+                    <div id="lifeStyleView3"
+                        class="font-serif">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            <!-- Left Column: Hero Character Showcase (5 Cols) -->
+                            <div class="lg:col-span-5 bg-gradient-to-b from-stone-100/90 via-stone-50 to-red-50/30 border border-stone-200 p-4 sm:p-5 rounded-2xl text-center relative overflow-hidden flex flex-col justify-between items-center shadow-xs">
+                                <div class="w-full">
+                                    <span class="js-lifeHeaderLabel text-xs font-mono uppercase tracking-[2px] text-stone-500 block mb-0.5 font-bold">你的生命靈數</span>
+                                    <div class="js-lifeFinalNumber text-6xl sm:text-7xl lg:text-6xl font-black font-serif text-red-900 my-1 leading-none drop-shadow-xs">1</div>
+                                    <div class="js-lifeNumRatio text-xs font-mono text-stone-500 mt-0.5 font-bold">人口比例：約 - -</div>
+                                </div>
+
+                                <!-- Large Showcase Character Image -->
+                                <div class="my-2.5 w-full flex items-center justify-center">
+                                    <img src="img/life_1.png" alt="靈數代表角色"
+                                        class="js-lifeNumImage h-40 sm:h-48 lg:h-40 object-contain object-bottom drop-shadow-md transition-transform duration-300 hover:scale-105">
+                                </div>
+
+                                <div class="js-lifePersonalProcessBlock w-full space-y-2 pt-2.5 border-t border-stone-200/80">
+                                    <div class="text-left bg-white/90 p-2.5 rounded-lg border border-stone-200/60 shadow-2xs">
+                                        <span class="text-[11px] text-stone-400 font-mono font-bold block mb-0.5">先天數拆解</span>
+                                        <div class="js-lifeOriginalNumbers font-mono font-bold text-red-900 text-xs sm:text-sm tracking-wider">- -</div>
+                                    </div>
+                                    <div class="text-left bg-white/90 p-2.5 rounded-lg border border-stone-200/60 shadow-2xs">
+                                        <span class="text-[11px] text-stone-400 font-mono font-bold block mb-0.5">計算過程</span>
+                                        <div class="js-lifeCalcProcess font-mono font-bold text-red-900 text-xs sm:text-sm break-words tracking-wider">- -</div>
+                                    </div>
+                                    <div class="js-lifeBirthDateBlock pt-0.5 text-center">
+                                        <span class="js-lifeBirthDate font-mono font-bold text-stone-700 text-xs tracking-wider">- -</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Content Grid (7 Cols) -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="pb-2.5 border-b border-stone-200">
+                                    <div class="js-lifeNumKeywords grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5"></div>
+                                </div>
+
+                                <div class="space-y-3.5">
+                                    <!-- 你是誰 -->
+                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
+                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 你是誰
+                                        </h3>
+                                        <div class="js-lifeNumWho space-y-2 text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></div>
+                                    </div>
+
+                                    <!-- 適合什麼樣的工作 -->
+                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
+                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 適合什麼樣的工作
+                                        </h3>
+                                        <p class="js-lifeNumCareer text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                    </div>
+
+                                    <!-- 在感情是什麼模樣 -->
+                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
+                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 在感情是什麼模樣
+                                        </h3>
+                                        <p class="js-lifeNumLove text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                    </div>
+
+                                    <!-- 需要注意些什麼 -->
+                                    <div class="bg-stone-50/70 p-3.5 sm:p-4 rounded-xl border border-stone-200/80 shadow-2xs space-y-2">
+                                        <h3 class="text-base sm:text-lg lg:text-base font-bold text-stone-950 border-b border-stone-200/60 pb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-800"></span> 需要注意些什麼
+                                        </h3>
+                                        <p class="js-lifeNumAdvice text-stone-800 leading-relaxed text-xs sm:text-sm lg:text-xs font-normal"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shared Switch 1~9 Buttons Bar -->
+                    <div class="bg-[#FDFBF7] border border-stone-200/90 rounded-2xl p-6 shadow-xs space-y-4 font-serif" id="lifeNumSwitchContainer">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <div class="flex items-center gap-2.5 text-xl sm:text-2xl font-black text-stone-900 font-serif">
+                                <span class="text-red-800 text-lg">❖</span>
+                                <span>探索其他 1~9 號人</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 sm:grid-cols-9 gap-2 sm:gap-2.5 pt-2" id="lifeNumSwitchButtons">
+                            <!-- Dynamic Life Number Buttons 1~9 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 
@@ -625,7 +790,7 @@
 
         const poems = {
             male: {
-                21: "短命非業謂大凶，平生災難事重重，兇禍頻臨限逆境，終世困苦事不成",
+                21: "短命非業謂大兇，平生災難事重重，兇禍頻臨限逆境，終世困苦事不成",
                 22: "身寒骨冷苦伶仃，此命推來行乞人，勞勞碌碌無度日，中年打拱過平生",
                 23: "此命推來骨輕輕，求謀做事事難成，妻兒兄弟應難許，別處他鄉作散人",
                 24: "此命推來福祿無，門庭困苦總難榮，六親骨肉皆無靠，流到他鄉作老人",
@@ -682,7 +847,7 @@
                 21: "短命非業謂大空，平生災難事重重。兇禍頻臨陷逆境，終世困苦事不成。",
                 22: "此命孤冷有淒伶，此命推來路乞人。操心煩腦度平日，一生育苦度光陰。",
                 23: "此命推來骨肉輕，求財謀事事難成。弟妹六親無有靠，繁鞝家事難以持。",
-                24: "此命推來福祿無，家務辛苦難以扶。丈夫兒女皆無靠，流落他鄉作游孤。",
+                24: "此命推來福祿無，家務辛苦難以扶。丈夫兒女皆無靠，流落他鄉作遊孤。",
                 25: "此命推來八字輕，六庭艱辛多苦淒。娘家六友冷如灰，一生操勞多憂心。",
                 26: "平生衣祿苦尋求，女命生來帶憂愁。辛酸苦辣他嚐過，晚年衣缽本無憂。",
                 27: "竹平做事少間量，難靠夫君做主張。心問口來口問心，自做主張過光陰。",
@@ -703,96 +868,24 @@
                 42: "枯井破廢已多年，一朝泉水出來鮮。資生濟竭人稱美，來運轉喜自然時。",
                 43: "推車靠涯道路趕，女命求財也費難。婚姻出行無陰礙，疾病口舌多安寧。",
                 44: "夜夢金銀醒來空，女子謀事運不能。婚姻難成交易獲，夫君走失不見蹤。",
-                45: "此命終身駁雜多，六親骨肉不相助。命中男婦都難養，勞碌辛苦還奔波。",
-                46: "孤舟得水離沙灘，女命出外早遠家。是非口舌皆無礙，婚姻合夥更不差。",
-                47: "時來運轉吉氣發，多年枯木又開花。枝葉重生多茂盛，凡人見了凡人夸。",
-                48: "一朵鮮花鏡中開，看著極好取不來。勸你休把鏡花想，女命推業主可怪。",
-                49: "此命推來福不輕，女子隨君顯門庭。容貌美滿熱人愛，銀錢富足過一生。",
-                50: "馬氏太公不相和，好命逢之尤凝多。恩人無義反成怨，是非平地起風波。",
-                51: "肥羊失群入山崗，餓虎逢之把口張。適口充腸心歡喜，女名八安大吉昌。",
-                52: "順風行舟扯起棚，上天又助一順風。不用費力逍遙去，任意而行大亨通。",
-                53: "此命相貌眉活秀，文武雙全功名成。一生衣祿皆無愁，可算世上有福人。",
-                54: "學問滿腹運氣強，謀望求財大吉祥。交易出行大得意，是非口舌皆無妨。",
-                55: "吉祥平安志量高，女命求財任逍遙。交易婚姻大有意，夫君在外有音耗。",
-                56: "明珠書士離埃來，女命口角消散開。走失郎君當兩歸，交易有成水無災。",
-                57: "游魚戲水被網驚，跳過龍門秧化龍。三根楊柳垂金線，萬朵桃花顯價能。",
-                58: "此命推來閒逛悠，時運未來莫強求。幸得今日重反點，自有好運在後頭。",
-                59: "雨雪載途泥濘至，交易不定難出行。疾病還拉慢婚姻，謀望求財事不成。",
-                60: "女命八字喜氣和，謀望求財吉慶多。口舌漸消疾病少，夫君走失歸老窩。",
-                61: "緣木求魚事多端，雖不得魚無後害。若是行險弄巧地，事不遂心枉安排。",
-                62: "指日升高氣象新，走失待人有音信。好命遇事遂心好，伺病口舌皆除根。",
-                63: "五官脫運難抬頭，女命須當把財求。交易少行有人助，疾病口舌不須愁。",
-                64: "俊鳥曾得出籠中，脫離災難顯威風。一朝得意福立至，東南西北任意行。",
-                65: "此命推來福不輕，慈善為事受人敬。天降文王開基業，富貴榮華八百年。",
-                66: "時來運轉銳氣周，賢惠淑女君子求。釧鼓樂之大吉慶，女名逢之吉悠悠。",
-                67: "亂絲無頭定有頭，碰著閒磨且暫推。交易出有無好處，謀事求財心不遂。",
-                68: "水庭明月不可撈，女命早限命不高。交易出行難獲得，末限命運漸漸好。",
-                69: "太公封祖不非凡，女子求財穩如山。交易合夥大吉慶，疾病口角消除安。",
-                70: "此命推來喜氣新，郎君遇著多遂心。女命交了順當運，富貴衣祿平樂生。",
-                71: "此命推來鴻運交，再不需愁來苦勞。一生身有衣祿福，按享榮華在其中。"
+                45: "此命終身駁雜多，六親骨肉不相助。命中男婦都難養，勞碌辛苦還奔波。"
             }
         };
 
-
-        // Init
-        window.onload = function () {
-            checkExpiration();
-            populateYears('inputYear');
-            populateMonths('inputMonth');
-            populateDays('inputDay');
-
-            // Populate Name Analysis Tab inputs as well
-            populateYears('inputNameYear');
-            populateMonths('inputNameMonth');
-            populateDays('inputNameDay');
-
-            // Re-bind listeners (Removed to prevent resetting date on calendar switch)
-            // document.querySelectorAll('input[name="calendarType"]').forEach(el => { ... });
-        };
-
-        function checkExpiration() {
-            if (typeof CONFIG === 'undefined' || !CONFIG.EXPIRATION_DATE) return;
-
-            const today = new Date();
-            const expDate = new Date(CONFIG.EXPIRATION_DATE);
-            // Allow the entire expiration day (set to end of day)
-            expDate.setHours(23, 59, 59, 999);
-
-            if (today > expDate) {
-                document.body.innerHTML = `
-                    <div class="min-h-screen flex items-center justify-center bg-gray-100 font-sans">
-                        <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm mx-auto border-t-4 border-red-600">
-                            <div class="text-red-600 mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                            </div>
-                            <h2 class="text-2xl font-bold text-gray-800 mb-2">出現未知錯誤</h2>
-                            <p class="text-gray-500 text-sm mt-2">錯誤碼: 1135</p>
-                        </div>
-                    </div>
-                 `;
-                throw new Error("Application Expired");
-            }
-        }
-
-        function populateYears(elementId) {
+        function populateYears(elementId, startYear = 1900, endYear = 2030, defaultYear = 1990) {
             const select = document.getElementById(elementId);
             if (!select) return;
             select.innerHTML = '';
-            for (let i = 1900; i <= 2050; i++) {
-                const opt = document.createElement('option');
+            for (let i = startYear; i <= endYear; i++) {
+                let opt = document.createElement('option');
                 opt.value = i;
-                if (i >= 1912) {
-                    opt.text = `民國 ${i - 1911} 年 (${i})`;
-                } else {
-                    opt.text = `民前 ${1912 - i} 年 (${i})`;
-                }
-                if (i === 1990) opt.selected = true;
+                opt.text = i;
+                if (i === defaultYear) opt.selected = true;
                 select.appendChild(opt);
             }
         }
-        function populateMonths(elementId) {
+
+        function populateMonths(elementId, defaultMonth = 1) {
             const select = document.getElementById(elementId);
             if (!select) return;
             select.innerHTML = '';
@@ -800,10 +893,12 @@
                 let opt = document.createElement('option');
                 opt.value = i;
                 opt.text = i < 10 ? '0' + i : i;
+                if (i === defaultMonth) opt.selected = true;
                 select.appendChild(opt);
             }
         }
-        function populateDays(elementId) {
+
+        function populateDays(elementId, defaultDay = 1) {
             const select = document.getElementById(elementId);
             if (!select) return;
             select.innerHTML = '';
@@ -811,8 +906,32 @@
                 let opt = document.createElement('option');
                 opt.value = i;
                 opt.text = i < 10 ? '0' + i : i;
+                if (i === defaultDay) opt.selected = true;
                 select.appendChild(opt);
             }
+        }
+
+        function initAllDateSelects() {
+            // 八字批算選單
+            populateYears('inputYear');
+            populateMonths('inputMonth');
+            populateDays('inputDay');
+
+            // 姓名批算選單
+            populateYears('inputNameYear');
+            populateMonths('inputNameMonth');
+            populateDays('inputNameDay');
+
+            // 生命靈數選單
+            populateYears('inputLifeYear');
+            populateMonths('inputLifeMonth');
+            populateDays('inputLifeDay');
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAllDateSelects);
+        } else {
+            initAllDateSelects();
         }
 
         function showLoading(callback) {
@@ -831,6 +950,311 @@
             }, 300);
         }
 
+        const LIFE_NUMBER_INFO = {
+            1: {
+                title: "開創數 - 獨立、創造與領袖氣場",
+                ratio: "11.2%",
+                keyword: "自信獨立 ❖ 開創精神 ❖ 果斷決策 ❖ 領導魅力 ❖ 主觀好勝",
+                who: [
+                    "你是那個天生的拓荒者與領航員。不論身處何種環境，你總是第一個挺身而出、劃破迷霧的人，因為你內心深處潛藏著不服輸的極致勇氣。",
+                    "你天生帶有獨立的骨氣，習慣單槍匹馬迎戰困難。你討厭被約束，更不屑盲從他人，永遠在尋找屬於自己的全新舞台。"
+                ],
+                trait: "你天生具備開創者與先鋒者的獨特氣場，擁有極強的獨立思考能力與行動力。面對目標時，你總能毫不猶豫地挺身而出，勇於承擔風險，是天生的決策者與開拓者。",
+                career: "適合擔任團隊領導者、企業家、獨立創作者或專案發起人。在需要開創新市場、打破舊框架或獨立作戰的環境中，你的能量將得到最大化發揮。",
+                love: "在感情中渴望主導與被尊重，對另一半展現極高的保護欲與責任感。但需要注意避免將主觀意志強加於伴侶，多傾聽對方的內心聲音。",
+                advice: "過度追求主導與勝負有時會帶來孤獨感。學會放下防備、適度展現軟弱，並接納不同意見，能讓你的領導魅力更具溫暖與包容力。"
+            },
+            2: {
+                title: "協調數 - 合作、敏感與和諧平衡",
+                ratio: "9.8%",
+                keyword: "溫和體貼 ❖ 和諧共生 ❖ 敏銳洞察 ❖ 和平使者 ❖ 優柔寡斷",
+                who: [
+                    "你是那個最懂人心的傾聽者與協調者。你擁有敏銳的同理神經，能輕易察覺周遭氣氛的細微變化，並無聲地撫平衝突。",
+                    "你天生追求和諧與依戀，比起獨自輝煌，你更珍惜心與心的深刻連結。你是團隊中不可或缺的潤滑劑與溫暖港灣。"
+                ],
+                trait: "你擁有極高的人際敏銳度與同理心，能夠細緻地感知他人的微妙情緒與需求。你是天生的傾聽者與和平大使，擅長在複雜關係中建立和諧與信任。",
+                career: "適合從事心理諮詢、人力資源、公關協調、客戶服務或藝術合作。在重視團隊合作與人際溝通的領域，你的細膩與包容是不可或缺的核心資產。",
+                love: "在情感中極度重視依戀與心靈契合，願意為伴侶無私付出與妥協。然而若過度迎合他人，容易在感情中漸漸失去自我立場。",
+                advice: "學會建立健康的個人邊界，勇敢表達自己真實的需求與拒絕。你的體貼不該以犧牲自我為代價，獨立與自信能讓關係更加穩固。"
+            },
+            3: {
+                title: "創意數 - 溝通、表達與藝術靈感",
+                ratio: "12.5%",
+                keyword: "熱情樂觀 ❖ 語言天才 ❖ 藝術靈感 ❖ 社交魅力 ❖ 情緒波動",
+                who: [
+                    "你是那個散發燦爛光芒的靈感發射台。你充滿童心與想像力，總能用獨特的視角看待生活，並把快樂渲染給身邊每一個人。",
+                    "你天生自帶幽默與表達魅力，渴望在舞台上綻放自我。你的靈魂無法忍受枯燥，不斷在尋找新鮮與美感。"
+                ],
+                trait: "你充滿蓬勃的生命力、豐富的想像力與敏捷的幽默感。你的存在能輕易感染周遭人群，善於將生活中的點滴靈感轉化為具渲染力的表達。",
+                career: "適合行銷企劃、媒體傳播、演藝創作、文字設計或活動主持人。凡是需要即興發揮、視覺審美或語言感染力的職場，都能成為你的舞台。",
+                love: "在關係中追求趣味與新鮮感，喜歡與伴侶分享生活中的驚喜與歡笑。但當熱情退去或面對枯燥日常時，容易產生情緒起伏與倦怠感。",
+                advice: "你的靈感無窮，但專注力容易分散。學習養成持之以恆的執行力與自律，將燦爛的創意落地實踐，才能讓天賦真正綻放結晶。"
+            },
+            4: {
+                title: "務實數 - 穩定、秩序與堅實建設",
+                ratio: "10.4%",
+                keyword: "腳踏實地 ❖ 組織秩序 ❖ 堅毅守護 ❖ 安全感 ❖ 規矩固執",
+                who: [
+                    "你是那個令人無比安心的定海神針。你腳踏實地、注重細節，擁有建構穩固架構的驚人耐力與嚴謹邏輯。",
+                    "你天生重視安全感與承諾，習慣用實際行動守護身邊的人。對你而言，踏實地走好每一步，比虛無縹渺的夢想更有價值。"
+                ],
+                trait: "你是無比堅實的基石與結構建造者。你重視秩序、安全感與邏輯條理，做事嚴謹且極具責任感，凡事皆有縝密計畫並按部就班執行。",
+                career: "適合財務審計、工程建構、專案管理、行政組織或法律規章。你卓越的架構能力與執行穩定度，使你成為所有團隊中最值得信任的骨幹。",
+                love: "在情感中展現極高的忠誠度與安全感，比起浪漫甜言，你更傾向用實質行動守護家庭。但過度保守可能讓關係顯得有些單調或缺乏彈性。",
+                advice: "世界充滿不可預知的變化，過度追求確定性反而容易帶來焦慮。勇於擁抱改變、適度打破框架，會讓你發現更廣闊的生命可能。"
+            },
+            5: {
+                title: "自由數 - 冒險、熱情與多才多藝",
+                ratio: "13.1%",
+                keyword: "渴望自由 ❖ 多才多藝 ❖ 適應力強 ❖ 冒險探索 ❖ 缺乏耐心",
+                who: [
+                    "你是那個渴望吹向無垠大地的狂風。你熱愛自由、討厭框架，永遠對未知的好奇心驅使你踏上未知的探索之旅。",
+                    "你天生多才多藝、適應力極強，能在變動中找到自己的節奏。你追求豐富的生命體驗，絕不願意過一眼望穿的生活。"
+                ],
+                trait: "你擁有如風一般的自由靈魂與無窮的好奇心。你熱愛探索未知的世界與體驗多樣的文化，具備驚人的環境適應力與敏捷的學習天賦。",
+                career: "適合旅遊導覽、跨國貿易、新聞採訪、新創創業或自由職業者。不受拘束、充滿變動與多元挑戰的工作，最能激發你的無限潛能。",
+                love: "渴望在情感中保有獨立的個人空間與新鮮體驗，討厭過度的拘束與猜忌。你需要一位能陪伴你一起探索大千世界的智性伴侶。",
+                advice: "追求刺激與新鮮感的同時，容易顯得三分鐘熱度與缺乏耐心。學習在自由中建立自律規範，深入累積特定領域的專業，能成就更大格局。"
+            },
+            6: {
+                title: "奉獻數 - 責任、關懷與療癒力量",
+                ratio: "11.8%",
+                keyword: "責任擔當 ❖ 溫暖療癒 ❖ 追求完美 ❖ 守護家庭 ❖ 過度擔憂",
+                who: [
+                    "你是那個充滿溫暖光輝的守護者與療癒者。你擁有寬廣的胸懷與使命感，習慣把身邊人的責任與幸福扛在自己肩上。",
+                    "你天生具備審美與照顧天賦，渴望為生活創造和諧與美好。你的付出無微不至，常是大家最想依賴的堅實後盾。"
+                ],
+                trait: "你散發著如大地般寬廣的母性光輝與療癒能量。你天生具有強烈的使命感與正義感，樂於照顧弱小、守護家庭與朋友，追求極致的美感與和諧。",
+                career: "適合醫療護理、教育輔導、公益團體、社區服務、室內美學或餐飲經營。你的同理心與極佳的服務品質，能為他人帶來深度的溫暖。",
+                love: "在關係中是無微不至的照顧者，願意為對方傾注所有心血。但過度關懷有時會演變成無形的控管與負擔，或因完美主義而對另一半感到失望。",
+                advice: "先照顧好自己的身心需求，才能源源不絕地給予他人。學會適度放手與允許不完美，尊重他人的生命課題，是讓彼此更自在的智慧。"
+            },
+            7: {
+                title: "智慧數 - 智慧、真理與心靈探索",
+                ratio: "8.6%",
+                keyword: "真理追尋 ❖ 深層思考 ❖ 邏輯分析 ❖ 直覺敏銳 ❖ 冷漠疏離",
+                who: [
+                    "你是那個冷靜思考的真理追尋者。你看得透徹、想得深沉，不盲從世俗規則，總是在探尋事物的底層邏輯與本質。",
+                    "你天生帶有一絲超然的智者氣質，需要足夠的獨處空間來洗滌心靈。比起喧囂的社交，你更享受靈魂深處的對話。"
+                ],
+                trait: "你是一位天生的哲學家、研究者與真理探索者。你擁有一顆極度敏銳且嚴密的理智大腦，不盲從權威與流行，總能透過內省直擊事物的核心。",
+                career: "適合學術研究、科技研發、數據分析、哲學心靈、策略顧問或系統開發。在需要深層專注與邏輯推理的領域，你將展現出大師級的洞察力。",
+                love: "重視精神層面的深度交流與靈魂共鳴，需要大量的獨處時間來整理思緒。面對感情較為含蓄內斂，有時會給人難以靠近的距離感。",
+                advice: "理性分析是你的優勢，但也容易讓你陷入焦慮與過度質疑。嘗試放下一部分理智防備，用熱情與感性融入大眾生活，能獲得真正的平安。"
+            },
+            8: {
+                title: "豐盛數 - 權力、掌控與商業才幹",
+                ratio: "10.5%",
+                keyword: "宏觀視野 ❖ 商業頭腦 ❖ 資源整合 ❖ 強大意志 ❖ 得失心重",
+                who: [
+                    "你是那個掌控大局的資源整合者與實踐家。你具備宏觀的眼界與強大的意志力，善於將龐大的目標轉化為現實成果。",
+                    "你天生對商業與權力動態有著敏銳洞察，渴望在社會上建立專屬的豐盛版圖。你不畏懼競爭，只追求至高無上的卓越。"
+                ],
+                trait: "你具備卓越的宏觀格局、強大的意志力與極敏銳的商業直覺。你天生散發領袖風範，善於調度資源、克服困境，並將抽象目標化為豐盛的具體實體。",
+                career: "適合高階管理、金融投資、企業經營、房地產開發或大型專案指揮。在充滿競爭與高風險的商場中，你能展現無與倫比的抗壓與決策力。",
+                love: "在感情中講求誠實與相互扶持，希望成為另一半穩固的後盾與依靠。然而若將商場上的主導與掌控習慣帶入親密關係，容易產生磨擦。",
+                advice: "物質與名利的追求固然重要，但內心的平靜與真摯的情感才是永恆的財富。學習平衡事業與心靈，能讓你體驗到真正的身心豐盛。"
+            },
+            9: {
+                title: "大愛數 - 慈悲、靈性與夢想實踐",
+                ratio: "12.1%",
+                keyword: "人道主義 ❖ 博愛包容 ❖ 靈性天賦 ❖ 理想主義 ❖ 脫離現實",
+                who: [
+                    "你是那個老靈魂。即使年紀不大，也給人歷經滄桑的感覺，因為你看得遠、想得深。你關心的不只是自己，而是世界與人類的未來。",
+                    "你天生具有使命感，覺得自己應該為世界做些什麼。你不在乎個人得失，更在乎這件事對大家好不好。但過於理想化，現實常讓你失望。"
+                ],
+                trait: "你擁有一顆包容大千世界的廣大慈悲心與靈性直覺。你具備極高的同理天賦與博愛精神，關懷人類與社會福祉，常被視為靈魂深沉的智者與夢想家。",
+                career: "適合慈善公益、文化傳承、心靈療癒、藝術創作、環境保護或國際人道組織。能為社會帶來正面變革與集體昇華的事業，最能燃燒你的熱情。",
+                love: "在關係中表現得極其浪漫、體貼與包容，追求超脫物質的靈魂連結。但有時理想過高，容易因現實條件的差距而感到挫折與幻滅。",
+                advice: "偉大的理想必須腳踏實地。學習從眼前的微小瑣事做起，連結當下生活細節，才能將你宏大的慈悲藍圖真正落地落實。"
+            }
+        };
+
+        const LIFE_NUM_SHORT_TITLES = {
+            1: "開創數",
+            2: "協調數",
+            3: "創意數",
+            4: "務實數",
+            5: "自由數",
+            6: "奉獻數",
+            7: "智慧數",
+            8: "豐盛數",
+            9: "大愛數"
+        };
+
+        let calculatedOriginalLifeNum = null;
+        let currentActiveLifeNum = null;
+        window.latestLifeOrigStr = '- -';
+        window.latestLifeProcStr = '- -';
+
+        function selectLifeNumber(num) {
+            currentActiveLifeNum = num;
+            updateLifeNumberView(num);
+            renderLifeNumSwitchButtons();
+        }
+
+        function updateLifeNumberView(num) {
+            const info = LIFE_NUMBER_INFO[num] || { title: "", ratio: "-", keyword: "", who: [], trait: "", career: "", love: "", advice: "" };
+            const isOriginal = (num === calculatedOriginalLifeNum);
+
+            const yearVal = document.getElementById('inputLifeYear')?.value || '1990';
+            const monthVal = document.getElementById('inputLifeMonth')?.value || '1';
+            const dayVal = document.getElementById('inputLifeDay')?.value || '1';
+            
+            const birthStr = `${yearVal} 年 ${monthVal} 月 ${dayVal} 日`;
+            const origStr = window.latestLifeOrigStr || '- -';
+            const procStr = window.latestLifeProcStr || '- -';
+            const headerLabelText = isOriginal ? "你的生命靈數" : "生命靈數解析";
+
+            const view = document.getElementById('lifeStyleView3');
+            if (!view) return;
+
+            const elNumber = view.querySelector('.js-lifeFinalNumber');
+            if (elNumber) elNumber.innerText = num;
+
+            const elHeaderLabel = view.querySelector('.js-lifeHeaderLabel');
+            if (elHeaderLabel) elHeaderLabel.innerText = headerLabelText;
+
+            const elBirthDate = view.querySelector('.js-lifeBirthDate');
+            if (elBirthDate) elBirthDate.innerText = birthStr;
+
+            const elOriginalNumbers = view.querySelector('.js-lifeOriginalNumbers');
+            if (elOriginalNumbers) elOriginalNumbers.innerText = origStr;
+
+            const elCalcProcess = view.querySelector('.js-lifeCalcProcess');
+            if (elCalcProcess) elCalcProcess.innerText = procStr;
+
+            const elRatio = view.querySelector('.js-lifeNumRatio');
+            if (elRatio) elRatio.innerText = `約 ${info.ratio}`;
+
+            const birthDateBlock = view.querySelector('.js-lifeBirthDateBlock');
+            const personalProcessBlock = view.querySelector('.js-lifePersonalProcessBlock');
+
+            if (isOriginal) {
+                if (birthDateBlock) birthDateBlock.classList.remove('hidden');
+                if (personalProcessBlock) personalProcessBlock.classList.remove('hidden');
+            } else {
+                if (birthDateBlock) birthDateBlock.classList.add('hidden');
+                if (personalProcessBlock) personalProcessBlock.classList.add('hidden');
+            }
+
+            const keywordsContainer = view.querySelector('.js-lifeNumKeywords');
+            if (keywordsContainer && info.keyword) {
+                const keywordsArray = info.keyword.split('❖').map(k => k.trim()).filter(Boolean);
+                keywordsContainer.innerHTML = keywordsArray.map(kw => `
+                    <span class="w-full px-3 py-1.5 rounded-lg bg-red-50/90 border border-red-200 text-red-900 text-xs font-serif font-bold flex items-center justify-center gap-1.5 shadow-2xs text-center">
+                        <span class="text-red-800 text-xs">❖</span><span>${kw}</span>
+                    </span>
+                `).join('');
+            }
+
+            const whoContainer = view.querySelector('.js-lifeNumWho');
+            if (whoContainer && info.who && Array.isArray(info.who)) {
+                whoContainer.innerHTML = info.who.map(p => `<p>${p}</p>`).join('');
+            }
+
+            const images = view.querySelectorAll('.js-lifeNumImage');
+            images.forEach(img => {
+                img.src = `img/life_${num}.png`;
+                img.onerror = () => { img.src = 'img/life_1.png'; };
+            });
+
+            const safeSetViewText = (selector, val) => {
+                const el = view.querySelector(selector);
+                if (el) el.innerText = val;
+            };
+
+            safeSetViewText('.js-lifeNumCareer', info.career);
+            safeSetViewText('.js-lifeNumLove', info.love);
+            safeSetViewText('.js-lifeNumAdvice', info.advice);
+        }
+
+        function renderLifeNumSwitchButtons() {
+            const container = document.getElementById('lifeNumSwitchButtons');
+            if (!container) return;
+
+            let html = '';
+            for (let i = 1; i <= 9; i++) {
+                const isActive = (i === currentActiveLifeNum);
+                const isOriginal = (i === calculatedOriginalLifeNum);
+                const shortName = LIFE_NUM_SHORT_TITLES[i] || '';
+
+                if (isActive) {
+                    html += `
+                        <button type="button" onclick="selectLifeNumber(${i})" 
+                            class="relative flex flex-col items-center justify-center p-2.5 sm:p-3 bg-red-900 text-stone-50 border border-red-950 rounded-xl shadow-md transition-all duration-200 cursor-pointer select-none active:scale-95">
+                            ${isOriginal ? '<span class="absolute -top-2 -right-1 bg-yellow-500 text-stone-950 text-[10px] font-black px-1.5 py-0.5 rounded-full shadow-xs">本命</span>' : ''}
+                            <span class="font-black font-serif text-xl sm:text-2xl leading-none">${i}</span>
+                            <span class="text-[11px] sm:text-xs font-serif tracking-wider opacity-90 block mt-1 font-medium">${shortName}</span>
+                        </button>
+                    `;
+                } else {
+                    html += `
+                        <button type="button" onclick="selectLifeNumber(${i})" 
+                            class="relative flex flex-col items-center justify-center p-2.5 sm:p-3 bg-stone-100/90 hover:bg-stone-200/90 text-stone-800 border border-stone-300/70 rounded-xl transition-all duration-200 cursor-pointer select-none active:scale-95">
+                            ${isOriginal ? '<span class="absolute -top-2 -right-1 bg-red-800 text-stone-50 text-[10px] font-black px-1.5 py-0.5 rounded-full shadow-xs">本命</span>' : ''}
+                            <span class="font-black font-serif text-xl sm:text-2xl text-stone-900 leading-none">${i}</span>
+                            <span class="text-[11px] sm:text-xs font-serif tracking-wider text-stone-600 block mt-1 font-medium">${shortName}</span>
+                        </button>
+                    `;
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        function handleCalculateLife() {
+            const yearVal = document.getElementById('inputLifeYear').value;
+            const monthVal = document.getElementById('inputLifeMonth').value;
+            const dayVal = document.getElementById('inputLifeDay').value;
+
+            if (!yearVal || !monthVal || !dayVal) {
+                alert("請填入完整的出生年月日！");
+                return;
+            }
+
+            showLoading(() => {
+                const yearNum = parseInt(yearVal);
+                const monthNum = parseInt(monthVal);
+                const dayNum = parseInt(dayVal);
+
+                // 國曆生日數字拼接
+                const combinedStr = yearNum.toString() + monthNum.toString() + dayNum.toString();
+                const originalNumbers = combinedStr.split('').map(Number);
+                const origStr = originalNumbers.join('、');
+
+                // 計算過程
+                let processSteps = [];
+                let currentNumbers = [...originalNumbers];
+                let currentSum = currentNumbers.reduce((a, b) => a + b, 0);
+
+                processSteps.push(currentNumbers.join('+') + ` = ${currentSum}`);
+
+                while (currentSum >= 10) {
+                    const nextNumbers = currentSum.toString().split('').map(Number);
+                    const nextSum = nextNumbers.reduce((a, b) => a + b, 0);
+                    processSteps.push(nextNumbers.join('+') + ` = ${nextSum}`);
+                    currentSum = nextSum;
+                }
+
+                const finalLifeNumber = currentSum;
+                const procStr = processSteps.join(' → ');
+                const birthStr = `${yearNum} 年 ${monthNum} 月 ${dayNum} 日`;
+
+                window.latestLifeOrigStr = origStr;
+                window.latestLifeProcStr = procStr;
+
+                calculatedOriginalLifeNum = finalLifeNumber;
+                currentActiveLifeNum = finalLifeNumber;
+
+                // 更新詳細解析與渲染 1~9 號人切換按鈕
+                updateLifeNumberView(finalLifeNumber);
+                renderLifeNumSwitchButtons();
+
+                // 顯示結果區
+                document.getElementById('lifeResultArea').classList.remove('hidden');
+            });
+        }
+
         function handleCalculate() {
             showLoading(() => {
                 calculateBazi();
@@ -841,12 +1265,23 @@
             showLoading(() => {
                 // If in Name tab, clear name fields
                 const nameTab = document.getElementById('tab-name');
-                if (!nameTab.classList.contains('hidden')) {
+                if (nameTab && !nameTab.classList.contains('hidden')) {
                     document.getElementById('inputSurname').value = '';
                     document.getElementById('inputName').value = '';
                     document.getElementById('nameResultArea').classList.add('hidden');
                     return;
                 }
+
+                // If in Life tab, clear life fields
+                const lifeTab = document.getElementById('tab-life');
+                if (lifeTab && !lifeTab.classList.contains('hidden')) {
+                    document.getElementById('lifeResultArea').classList.add('hidden');
+                    document.getElementById('inputLifeYear').value = 1990;
+                    document.getElementById('inputLifeMonth').value = 1;
+                    document.getElementById('inputLifeDay').value = 1;
+                    return;
+                }
+
                 // If in Bazi tab, checking reload
                 location.reload();
             });
@@ -856,21 +1291,30 @@
         function switchTab(tab) {
             const baziTab = document.getElementById('tab-bazi');
             const nameTab = document.getElementById('tab-name');
+            const lifeTab = document.getElementById('tab-life');
             const baziBtn = document.getElementById('tab-btn-bazi');
             const nameBtn = document.getElementById('tab-btn-name');
+            const lifeBtn = document.getElementById('tab-btn-life');
+
+            const tabs = [baziTab, nameTab, lifeTab];
+            const btns = [baziBtn, nameBtn, lifeBtn];
+
+            tabs.forEach(t => { if (t) t.classList.add('hidden'); });
+            btns.forEach(b => {
+                if (b) {
+                    b.className = "flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors";
+                }
+            });
 
             if (tab === 'bazi') {
-                baziTab.classList.remove('hidden');
-                nameTab.classList.add('hidden');
-
-                baziBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
-                nameBtn.className = "flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors";
-            } else {
-                baziTab.classList.add('hidden');
-                nameTab.classList.remove('hidden');
-
-                nameBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
-                baziBtn.className = "flex-1 py-4 text-center font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:bg-gray-50 transition-colors";
+                if (baziTab) baziTab.classList.remove('hidden');
+                if (baziBtn) baziBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
+            } else if (tab === 'name') {
+                if (nameTab) nameTab.classList.remove('hidden');
+                if (nameBtn) nameBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
+            } else if (tab === 'life') {
+                if (lifeTab) lifeTab.classList.remove('hidden');
+                if (lifeBtn) lifeBtn.className = "flex-1 py-4 text-center font-bold text-red-800 border-b-2 border-red-800 transition-colors";
             }
         }
 
@@ -948,99 +1392,99 @@
 
             return {
                 combo: `${wT} - ${wR} - ${wD}`,
-                result: (fText.includes("不穩") || sText.includes("受阻")) ? "平/凶" : "吉",
+                result: (fText.includes("不穩") || sText.includes("受阻")) ? "平/兇" : "吉",
                 desc: `${sText} ${fText} (此為五行生剋推演)`
             };
         }
 
         const STROKE_81 = {
             1: { t: "吉", d: "宇宙起源，天地開泰，大展鴻圖。", detail: "這是萬物起源之數，象徵著巨大的創造力與生命力。擁有此數者，意志堅強，具備領導才能，能夠白手起家，成就一番大事業。身體健康，名利雙收，是極佳的首領運。" },
-            2: { t: "凶", d: "混沌未定，分離破敗，無力回天。", detail: "此數象徵動盪不安，運勢起伏不定。雖然看似努力，但往往事倍功半，難以達成目標。六親緣薄，易陷於孤獨無助之境，需培養堅強的毅力以補不足。" },
+            2: { t: "兇", d: "混沌未定，分離破敗，無力回天。", detail: "此數象徵動盪不安，運勢起伏不定。雖然看似努力，但往往事倍功半，難以達成目標。六親緣薄，易陷於孤獨無助之境，需培養堅強的毅力以補不足。" },
             3: { t: "吉", d: "陰陽和合，萬物化育，名利雙收。", detail: "陰陽調和的吉祥數理。象徵著順利、發達與成功。擁有此數者，才智過人，處事圓融，容易得到貴人相助，在社會上能夠立足並獲得眾人的敬仰，財運與名聲兼備。" },
-            4: { t: "凶", d: "破壞滅亡，前途坎坷，多病多災。", detail: "此數暗示著破壞與變動，人生充滿了艱難與挑戰。易遭遇挫折、病痛或意外，身心俱疲。意志薄弱者難以承受，需特別注意身體健康，並修身養性以化解戾氣。" },
+            4: { t: "兇", d: "破壞滅亡，前途坎坷，多病多災。", detail: "此數暗示著破壞與變動，人生充滿了艱難與挑戰。易遭遇挫折、病痛或意外，身心俱疲。意志薄弱者難以承受，需特別注意身體健康，並修身養性以化解戾氣。" },
             5: { t: "吉", d: "福祿長壽，德行廣大，陰陽和合。", detail: "五行之數，中正平和。象徵著圓滿、穩健與富貴。性格溫和敦厚，人緣極佳，能夠在穩定的環境中發展事業，獲得長輩與上司的提拔，一生平安順遂，晚年得享天倫之樂。" },
             6: { t: "吉", d: "安穩餘慶，家道興隆，天降幸運。", detail: "此數象徵著天之賜福，運勢平穩安樂。為人豪爽，信守承諾，能夠繼承家業或得長輩庇蔭。雖然未必是大富大貴的驚人成就，但生活富足，名利安穩，是一生無憂的吉祥數。" },
             7: { t: "吉", d: "剛毅果斷，勇往直前，必獲成功。", detail: "陽剛之氣極強的數理。象徵著意志堅定，不畏艱難，具備排除萬難的勇氣與決心。適合獨立創業或從事開創性的工作，雖然過程可能充滿挑戰，但終能獲得巨大的成功。" },
             8: { t: "吉", d: "意志堅強，貫徹始終，大器晚成。", detail: "象徵著如鐵石般的堅強意志。雖然早年可能較為辛苦，面臨諸多考驗，但只要能堅持到底，不輕言放棄，中年過後運勢將逐漸開展，獲得遲來的成功與榮譽。" },
-            9: { t: "凶", d: "興盡無力，財力難望，孤獨困苦。", detail: "此數雖然暗示著才華洋溢，但運勢卻如窮途末路。往往有才無命，懷才不遇。易陷入孤獨、貧困或病痛的困境，人生的大起大落較為劇烈，需防意外之災。" },
-            10: { t: "凶", d: "萬事終局，空虛無力，雪上加霜。", detail: "數理中最凶之數之一，象徵著黑暗與空虛。努力往往徒勞無功，事業難成，家運不濟。容易遭遇連串的不幸與打擊，需特別注意心理健康，尋求心靈的寄託。" },
+            9: { t: "兇", d: "興盡無力，財力難望，孤獨困苦。", detail: "此數雖然暗示著才華洋溢，但運勢卻如窮途末路。往往有才無命，懷才不遇。易陷入孤獨、貧困或病痛的困境，人生的大起大落較為劇烈，需防意外之災。" },
+            10: { t: "兇", d: "萬事終局，空虛無力，雪上加霜。", detail: "數理中最兇之數之一，象徵著黑暗與空虛。努力往往徒勞無功，事業難成，家運不濟。容易遭遇連串的不幸與打擊，需特別注意心理健康，尋求心靈的寄託。" },
             11: { t: "吉", d: "草木逢春，枝葉沾露，穩健著實。", detail: "如旱地逢甘霖，象徵著復甦與生機。性格冷靜沉著，做事循序漸進，不急躁。雖然進展可能較緩慢，但基礎穩固，能夠一步一腳印地邁向成功，得享富貴榮華。" },
-            12: { t: "凶", d: "薄弱無力，孤立無援，外祥內苦。", detail: "此數暗示著意志薄弱，缺乏決斷力。雖然外表看似風光，但內心常感孤獨與無助。易受他人影響，隨波逐流，難以從事獨立性的工作，宜依附強者或與人合作。" },
+            12: { t: "兇", d: "薄弱無力，孤立無援，外祥內苦。", detail: "此數暗示著意志薄弱，缺乏決斷力。雖然外表看似風光，但內心常感孤獨與無助。易受他人影響，隨波逐流，難以從事獨立性的工作，宜依附強者或與人合作。" },
             13: { t: "吉", d: "才藝多能，智謀奇略，忍柔當事。", detail: "充滿智慧與才華的數理。擁有此數者，頭腦靈活，反應敏捷，具備多方面的才能。擅長謀略，能夠應對各種複雜的局勢，在學術、藝術或技藝方面易獲得成就。" },
-            14: { t: "凶", d: "忍得苦難，必有後福，是成是敗。", detail: "此數為勞碌之數，人生充滿了考驗。雖然具備才華，但運勢往往不濟，容易遭遇挫折與失敗。若能培養超人的毅力，忍受常人所不能忍，或許能在大難之後獲得成功。" },
+            14: { t: "兇", d: "忍得苦難，必有後福，是成是敗。", detail: "此數為勞碌之數，人生充滿了考驗。雖然具備才華，但運勢往往不濟，容易遭遇挫折與失敗。若能培養超人的毅力，忍受常人所不能忍，或許能在大難之後獲得成功。" },
             15: { t: "吉", d: "謙恭做事，外得人和，大事成就。", detail: "最大的吉祥數之一。象徵著謙虛、圓融與德行。為人謙和有禮，深受他人喜愛與敬重，能夠匯聚人氣，獲得貴人提拔。事業順利，家庭美滿，富貴榮華之運。" },
             16: { t: "吉", d: "能獲眾望，成就大業，名利雙收。", detail: "具備領袖氣質的數理。擁有此數者，胸懷大志，氣度恢弘，能夠領導眾人，成就一番大事業。因得人心，故能集聚眾望，在社會上享有崇高的地位與名聲。" },
             17: { t: "吉", d: "排除萬難，有貴人助，把握時機。", detail: "象徵著突破與剛毅。雖然個性較為固執，容易得罪人，但因具備堅強的意志與不屈不撓的精神，能夠突破重重困難。若能修正過於剛硬的個性，善用貴人助力，定能獲得成功。" },
             18: { t: "吉", d: "經商做事，順利昌隆，如能慎始。", detail: "此數為權力與智謀的象徵。擁有此數者，意志堅定，具備謀略，適合從事公職或管理工作。雖然可能會經歷一些波折，但最終能夠克服困難，達成目標，功成名就。" },
-            19: { t: "凶", d: "成功雖早，慎防空虧，內外不和。", detail: "此數暗示著聰明反被聰明誤。雖然早年可能展露頭角，獲得一時的成功，但因缺乏定性與人和，容易中途夭折或陷入困境。需防意外之災與病痛。" },
-            20: { t: "凶", d: "智高志大，歷盡艱難，焦心憂勞。", detail: "雖然志向遠大，才華橫溢，但運勢卻如逆水行舟，困難重重。往往付出多而收穫少，內心常感焦慮與不安。易陷入進退兩難的局面，需防精神衰弱。" },
+            19: { t: "兇", d: "成功雖早，慎防空虧，內外不和。", detail: "此數暗示著聰明反被聰明誤。雖然早年可能展露頭角，獲得一時的成功，但因缺乏定性與人和，容易中途夭折或陷入困境。需防意外之災與病痛。" },
+            20: { t: "兇", d: "智高志大，歷盡艱難，焦心憂勞。", detail: "雖然志向遠大，才華橫溢，但運勢卻如逆水行舟，困難重重。往往付出多而收穫少，內心常感焦慮與不安。易陷入進退兩難的局面，需防精神衰弱。" },
             21: { t: "吉", d: "專心經營，善用智慧，霜雪梅花。", detail: "象徵著如梅花般傲雪凌霜的精神。擁有此數者，獨立心強，不依賴他人，能夠憑藉自己的實力開創事業。雖然是女性的孤寡數，但對於事業發展卻是極佳的數理。" },
-            22: { t: "凶", d: "秋草逢霜，懷才不遇，憂愁怨苦。", detail: "此數暗示著才華雖高，但機運不佳。如秋草逢霜，滿腹才華無處施展。容易遭遇挫折，內心充滿怨氣與不滿。人生多波折，需修身養性，培養樂觀的心態。" },
+            22: { t: "兇", d: "秋草逢霜，懷才不遇，憂愁怨苦。", detail: "此數暗示著才華雖高，但機運不佳。如秋草逢霜，滿腹才華無處施展。容易遭遇挫折，內心充滿怨氣與不滿。人生多波折，需修身養性，培養樂觀的心態。" },
             23: { t: "吉", d: "旭日東升，名顯四方，漸次進展。", detail: "如旭日東升般氣勢磅礡的吉祥數。象徵著充滿活力與希望。擁有此數者，氣度非凡，具備領導才能，能夠在激烈的競爭中脫穎而出，成就偉大的事業。但女性需防過於強勢。" },
             24: { t: "吉", d: "錦繡前程，須靠自力，多用智謀。", detail: "白手起家的吉祥數理。象徵著聰明才智與勤奮努力。雖然起步可能一無所有，但憑藉著智慧與雙手，能夠逐步累積財富，晚年大富大貴，子孫滿堂。" },
             25: { t: "吉", d: "天時地利，再得人和，講信修睦。", detail: "資性英敏，具有獨特的才能。為人怪癖，不與人同流合汙，但因具備真才實學，仍能獲得他人的尊重。若能收斂高傲的個性，善與人處，成功指日可待。" },
-            26: { t: "凶", d: "波瀾起伏，千變萬化，凌駕萬難。", detail: "此數為波瀾萬丈之象，人生充滿了變數與傳奇。雖然具備俠義心腸與英雄氣概，但運勢起伏過於劇烈，成敗往往在一線之間。需經得起大風大浪的考驗，方能有所成就。" },
-            27: { t: "凶", d: "一成一敗，一盛一衰，惟靠謹慎。", detail: "此數暗示著自我中心，容易因固執己見而招致失敗。雖然中途可能獲得成功，但因缺乏人和，往往難以此持久。易受誹謗與攻擊，需多聽取他人意見，修正自己的缺失。" },
-            28: { t: "凶", d: "魚臨旱地，難逃惡運，此數大凶。", detail: "數理極凶，象徵著災難與不幸。雖然豪氣干雲，但往往因行事魯莽而招致禍端。家庭運不佳，六親緣薄，易陷於孤獨。宜修身養性，行善積德，以求化解。" },
+            26: { t: "兇", d: "波瀾起伏，千變萬化，凌駕萬難。", detail: "此數為波瀾萬丈之象，人生充滿了變數與傳奇。雖然具備俠義心腸與英雄氣概，但運勢起伏過於劇烈，成敗往往在一線之間。需經得起大風大浪的考驗，方能有所成就。" },
+            27: { t: "兇", d: "一成一敗，一盛一衰，惟靠謹慎。", detail: "此數暗示著自我中心，容易因固執己見而招致失敗。雖然中途可能獲得成功，但因缺乏人和，往往難以此持久。易受誹謗與攻擊，需多聽取他人意見，修正自己的缺失。" },
+            28: { t: "兇", d: "魚臨旱地，難逃惡運，此數大兇。", detail: "數理極兇，象徵著災難與不幸。雖然豪氣幹雲，但往往因行事魯莽而招致禍端。家庭運不佳，六親緣薄，易陷於孤獨。宜修身養性，行善積德，以求化解。" },
             29: { t: "吉", d: "如龍得水，青雲直上，智謀奮進。", detail: "大吉大利之數。象徵著才華橫溢，智謀過人。擁有此數者，如龍得水，能夠在社會上大展拳腳。適合從事政治、商業或與權力有關的工作，名利雙收，權勢顯達。" },
-            30: { t: "凶", d: "吉凶參半，得失相伴，投機取巧。", detail: "此數為浮沉不定之象。吉凶難料，成敗全憑機運。擁有此數者，往往好賭成性，喜歡投機取巧。人生大起大落，缺乏安全感。需腳踏實地，戒除貪念。" },
+            30: { t: "兇", d: "吉兇參半，得失相伴，投機取巧。", detail: "此數為浮沉不定之象。吉兇難料，成敗全憑機運。擁有此數者，往往好賭成性，喜歡投機取巧。人生大起大落，缺乏安全感。需腳踏實地，戒除貪念。" },
             31: { t: "吉", d: "此數大吉，名利雙收，漸進向上。", detail: "智勇兼備的吉祥數理。象徵著腳踏實地，穩步向前。擁有此數者，意志堅定，做事有計劃，能夠排除萬難，達成目標。人際關係良好，家庭美滿，晚年運勢更佳。" },
             32: { t: "吉", d: "池中之龍，風雲際會，一躍上天。", detail: "如困龍得水，一飛沖天。象徵著機遇與幸運。擁有此數者，往往能在偶然的機會下獲得成功。貴人運極佳，能夠得到有力的提拔與幫助，事業發展迅速。" },
             33: { t: "吉", d: "意氣用事，人和必失，如能慎始。", detail: "此數為極剛之數，象徵著權威與果斷。擁有此數者，才華出眾，自信滿滿。但因個性過於剛烈，容易得罪人，導致人和不佳。需學習謙虛與包容，方能長保富貴。" },
-            34: { t: "凶", d: "災難不絕，難望成功，此數大凶。", detail: "數理極凶，象徵著破壞與毀滅。人生充滿了災難與不幸，病痛纏身，家庭破碎。雖然可能具備才華，但運勢極差，難有發揮之地。宜改名換運，修德積福。" },
+            34: { t: "兇", d: "災難不絕，難望成功，此數大兇。", detail: "數理極兇，象徵著破壞與毀滅。人生充滿了災難與不幸，病痛纏身，家庭破碎。雖然可能具備才華，但運勢極差，難有發揮之地。宜改名換運，修德積福。" },
             35: { t: "吉", d: "處事嚴謹，進退保守，學智兼具。", detail: "溫和文雅的吉祥數理。象徵著文學、藝術與學術的成就。擁有此數者，性格內向，喜愛思考，適合從事靜態的工作。雖然缺乏開創性，但能在穩定的領域中獲得成功。" },
-            36: { t: "凶", d: "波瀾重疊，常陷窮困，動不如靜。", detail: "此數暗示著捨己救人，但往往好心沒好報。人生波折不斷，辛苦勞碌卻所獲無幾。易陷於財務困境或感情糾紛。宜安分守己，避免冒險。" },
-            37: { t: "吉", d: "逢凶化吉，吉人天相，以德取眾。", detail: "象徵著忠誠與信義。擁有此數者，意志堅定，為人正直，深得他人信任。雖然早年可能較為辛苦，但中年過後運勢大開，事業有成，名利雙收。" },
-            38: { t: "凶", d: "名雖可得，利則難獲，藝界發展。", detail: "此數為技藝之數。擁有此數者，心靈手巧，在藝術或技藝方面有獨特的天賦。但財運較差，往往名氣大而實利少。適合從事創作、設計等工作。" },
+            36: { t: "兇", d: "波瀾重疊，常陷窮困，動不如靜。", detail: "此數暗示著捨己救人，但往往好心沒好報。人生波折不斷，辛苦勞碌卻所獲無幾。易陷於財務困境或感情糾紛。宜安分守己，避免冒險。" },
+            37: { t: "吉", d: "逢兇化吉，吉人天相，以德取眾。", detail: "象徵著忠誠與信義。擁有此數者，意志堅定，為人正直，深得他人信任。雖然早年可能較為辛苦，但中年過後運勢大開，事業有成，名利雙收。" },
+            38: { t: "兇", d: "名雖可得，利則難獲，藝界發展。", detail: "此數為技藝之數。擁有此數者，心靈手巧，在藝術或技藝方面有獨特的天賦。但財運較差，往往名氣大而實利少。適合從事創作、設計等工作。" },
             39: { t: "吉", d: "雲開見月，雖有勞碌，光明坦途。", detail: "象徵著否極泰來。雖然早年可能遭遇困難與阻礙，但因具備堅強的意志與奮鬥精神，終能撥雲見日，獲得成功。晚年運勢極佳，福壽雙全。" },
-            40: { t: "凶", d: "一盛一衰，浮沉不定，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運時令人羨慕，壞運時令人同情。因為缺乏定性與智謀，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
-            40: { t: "凶/吉", d: "一盛一衰，運勢不穩，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運與壞運交替出現。因為可能缺乏定性，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
+            40: { t: "兇", d: "一盛一衰，浮沉不定，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運時令人羨慕，壞運時令人同情。因為缺乏定性與智謀，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
+            40: { t: "兇/吉", d: "一盛一衰，運勢不穩，知難而退。", detail: "此數暗示著運勢起伏劇烈。好運與壞運交替出現。因為可能缺乏定性，容易因一時的衝動而招致失敗。需謹慎行事，保守為宜。" },
             41: { t: "吉", d: "天賦吉運，德望兼備，繼續努力。", detail: "德高望重的吉祥數理。象徵著博愛與寬容。擁有此數者，心胸寬廣，樂於助人，受人敬仰。事業發展順利，財源廣進，是一生福氣滿滿的數理。" },
-            42: { t: "凶", d: "事業不專，博而不精，專心進取。", detail: "【博而不精】興趣廣泛，但可能缺乏持久力與專注力，往往樣樣通樣樣鬆。事業多變動，難以有大成就。需培養專一的精神，方能有所突破。" },
-            43: { t: "凶", d: "外祥內苦，需防誘惑，忍耐自重。", detail: "外表看似光鮮亮麗，內心卻可能有不為人知的苦楚。象徵著虛有其表。易遭遇金錢或感情的誘惑，需潔身自愛，防範未然。晚年運勢需多規劃。" },
-            44: { t: "凶", d: "費盡心機，事難遂願，需改心性。", detail: "【需防失誤】此數暗示著過於算計可能反招致失敗。往往因小失大。雖然可能獲得一時的利益，但終將得不償失。需誠信待人，方能扭轉命運。" },
+            42: { t: "兇", d: "事業不專，博而不精，專心進取。", detail: "【博而不精】興趣廣泛，但可能缺乏持久力與專注力，往往樣樣通樣樣鬆。事業多變動，難以有大成就。需培養專一的精神，方能有所突破。" },
+            43: { t: "兇", d: "外祥內苦，需防誘惑，忍耐自重。", detail: "外表看似光鮮亮麗，內心卻可能有不為人知的苦楚。象徵著虛有其表。易遭遇金錢或感情的誘惑，需潔身自愛，防範未然。晚年運勢需多規劃。" },
+            44: { t: "兇", d: "費盡心機，事難遂願，需改心性。", detail: "【需防失誤】此數暗示著過於算計可能反招致失敗。往往因小失大。雖然可能獲得一時的利益，但終將得不償失。需誠信待人，方能扭轉命運。" },
             45: { t: "吉", d: "楊柳遇春，綠葉發枝，衝破難關。", detail: "象徵著順應自然，生機勃勃。擁有此數者，智慧過人，處事圓滑，能夠克服一切困難，達成目標。事業發展順利，名利雙收，是一生幸運的數理。" },
-            46: { t: "凶", d: "坎坷不平，艱難重重，磨練心志。", detail: "【懷才不遇】才華雖高，但生不逢時，運勢多舛。易面臨生活壓力或親友無助的狀況。需培養堅強的意志，忍辱負重，在逆境中尋求生機。" },
+            46: { t: "兇", d: "坎坷不平，艱難重重，磨練心志。", detail: "【懷才不遇】才華雖高，但生不逢時，運勢多舛。易面臨生活壓力或親友無助的狀況。需培養堅強的意志，忍辱負重，在逆境中尋求生機。" },
             47: { t: "吉", d: "有貴人助，可成大業。", detail: "【開花結果】象徵收穫與成功。為人誠實，做事負責，深得信賴。能獲貴人提拔，在事業上取得巨大成就。家庭美滿，子孫賢孝。" },
             48: { t: "吉", d: "美化豐實，名利俱全。", detail: "【青松立鶴】才德兼備的吉祥數。象徵高貴與優雅。氣質出眾，才華洋溢，能在社會上脫穎而出。名利雙收，富貴榮華。" },
-            49: { t: "凶/吉", d: "吉凶未定，浮沉多端，惟靠謹慎。", detail: "【吉凶參半】此數為吉凶混合之數。運勢的好壞全憑環境與心境而定。若能心存善念，行善積德，則能逢凶化吉；反之，則易招致問題。需謹言慎行，修身養性。" },
-            50: { t: "凶/吉", d: "吉凶互見，一成一敗。", detail: "【大起大落】此數暗示著大起大落。雖然可能獲得一時成功，但往往曇花一現，難以持久。晚年運勢需多加注意，宜未雨綢繆，積穀防饑。" },
-            51: { t: "凶", d: "一盛一衰，運勢起伏，需養定性。", detail: "【不穩定】運勢好壞參半。做事容易虎頭蛇尾，缺乏恆心。雖然偶有好運，但難以把握。需培養定性，堅持到底，方能有所成就。" },
+            49: { t: "兇/吉", d: "吉兇未定，浮沉多端，惟靠謹慎。", detail: "【吉兇參半】此數為吉兇混合之數。運勢的好壞全憑環境與心境而定。若能心存善念，行善積德，則能逢兇化吉；反之，則易招致問題。需謹言慎行，修身養性。" },
+            50: { t: "兇/吉", d: "吉兇互見，一成一敗。", detail: "【大起大落】此數暗示著大起大落。雖然可能獲得一時成功，但往往曇花一現，難以持久。晚年運勢需多加注意，宜未雨綢繆，積穀防饑。" },
+            51: { t: "兇", d: "一盛一衰，運勢起伏，需養定性。", detail: "【不穩定】運勢好壞參半。做事容易虎頭蛇尾，缺乏恆心。雖然偶有好運，但難以把握。需培養定性，堅持到底，方能有所成就。" },
             52: { t: "吉", d: "草木逢春，雨過天晴。", detail: "【先苦後甘】先苦後甘的吉祥數。具備遠見與卓識。眼光獨到，能洞燭機先，抓住機會。雖然早年可能較辛苦，但晚年運勢極佳，名利雙收。" },
-            53: { t: "凶", d: "盛衰參半，外祥內苦。", detail: "【金玉其外】此數暗示著金玉其外，敗絮其中。外表光鮮，內心卻充滿憂愁。早年運勢尚可，但晚年容易陷入困境。需防晚景淒涼，宜早作規劃。" },
-            54: { t: "凶", d: "雖傾全力，難望成功，宜守不宜進。", detail: "【考驗重重】數理較弱，象徵孤獨與阻礙。人生充滿挑戰，身體健康需注意。雖然努力奮鬥，但回報可能不如預期。宜心存善念，多行善事以改運。" },
-            55: { t: "凶", d: "外觀隆昌，內隱隱憂，需防危機。", detail: "【外強中乾】此數為外強中乾之象。表面成功，實則危機四伏。意志稍弱，缺乏決斷力，易受人左右。需培養獨立自主精神，方能化險為夷。" },
-            56: { t: "凶", d: "事與願違，欲速不達，腳踏實地。", detail: "【缺乏實力】此數暗示著主觀願望與客觀實力有差距。心比天高，但執行力需加強。做事避免眼高手低，難以達成目標。需腳踏實地，量力而為。" },
+            53: { t: "兇", d: "盛衰參半，外祥內苦。", detail: "【金玉其外】此數暗示著金玉其外，敗絮其中。外表光鮮，內心卻充滿憂愁。早年運勢尚可，但晚年容易陷入困境。需防晚景淒涼，宜早作規劃。" },
+            54: { t: "兇", d: "雖傾全力，難望成功，宜守不宜進。", detail: "【考驗重重】數理較弱，象徵孤獨與阻礙。人生充滿挑戰，身體健康需注意。雖然努力奮鬥，但回報可能不如預期。宜心存善念，多行善事以改運。" },
+            55: { t: "兇", d: "外觀隆昌，內隱隱憂，需防危機。", detail: "【外強中乾】此數為外強中乾之象。表面成功，實則危機四伏。意志稍弱，缺乏決斷力，易受人左右。需培養獨立自主精神，方能化險為夷。" },
+            56: { t: "兇", d: "事與願違，欲速不達，腳踏實地。", detail: "【缺乏實力】此數暗示著主觀願望與客觀實力有差距。心比天高，但執行力需加強。做事避免眼高手低，難以達成目標。需腳踏實地，量力而為。" },
             57: { t: "吉", d: "努力經營，花開富貴。", detail: "【苦盡甘來】苦盡甘來的吉祥數。象徵堅忍不拔的毅力。能忍受常人所不能忍的痛苦，最終獲得成功。晚年運勢極佳，得享天倫之樂。" },
-            58: { t: "吉", d: "半兇半吉，始凶終吉。", detail: "【先難後易】此數為先難後易之象。早年運勢波折，面臨考驗。但只要堅持下去，中年過後運勢好轉，獲得成功與幸福。" },
-            59: { t: "凶", d: "遇事猶疑，難望成事，需斷毅力。", detail: "【意志薄弱】此數暗示著意志薄弱，缺乏決斷力。做事猶豫不決，錯失良機。易受他人影響，隨波逐流。需培養自信心與決斷力，方能有所成就。" },
-            60: { t: "凶", d: "前路未明，心迷意亂，尋求指引。", detail: "【迷失方向】數理較凶，象徵混亂與迷失。人生似失去方向，不知何去何從。做事反覆無常，難以取信於人。宜尋求明師或長輩指點，重拾信心。" },
+            58: { t: "吉", d: "半兇半吉，始兇終吉。", detail: "【先難後易】此數為先難後易之象。早年運勢波折，面臨考驗。但只要堅持下去，中年過後運勢好轉，獲得成功與幸福。" },
+            59: { t: "兇", d: "遇事猶疑，難望成事，需斷毅力。", detail: "【意志薄弱】此數暗示著意志薄弱，缺乏決斷力。做事猶豫不決，錯失良機。易受他人影響，隨波逐流。需培養自信心與決斷力，方能有所成就。" },
+            60: { t: "兇", d: "前路未明，心迷意亂，尋求指引。", detail: "【迷失方向】數理較兇，象徵混亂與迷失。人生似失去方向，不知何去何從。做事反覆無常，難以取信於人。宜尋求明師或長輩指點，重拾信心。" },
             61: { t: "吉", d: "雲遮半月，應自謹慎。", detail: "【名利雙收】象徵名利雙收。聰明才智，具備領導才能。雖然可能經歷風波與修煉，但最終獲得成功與榮譽。需防驕傲自滿，以免招致失敗。" },
-            62: { t: "凶", d: "煩惱懊悔，事業難成，需築基礎。", detail: "【基礎薄弱】此數暗示著基礎薄弱，缺乏信譽。做事容易半途而廢，難以達成目標。人際關係不佳，易受孤立。需加強修養，建立良好人際關係。" },
+            62: { t: "兇", d: "煩惱懊悔，事業難成，需築基礎。", detail: "【基礎薄弱】此數暗示著基礎薄弱，缺乏信譽。做事容易半途而廢，難以達成目標。人際關係不佳，易受孤立。需加強修養，建立良好人際關係。" },
             63: { t: "吉", d: "萬物化育，專心一意。", detail: "【吉祥如意】吉祥如意之數。象徵順利與成功。心地善良，樂於助人，深得他人喜愛。事業發展順利，家庭美滿，是一生幸福的數理。" },
-            64: { t: "凶", d: "見異思遷，徒勞無功，培養耐心。", detail: "【缺乏恆心】此數暗示著缺乏恆心與毅力。做事三分鐘熱度，難以持久。容易因為小挫折就放棄，導致一事無成。需培養恆心與毅力，方能有所成就。" },
+            64: { t: "兇", d: "見異思遷，徒勞無功，培養耐心。", detail: "【缺乏恆心】此數暗示著缺乏恆心與毅力。做事三分鐘熱度，難以持久。容易因為小挫折就放棄，導致一事無成。需培養恆心與毅力，方能有所成就。" },
             65: { t: "吉", d: "吉運自來，能享盛名。", detail: "【福運雙全】福運雙全的吉祥數。象徵富貴與長壽。運勢極佳，做事順利，容易獲得成功。家庭和睦，子孫賢孝，晚年得享清福。" },
-            66: { t: "凶", d: "困頓難行，內外不和，尋求突破。", detail: "【內憂外患】此數暗示著內憂外患。家庭不和，親友無助，事業受阻。人生充滿艱難與挑戰，心情常感壓抑。需保持樂觀心態，主動尋求解決之道。" },
+            66: { t: "兇", d: "困頓難行，內外不和，尋求突破。", detail: "【內憂外患】此數暗示著內憂外患。家庭不和，親友無助，事業受阻。人生充滿艱難與挑戰，心情常感壓抑。需保持樂觀心態，主動尋求解決之道。" },
             67: { t: "吉", d: "獨營事業，功成名就。", detail: "【通達順利】象徵通達與順利。頭腦靈活，善於交際，能左右逢源。事業發展迅速，財源廣進，是一生富貴的數理。" },
             68: { t: "吉", d: "思慮周詳，不失先機。", detail: "【智謀出眾】智謀出眾的吉祥數。象徵聰明與智慧。思考縝密，做事有計劃，不打沒把握的仗。能抓住機會，獲得成功。" },
-            69: { t: "凶", d: "動搖不安，不得時運，守成為上。", detail: "【運勢坎坷】此數暗示著運勢坎坷，波折不斷。雖然努力奮鬥，但往往事倍功半。易遭遇小病痛或挫折，身心俱疲。需防意外，多行善積德。" },
-            70: { t: "凶", d: "慘淡經營，運勢衰退，宜守不宜進。", detail: "【險阻重重】數理較凶，象徵衰退。人生充滿挑戰，可能面臨家庭或健康的考驗。雖然具備才華，但環境限制發揮。宜保守經營，尋求轉機。" },
-            71: { t: "凶", d: "吉凶參半，惟賴勇氣，堅持到底。", detail: "【勞苦耕耘】此數為勞苦之數。付出很多，但收穫甚微。內心常感空虛與無奈。需培養堅強意志，忍受孤獨，堅持到底方有一線生機。" },
-            72: { t: "凶", d: "外強中乾，得而復失，戒除驕傲。", detail: "【外表光鮮】此數暗示著外表光鮮，內心空虛。雖然可能獲得一時成功，但難以持久。容易因為驕傲自滿而招致失敗。晚年運勢較差，需防孤獨與貧困。" },
+            69: { t: "兇", d: "動搖不安，不得時運，守成為上。", detail: "【運勢坎坷】此數暗示著運勢坎坷，波折不斷。雖然努力奮鬥，但往往事倍功半。易遭遇小病痛或挫折，身心俱疲。需防意外，多行善積德。" },
+            70: { t: "兇", d: "慘淡經營，運勢衰退，宜守不宜進。", detail: "【險阻重重】數理較兇，象徵衰退。人生充滿挑戰，可能面臨家庭或健康的考驗。雖然具備才華，但環境限制發揮。宜保守經營，尋求轉機。" },
+            71: { t: "兇", d: "吉兇參半，惟賴勇氣，堅持到底。", detail: "【勞苦耕耘】此數為勞苦之數。付出很多，但收穫甚微。內心常感空虛與無奈。需培養堅強意志，忍受孤獨，堅持到底方有一線生機。" },
+            72: { t: "兇", d: "外強中乾，得而復失，戒除驕傲。", detail: "【外表光鮮】此數暗示著外表光鮮，內心空虛。雖然可能獲得一時成功，但難以持久。容易因為驕傲自滿而招致失敗。晚年運勢較差，需防孤獨與貧困。" },
             73: { t: "吉", d: "安樂自來，力行不懈。", detail: "【平平安安】平平安安的吉祥數。象徵小康與知足。雖無大富大貴，但生活無憂，家庭和睦。性格溫和，樂天知命，晚年得享清福。" },
-            74: { t: "凶", d: "利不及費，坐食山空，需勤奮起。", detail: "【需勤需儉】此數暗示著可能缺乏進取心，整日無所事事，坐吃山空。晚年容易陷入經濟困難。需振作精神，努力工作，方能改變命運。" },
-            75: { t: "凶", d: "吉中帶凶，欲速不達，保守平安。", detail: "【退守平安】此數為退守之數。運勢平平，難有大發展。若強求名利，反而容易招致失敗。宜安分守己，保守經營，方保平安。" },
-            76: { t: "凶", d: "運勢傾頹，破產之象，急流勇退。", detail: "【傾家蕩產】數理極凶，象徵財運不佳。人生充滿挫折與失敗，財散人離。雖然可能具備才華，但時運不濟，難以翻身。宜保守理財，尋求新生。" },
-            77: { t: "吉/凶", d: "先苦後甘，如能守成。", detail: "【過山車】半凶半吉之數。運勢如過山車般起伏不定。早年可能辛苦，但晚年運勢好轉；或早年風光，晚年淒涼。全憑個人造化與努力。" },
-            78: { t: "凶", d: "有得有失，華而不實，養成儲蓄。", detail: "【財來財去】此數暗示著財來財去，難以積聚。雖然可能賺得不少錢財，但往往因為各種原因而流失。晚年容易陷入貧困。需養成儲蓄習慣，量入為出。" },
-            79: { t: "凶", d: "前途未明，希望渺茫，尋求信仰。", detail: "【黑暗絕望】數理較凶，象徵迷茫與無助，看不到未來。易遭遇災難與不幸，身心俱疲。宜尋求宗教信仰，寄託心靈，以求平靜。" },
-            80: { t: "凶", d: "得而復失，枉費心機，修身養性。", detail: "【徒勞無功】此數暗示著徒勞無功。雖然付出了很多努力，但最終卻是一場空。健康運較差，易生病痛。需看淡名利，修身養性，方保平安。" },
+            74: { t: "兇", d: "利不及費，坐食山空，需勤奮起。", detail: "【需勤需儉】此數暗示著可能缺乏進取心，整日無所事事，坐吃山空。晚年容易陷入經濟困難。需振作精神，努力工作，方能改變命運。" },
+            75: { t: "兇", d: "吉中帶兇，欲速不達，保守平安。", detail: "【退守平安】此數為退守之數。運勢平平，難有大發展。若強求名利，反而容易招致失敗。宜安分守己，保守經營，方保平安。" },
+            76: { t: "兇", d: "運勢傾頹，破產之象，急流勇退。", detail: "【傾家蕩產】數理極兇，象徵財運不佳。人生充滿挫折與失敗，財散人離。雖然可能具備才華，但時運不濟，難以翻身。宜保守理財，尋求新生。" },
+            77: { t: "吉/兇", d: "先苦後甘，如能守成。", detail: "【過山車】半兇半吉之數。運勢如過山車般起伏不定。早年可能辛苦，但晚年運勢好轉；或早年風光，晚年淒涼。全憑個人造化與努力。" },
+            78: { t: "兇", d: "有得有失，華而不實，養成儲蓄。", detail: "【財來財去】此數暗示著財來財去，難以積聚。雖然可能賺得不少錢財，但往往因為各種原因而流失。晚年容易陷入貧困。需養成儲蓄習慣，量入為出。" },
+            79: { t: "兇", d: "前途未明，希望渺茫，尋求信仰。", detail: "【黑暗絕望】數理較兇，象徵迷茫與無助，看不到未來。易遭遇災難與不幸，身心俱疲。宜尋求宗教信仰，寄託心靈，以求平靜。" },
+            80: { t: "兇", d: "得而復失，枉費心機，修身養性。", detail: "【徒勞無功】此數暗示著徒勞無功。雖然付出了很多努力，但最終卻是一場空。健康運較差，易生病痛。需看淡名利，修身養性，方保平安。" },
             81: { t: "吉", d: "最極之數，能得繁業。", detail: "【圓滿回歸】大吉大利之數。象徵圓滿與回歸。經歷九九八十一難，終於修成正果。福壽雙全，名利雙收，是一生最完美的結局。" }
         };
 
         function getLuck(num) {
             const n = num > 81 ? num % 81 || 81 : num;
-            return STROKE_81[n] || { t: "平", d: "吉凶未定", detail: "此數理含義較為中性，需視配合而定。" };
+            return STROKE_81[n] || { t: "平", d: "吉兇未定", detail: "此數理含義較為中性，需視配合而定。" };
         }
 
         function getStrokes(char) {
@@ -1167,10 +1611,9 @@
             if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
                 apiKey = CONFIG.GEMINI_API_KEY;
             }
-            if (!apiKey) apiKey = localStorage.getItem('gemini_api_key');
 
             if (!apiKey) {
-                showApiKeyModal();
+                alert("尚未設定 API Key，請確認 config.js 是否存在並已填入正確的金鑰。");
                 return;
             }
 
@@ -1191,7 +1634,7 @@
 
             const ctx = window.latestNameContext;
             const prompt = `
-你是一位精通姓名學與八字命理的大師。請結合「八字命盤」與「姓名五格」，為命主進行姓名吉凶鑒定。
+你是一位精通姓名學與八字命理的大師。請結合「八字命盤」與「姓名五格」，為命主進行姓名吉兇鑒定。
 
 【命主資料】
 - 姓名：${ctx.surname}${ctx.name}
@@ -1205,7 +1648,7 @@
 
 【分析要求】
 請嚴格按照以下 HTML 結構輸出內容，**不要**使用 Markdown，直接輸出 HTML 代碼。
-重點部分或關鍵吉凶判斷，請使用 <span class="text-red-700 font-bold">重點文字</span> 包裹。
+重點部分或關鍵吉兇判斷，請使用 <span class="text-red-700 font-bold">重點文字</span> 包裹。
 **請勿**使用綠色或其他顏色標註負面詞彙，統一使用紅色標註重點即可。
 
 【語氣與風格】
@@ -1217,7 +1660,7 @@
 
 請依序輸出以下四個區塊，保持排版現代且結構化，**除此之外不要輸出任何其他內容**：
 
-<!-- 1. 三才五格簡析 (儀表板佈局) -->
+<!-- 1. 三才五格簡析 (儀錶板佈局) -->
 <div class="mb-8">
     <h3 class="flex items-center text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
         <span class="bg-gray-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
@@ -1238,7 +1681,7 @@
         </div>
         <div class="bg-gray-50 p-4 rounded-lg">
             <h4 class="font-bold text-gray-700 mb-2">人際與婚姻</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">(用白話分析对外格與地格的影響，避免使用宿命論的語氣)</p>
+            <p class="text-sm text-gray-600 leading-relaxed">(用白話分析對外格與地格的影響，避免使用宿命論的語氣)</p>
         </div>
     </div>
 </div>
@@ -1314,23 +1757,12 @@
                 content.innerHTML = cleanText;
             } catch (error) {
                 console.error(error);
-                if (error.message.includes('API key not valid') || error.message.includes('400')) {
-                    localStorage.removeItem('gemini_api_key');
-                    showApiKeyModal("金鑰失效，請重新輸入");
-                    return;
-                }
 
                 content.innerHTML = `
                     <div class="flex flex-col items-center gap-2 p-4 bg-red-50 rounded-lg border border-red-100">
                         <span class="text-red-600 font-bold">分析發生錯誤</span>
                         <span class="text-xs text-gray-600 font-mono bg-white px-2 py-1 rounded border border-gray-200">${error.message}</span>
-                        <p class="text-xs text-center text-gray-500 my-1">若是 API 額度不足或網路問題，<br>您可以嘗試輸入新的 Key。</p>
-                        <button onclick="showApiKeyModal()" class="mt-1 px-4 py-2 bg-red-800 text-white rounded hover:bg-red-700 transition-colors text-sm font-bold shadow-sm flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg>
-                            更換 API Key 並重試
-                        </button>
+                        <p class="text-xs text-center text-gray-500 my-1">若是 API 額度不足或網路問題，請稍後再試，或確認 config.js 中的金鑰是否正確。</p>
                     </div>
                 `;
             } finally {
@@ -1505,7 +1937,7 @@
 
         const zodiacTraits = {
             "子": { adj: "機靈敏銳", noun: "智者", advice: "多與人合作" },
-            "丑": { adj: "腳踏實地", noun: "耕耘者", advice: "保持彈性" },
+            "醜": { adj: "腳踏實地", noun: "耕耘者", advice: "保持彈性" },
             "寅": { adj: "充滿行動力", noun: "開拓者", advice: "避免過衝" },
             "卯": { adj: "溫和細膩", noun: "協調者", advice: "果斷決策" },
             "辰": { adj: "志向遠大", noun: "領袖", advice: "聽取建言" },
@@ -1584,12 +2016,12 @@
             // Add other potential sources if needed, but avoid crashing calls like getBaZiDayZhiShenSha unless sure
 
             let shenShaHighlights = [];
-            if (allShenSha.includes("天乙贵人") || allShenSha.includes("天乙貴人")) shenShaHighlights.push("【天乙貴人】：命中帶貴，一生逢凶化吉，易得長輩提攜。");
-            if (allShenSha.includes("文昌贵人") || allShenSha.includes("文昌貴人") || allShenSha.includes("文昌")) shenShaHighlights.push("【文昌貴人】：才思敏捷，學業事業皆有成，利於考試考證。");
-            if (allShenSha.includes("桃花") || allShenSha.includes("咸池")) shenShaHighlights.push("【桃花星】：異性緣佳，人緣好，公關魅力強。");
-            if (allShenSha.includes("驿马") || allShenSha.includes("驛馬")) shenShaHighlights.push("【驛馬星】：動中求財，適合出差、外派或旅遊業，越動越發。");
-            if (allShenSha.includes("华盖") || allShenSha.includes("華蓋")) shenShaHighlights.push("【華蓋星】：聰明孤高，具藝術才華，對哲學宗教有慧根。");
-            if (allShenSha.includes("将星") || allShenSha.includes("將星")) shenShaHighlights.push("【將星】：具備領導才能，有機會掌權，成為團隊核心。");
+            if (allShenSha.includes("天乙貴人") || allShenSha.includes("天乙貴人")) shenShaHighlights.push("【天乙貴人】：命中帶貴，一生逢兇化吉，易得長輩提攜。");
+            if (allShenSha.includes("文昌貴人") || allShenSha.includes("文昌貴人") || allShenSha.includes("文昌")) shenShaHighlights.push("【文昌貴人】：才思敏捷，學業事業皆有成，利於考試考證。");
+            if (allShenSha.includes("桃花") || allShenSha.includes("鹹池")) shenShaHighlights.push("【桃花星】：異性緣佳，人緣好，公關魅力強。");
+            if (allShenSha.includes("驛馬") || allShenSha.includes("驛馬")) shenShaHighlights.push("【驛馬星】：動中求財，適合出差、外派或旅遊業，越動越發。");
+            if (allShenSha.includes("華蓋") || allShenSha.includes("華蓋")) shenShaHighlights.push("【華蓋星】：聰明孤高，具藝術才華，對哲學宗教有慧根。");
+            if (allShenSha.includes("將星") || allShenSha.includes("將星")) shenShaHighlights.push("【將星】：具備領導才能，有機會掌權，成為團隊核心。");
 
             return {
                 wealth: wealthAnalysis,
@@ -1633,7 +2065,7 @@
                     "【潛龍勿用格】具備領導潛力但時機未到。策略是「潛伏」，在組織中累積威望，不要急於出頭。您的貴氣在於內斂，當能力與時運交會時，您將一飛沖天，掌握實權。",
                     "【循序漸進格】這是一個穩步上升的官貴格。您的升遷之路有跡可循，適合在大型體制內發展。建議按部就班，考取證照或爭取職位，您的權力是隨年資與貢獻疊加的，晚運極佳。",
                     "【權威建立格】骨重轉重，開始展現主管風範。您天生就有讓人信服的氣場，適合帶領團隊。策略在於「立威」與「立德」並重，打造您的核心班底，成就一番霸業。",
-                    "【獨當一面格】具備高階將帥的命格，能承擔巨大的責任與壓力。您適合開疆闢土或掌管決策。建議眼光放遠，思考產業布局，您的舞台已經不只是公司，而是整個行業的領袖。",
+                    "【獨當一面格】具備高階將帥的命格，能承擔巨大的責任與壓力。您適合開疆闢土或掌管決策。建議眼光放遠，思考產業布局，您的舞臺已經不只是公司，而是整個行業的領袖。",
                     "【登峰造極格】官殺與重骨相輔相成，乃社會領袖或權威人士之命。您的影響力足以撼動局勢。策略在於「濟世」，權力越大責任越大，投身公眾事務將使您的名望流芳百世。"
                 ],
                 "Wealth": [
@@ -1642,7 +2074,7 @@
                     "【商機浮現格】您對金錢有敏銳的嗅覺，且骨重適中，有能力捕捉稍縱即逝的機會。建議大膽嘗試副業或投資，在流動中創造財富，別讓資金閒置，錢滾錢最快。",
                     "【財源廣進格】財星高照，物資豐饒。您適合從事貿易或金流相關的行業。策略是「資源配置」，學會讓錢為您工作，建立被動收入系統，財富將如滾雪球般增長。",
                     "【點石成金格】骨重與財星皆旺，具備卓越的商業眼光。您能看見別人看不見的價值，適合創業或重整不良資產。您的決策往往能帶來倍數的獲利，是天生的生意人。",
-                    "【富甲一方格】大富大貴之格，財富已非您需擔憂之事。策略在於「佈施」，金錢的流動能帶來更大的福報。投資社會企業或回饋鄉里，將使您的財富格局昇華至精神層次。"
+                    "【富甲一方格】大富大貴之格，財富已非您需擔憂之事。策略在於「佈施」，金錢的流動能帶來更大的福報。投資社會企業或回饋鄉裡，將使您的財富格局昇華至精神層次。"
                 ],
                 "Output": [
                     "【孤芳才子格】才華洋溢但骨重稍輕，早年可能感到懷才不遇。堅持您的創作或理念，不要因為世俗眼光而妥協。您的獨特性將在網路或小眾領域找到死忠知音，大器晚成。",
@@ -1654,10 +2086,10 @@
                 ],
                 "Resource": [
                     "【清貴守道格】骨重輕而印星重，重視精神世界勝於物質。早年生活或許清貧，但心靈富足。建議從事學術、研究或宗教，在精神領域您將獲得極大的滿足與尊敬，不染塵埃。",
-                    "【學術扎根格】印星護身，適合走升學或公職考運。您的優勢在於學習與吸收。策略是「深造」，學歷或證照是您最好的護身符，知識將改變您的命運，地位穩固。",
+                    "【學術紮根格】印星護身，適合走升學或公職考運。您的優勢在於學習與吸收。策略是「深造」，學歷或證照是您最好的護身符，知識將改變您的命運，地位穩固。",
                     "【貴人提攜格】骨重漸增，長輩緣極佳。在職場上容易獲得上司或前輩的賞識。建議多請益、多靠近優秀的長者，站在巨人的肩膀上，您將省去十年奮鬥，平步青雲。",
                     "【學養深厚格】知識淵博，見解獨到。您是團隊中的智囊，適合幕後策劃或顧問。策略是「洞察」，用您的智慧為他人解惑，您的價值在於看透問題的本質，不可或缺。",
-                    "【德高望重格】骨重優厚，印星轉化為社會聲望。您可能是學術界或行業內的泰斗。策略是「教化」，利用您的影響力導正社會風氣，成為精神領袖，受萬人敬重。",
+                    "【德高望重格】骨重優厚，印星轉化為社會聲望。您可能是學術界或行業內的泰鬥。策略是「教化」，利用您的影響力導正社會風氣，成為精神領袖，受萬人敬重。",
                     "【國師之命格】極貴之格，智慧足以安邦定國。您的建議能影響決策核心。保持清明的心性，無私地貢獻您的智慧，您將是歷史上被記住的人物，名垂青史。"
                 ],
                 "Self": [
@@ -1703,8 +2135,8 @@
                 case "子":
                     specificAdvice = "身為「子鼠」，您擁有卓越的觀察力與直覺。心性修煉上，建議您要學會「定性」，避免思緒過於發散或多疑。專注於長遠目標，不要被眼前的蠅頭小利干擾，您的機靈才能轉化為大智慧。";
                     break;
-                case "丑":
-                    specificAdvice = "身為「丑牛」，您的耐力與毅力無人能及。心性修煉上，建議您要學會「變通」。固執雖然能成事，但也容易讓您錯失轉型的良機。試著多聽取年輕人或不同領域的意見，讓您的穩重加上靈活，將無往不利。";
+                case "醜":
+                    specificAdvice = "身為「醜牛」，您的耐力與毅力無人能及。心性修煉上，建議您要學會「變通」。固執雖然能成事，但也容易讓您錯失轉型的良機。試著多聽取年輕人或不同領域的意見，讓您的穩重加上靈活，將無往不利。";
                     break;
                 case "寅":
                     specificAdvice = "身為「寅虎」，您天生具有領袖魅力與行動力。心性修煉上，建議您要學會「內斂」。過於強勢或衝動容易招致不必要的樹敵。在展現霸氣的同時，多一份溫柔與傾聽，您的領導將更得人心。";
@@ -1753,8 +2185,8 @@
                 "【初九・長長久久】適合規劃長期願景。不要只看眼前的利益，將目光放遠到五年、十年後。現在建立的關係或事業，將具有極強的延續性。",
                 "【初十・十全十美】追求卓越的時刻。這段時間您對品質的要求極高，適合打磨作品或提升專業度。您的精益求精將贏得極高的口碑。",
                 "【十一・孤芳自賞】這是一段適合獨處與內省的時光。不要害怕孤獨，偉大的想法往往誕生於獨處之中。傾聽內心的聲音，找回最真實的自己。",
-                "【十二・寒梅傲雪】環境或許嚴峻，考驗重重，但這正是展現您堅韌品質的舞台。堅持原則，不隨波逐流，您的風骨將贏得對手的尊敬。",
-                "【十三・天賦異稟】您的才華將得到發揮的舞台。不要隱藏您的光芒，大膽展現您的特殊技能或創意，這將是您脫穎而出的關鍵。",
+                "【十二・寒梅傲雪】環境或許嚴峻，考驗重重，但這正是展現您堅韌品質的舞臺。堅持原則，不隨波逐流，您的風骨將贏得對手的尊敬。",
+                "【十三・天賦異稟】您的才華將得到發揮的舞臺。不要隱藏您的光芒，大膽展現您的特殊技能或創意，這將是您脫穎而出的關鍵。",
                 "【十四・月盈則虧】運勢達到頂峰，需注意盛極必衰。保持謙卑，懂得急流勇退或適度讓利，才能持盈保泰，將好運延續下去。",
                 "【十五・月圓人圓】圓滿之象，利於人際關係的修復與團聚。主動聯繫許久未見的朋友或化解誤會，人和將帶來意想不到的機遇。",
                 "【十六・大器晚成】或許目前的進度不如預期，但別著急。您的成果需要時間的發酵，持續耕耘，時間將證明您的堅持是正確的。",
@@ -1804,7 +2236,7 @@
 
         const poemLineMap = {
             // --- Male Poems (2.1 - 2.9) ---
-            "短命非業謂大凶": "這句詩雖從字面看較為嚴厲，實則是對「健康」的極度重視。命格暗示先天元氣較弱，如同一盞微弱的油燈，需要倍加呵護。這是一個養生的警訊，提醒您不要透支身體，作息需規律，「惜命」是您一生的課題。",
+            "短命非業謂大兇": "這句詩雖從字面看較為嚴厲，實則是對「健康」的極度重視。命格暗示先天元氣較弱，如同一盞微弱的油燈，需要倍加呵護。這是一個養生的警訊，提醒您不要透支身體，作息需規律，「惜命」是您一生的課題。",
             "身寒骨冷苦伶仃": "「寒」與「冷」形容的是早年資源的匱乏與心靈的孤單。您可能出生於清寒之家，或少時缺乏長輩的關愛。但這份孤獨也是一種淬鍊，讓您比同齡人更早學會獨立，懂得在這世情冷暖中自我取暖。",
             "此命推來骨輕輕": "「骨輕」意指根基不穩，容易受到外界環境的影響。您在做決定時可能較易動搖，或缺乏有力的靠山支持。這提醒您，凡事需腳踏實地，建立屬於自己的核心競爭力，厚植實力才能穩住陣腳。",
             "此命推來福祿無": "這句話並非斷言您一生貧窮，而是指出「福祿」不會自動掉下來。這是一種「勞碌格」，每一分收穫都需要付出相對應的汗水。別期待不勞而獲的運氣，相信雙手打拼出來的成果才最實在。",
@@ -1823,7 +2255,7 @@
             "生平福量不周全": "人生不如意事十之八九，這句詩點出您可能在某方面（如財富、健康或感情）略有缺憾。接受這種「不完美」，學會與遺憾共處，反而能讓您更加珍惜手中所擁有的一切。",
             "不須勞碌過平生": "這是一句轉折的吉話！相較於前面的勞碌，這句詩預示著您有機會過上相對輕鬆的日子。或許是您懂得知足常樂，或者運氣開始好轉，生活壓力將逐漸減輕。",
             "此命般般事不成": "這句話聽起來很洩氣，但其實是針對「心態」的提醒。如果抱持消極的態度，自然萬事難成。這是在激將您：想要打破魔咒，就必須拿出破釜沉舟的決心，去完成一件小事，建立信心。",
-            "一生骨肉最清高": "「骨肉」指親人，「清高」可能意味著疏離或不願同流合污。您可能與家族成員格格不入，或者有一種傲氣。這代表了您獨特的人格特質，不隨波逐流，堅持走自己的路。",
+            "一生骨肉最清高": "「骨肉」指親人，「清高」可能意味著疏離或不願同流合汙。您可能與家族成員格格不入，或者有一種傲氣。這代表了您獨特的人格特質，不隨波逐流，堅持走自己的路。",
             "此命終身運不通": "這句詩最為嚴厲，但古書多有誇張。在現代解讀，這代表您可能是一個「懷才不遇」的典型。環境常常限制了您的發展，建議您轉換環境，或尋找非主流的賽道，別在死胡同裡打轉。",
 
             // --- Male Poems (4.0 - 4.9) ---
@@ -1856,7 +2288,7 @@
             "此名生來福不窮": "福氣無窮無盡，取之不竭。這是一種源源不絕的能量，不僅庇蔭自己，還能庇蔭家人朋友。您就像一個發光體，身邊的人都能感受到您的正能量。",
             "命主為官福祿長": "明確指出了「官運」。您適合在體制內發展，或擔任管理職。您的仕途長遠，且伴隨著穩定的收入（福祿）。權力在您手中是用來造福人群的，這是您的天職。",
             "此格權威不可當": "霸氣外露！您天生具有領袖氣質，說話有份量，能讓眾人信服。這種權威感不是強壓下來的，而是來自於您的實力與擔當。您是天生的領導者。",
-            "細推此命福不輕": "再次強調福氣之重。這不是小確幸，而是大格局的福報。您可能肩負著重大的社會責任，您的成功將影響許多人的生計與未來，是真正的棟樑之材。",
+            "細推此命福不輕": "再次強調福氣之重。這不是小確幸，而是大格局的福報。您可能肩負著重大的社會責任，您的成功將影響許多人的生計與未來，是真正的棟梁之材。",
             "此格人間一福人": "簡單而有力，您就是人間有福之人。這句話勝過千言萬語。無論遇到什麼風浪，您總能安然度過，好像有隱形的翅膀在保護。這種「天選」的感覺，是您自信的來源。",
             "此名生來福自宏": "「宏」意味著宏大。您的福氣格局很大，不拘泥於小節。您的眼界與心胸都比常人寬廣，這讓您能容納更多的財富與機遇，成就非凡的事業。",
             "富貴由天莫苦求": "這是一種境界。告訴您富貴是命中註定的，不需要您像苦行僧一樣去追求。這句話勸您放鬆心情，享受過程，因為結果早已寫好，您只需要優雅地走過去接收即可。",
@@ -1877,9 +2309,9 @@
             "花枝要來性情硬": "形容您外表如花，性格卻硬如枝幹。這是一種「外柔內剛」的特質。您不願服輸，性格剛烈。這能保護您不受欺負，但也可能傷人。適度柔軟，會讓您的人際關係更和諧。",
 
             // --- Female Poems (3.0 - 3.9) ---
-            "此命推來比郎強": "女強人！您的能力、氣魄可能都勝過您的伴侶。在傳統觀點這可能有壓得住夫運之嫌，但在現代這是對您能力的極大肯定。您是家庭的頂樑柱，只要學會展現溫柔的一面，也能家庭事業雙贏。",
+            "此命推來比郎強": "女強人！您的能力、氣魄可能都勝過您的伴侶。在傳統觀點這可能有壓得住夫運之嫌，但在現代這是對您能力的極大肯定。您是家庭的頂梁柱，只要學會展現溫柔的一面，也能家庭事業雙贏。",
             "早年行運在忙碌": "年輕時就是個忙碌命，可能要幫忙家計或照顧弟妹。這份忙碌培養了您幹練的辦事能力。別抱怨早年的辛苦，那都是您現在能獨當一面的養分。",
-            "時逢吉神在運中": "運氣開始轉好！雖然有挑戰，但總有「吉神」暗中保佑。逢凶化吉是您的特質。這句詩給您信心，無論遇到什麼困難，相信最後都會有好的結果。",
+            "時逢吉神在運中": "運氣開始轉好！雖然有挑戰，但總有「吉神」暗中保佑。逢兇化吉是您的特質。這句詩給您信心，無論遇到什麼困難，相信最後都會有好的結果。",
             "八字命來張張薄": "「張張薄」形容運勢單薄，積蓄不易。這是在提醒您要有危機意識，未雨綢繆。不要過度樂觀消費，穩健的儲蓄習慣能為您築起一道安全網。",
             "矮巴勾棗難撈枝": "這句詩用比喻形容「求而不得」的無奈。您可能有心有餘而力不足的感嘆。這是在告訴您要量力而為，設定實際的目標，不要好高騖遠，珍惜手邊能抓住的小確幸。",
             "女子走冰怕冰薄": "如履薄冰，形容處境小心翼翼。您可能身處複雜的環境，或者性格多疑敏感。這份謹慎是您的保護色，但也讓您活得較累。試著信任他人，放鬆緊繃的神經。",
@@ -1908,7 +2340,7 @@
             "學問滿腹運氣強": "知識就是力量！您是一位有內涵、有智慧的女性。您的好運來自於您的學識與判斷力。這句詩鼓勵您持續學習，知識將是您永不貶值的嫁妝。",
             "吉祥平安志量高": "您志向遠大，且一生平安。這是一種很有福氣的野心。您不滿足於現狀，總是追求卓越，而命運也眷顧您，讓您在追夢的路上平安順遂。",
             "明珠書士離埃來": "珍珠出土，光華再現。形容您曾被埋沒，但終將發光。您的才華掩蓋不住，將被世人所看見。這是一個「脫穎而出」的過程，請保持自信，等待那擦亮您的時刻。",
-            "游魚戲水被網驚": "虛驚一場。雖然會遇到一些驚險或波折，像魚遇到網，但最終能化險為夷（跳過龍門）。這些驚嚇是為了讓您更警覺，最終您將蛻變為龍，成就非凡。",
+            "遊魚戲水被網驚": "虛驚一場。雖然會遇到一些驚險或波折，像魚遇到網，但最終能化險為夷（跳過龍門）。這些驚嚇是為了讓您更警覺，最終您將蛻變為龍，成就非凡。",
             "此命推來閒逛悠": "逍遙自在的貴婦命。您不需要為生活操勞，有大把時間可以「閒逛悠」。這代表經濟富足，心靈自由。這是許多人夢寐以求的生活狀態，請盡情享受。",
             "雨雪載途泥濘至": "路不好走，充滿泥濘。這是在形容創業或持家的艱辛過程。但泥濘過後必有晴天。這句詩肯定了您的堅韌不拔，您是在風雨中綻放的玫瑰，愈冷愈開花。",
             "女命八字喜氣和": "喜氣洋洋，一團和氣。您是一個樂天派，走到哪裡都帶笑聲。您的樂觀感染了身邊的人，讓所有困難都迎刃而解。這種「人和」是您最大的財富。",
@@ -1946,9 +2378,9 @@
             }
 
             if (index === 0) { // --- PHASE 1: THE ROOT (命格基調) ---
-                if (line.match(/(短|災|凶|禍|厄|逆|困)/)) return getVariant(line, [
+                if (line.match(/(短|災|兇|禍|厄|逆|困)/)) return getVariant(line, [
                     "此句揭示了命格中潛藏的挑戰。您生來可能體質較弱，或容易感受到生命的無常。但請記得，『命由天定，運由人造』，這份先天的警示是為了讓您更懂得惜福與養生，透過後天的修身養性，完全可以轉危為安。",
-                    "詩句點出了先天體質上的弱點。這並非不可逆轉的定局，而是一個善意的提醒。注重養生，保持樂觀心態，往往能逢凶化吉，延年益壽。",
+                    "詩句點出了先天體質上的弱點。這並非不可逆轉的定局，而是一個善意的提醒。注重養生，保持樂觀心態，往往能逢兇化吉，延年益壽。",
                     "命格中帶有些許波折的信號。但古人云「大德者不被命縛」，多行善積德，調整生活作息，便能增強元氣，走出屬於自己的康莊大道。"
                 ]);
                 if (line.match(/(寒|冷|微|無|輕|薄|孤|伶|仃|乞)/)) return getVariant(line, [
@@ -1967,9 +2399,9 @@
                     "此乃福澤深厚之象。無論是物質生活還是社會地位，您都有極高的起點。珍惜這份福報，並心存善念，運勢將會更加長久。"
                 ]);
                 if (line.match(/(飄|離|移|走|遠|外|遊|忙|碌|東|西|南|北)/)) return getVariant(line, [
-                    "這句詩顯示您有著『驛馬』星動的特質。您注定不是池中之物，家鄉的舞台太小了。別害怕變動，廣闊的世界才是您真正的家。",
+                    "這句詩顯示您有著『驛馬』星動的特質。您註定不是池中之物，家鄉的舞臺太小了。別害怕變動，廣闊的世界才是您真正的家。",
                     "命帶驛馬，動中求財。您的機遇往往在遠方，離開舒適圈反而能激發您的潛能。多出去走走看看，將會為您帶來意想不到的收穫。",
-                    "註定要行萬里路的命格。您適合向外發展，甚至是海外求職。移動不僅能增廣見聞，更是您開啟好運的鑰匙。"
+                    "註定要行萬裡路的命格。您適合向外發展，甚至是海外求職。移動不僅能增廣見聞，更是您開啟好運的鑰匙。"
                 ]);
                 if (line.match(/(僧|道|佛|空|緣)/)) return getVariant(line, [
                     "這句詩帶有濃厚的宗教或哲學色彩。暗示您與佛道有緣，或者性格中有一份超脫世俗的寧靜。您對精神層面的追求往往高於物質享受。",
@@ -2035,7 +2467,7 @@
                 if (line.match(/(貴|人|助|遇|逢|提|攜|合|夥|交|易)/)) return getVariant(line, [
                     "中年運勢貴人運極旺！在您打拼的過程中，將會遇到賞識您的伯樂。善用您的社交資源，多與人合作，將能突破瓶頸。",
                     "貴人來相助。這句詩強調人脈的重要性。您身邊將出現強有力的合作夥伴，藉助他人的力量，您將能達成更大的成就。",
-                    "逢凶化吉，遇難呈祥。中年的運勢因「人」而貴。多廣結善緣，這些人際存摺將在關鍵時刻為您提供最大的助力。"
+                    "逢兇化吉，遇難呈祥。中年的運勢因「人」而貴。多廣結善緣，這些人際存摺將在關鍵時刻為您提供最大的助力。"
                 ]);
                 if (line.match(/(自|立|更|生|守|舊|安|然|逍|遙)/)) return getVariant(line, [
                     "中年的運勢趨向平穩，適合守成。這句詩建議您專注於本業，不宜過度冒進。在平淡中尋找確定的幸福，也是一種難得的福氣。",
@@ -2089,16 +2521,16 @@
         const dayMasterAttributes = {
             "甲": {
                 name: "甲木 (參天大樹)",
-                desc: "正直仁慈，棟樑之材",
+                desc: "正直仁慈，棟梁之材",
                 character: "您的本命元神為「甲木」，象徵參天大樹。這代表您天生具有「向上生長」的意志力，性格正直、仁慈且富責任感。您像大樹一樣不屈不撓，遇到風雨也不輕易低頭。這種特質讓您在人群中容易成為值得信賴的依靠，但有時因過於剛直，不懂變通，容易在無意間得罪人而不自知。",
-                career: "甲木人具備領袖氣質與宏觀視野。您不適合機械式、重複性的工作，而是需要一個能讓您「紮根」並持續成長的舞台。您有很強的保護欲與統籌能力，適合承擔重任。之所以能成大事，是因為您能像大樹一樣，耐得住寂寞，長期耕耘直到開花結果。",
+                career: "甲木人具備領袖氣質與宏觀視野。您不適合機械式、重複性的工作，而是需要一個能讓您「紮根」並持續成長的舞臺。您有很強的保護欲與統籌能力，適合承擔重任。之所以能成大事，是因為您能像大樹一樣，耐得住寂寞，長期耕耘直到開花結果。",
                 wealth: "您的財運多來自於「正財」，即踏實工作所得。大樹成長緩慢但穩固，您的財富也往往是隨年齡增長而累積。不建議追求短線的高風險投機，因為甲木的根基一動，容易傷及元氣。只要專注本業，您的「蔭庇」能力（資產）將越來越豐厚。",
                 love: "在感情中，您是像大樹一樣遮風擋雨的守護者。雖然不擅長甜言蜜語，但給予伴侶的安全感是無可取代的。您傾向於穩定的長久關係，但需注意不要過於大男人/大女人主義，適度的溫柔彎腰，會讓感情更和諧。"
             },
             "乙": {
                 name: "乙木 (花草之木)",
                 desc: "柔順靈活，適應力強",
-                character: "您的本命元神為「乙木」，象徵蔓藤花草。主要特質為「以柔克剛」，您擁有極強的環境適應力與韌性。不同於甲木的強硬，您懂得身段柔軟，善於察言觀色與協調人際。這種細膩的心思讓您在處理複雜關係時游刃有餘，但有時也容易因過於敏感而產生依賴心或優柔寡斷。",
+                character: "您的本命元神為「乙木」，象徵蔓藤花草。主要特質為「以柔克剛」，您擁有極強的環境適應力與韌性。不同於甲木的強硬，您懂得身段柔軟，善於察言觀色與協調人際。這種細膩的心思讓您在處理複雜關係時遊刃有餘，但有時也容易因過於敏感而產生依賴心或優柔寡斷。",
                 career: "乙木人是天生的謀略家與協調者。您擅長「藉力使力」，就像藤蔓攀附大樹一樣，您懂得尋找強有力的合作夥伴。您的思維靈活，適合在變化快速的環境中生存。之所以能成功，往往是因為您能看見別人忽略的細節，與能在夾縫中求生存的生存智慧。",
                 wealth: "您的財源非常靈活，往往有多個小的收入來源匯聚成河。您具備敏銳的市場嗅覺，能捕捉到微小的商機。不像大樹需要深根，花草隨風傳播，您的財運也帶有流動性。適合利用人脈生財，口碑與人際網絡是您最大的金礦。",
                 love: "情感豐富且細膩是您的特點。您像纏繞的藤蔓，在感情中容易依賴對方，渴望被呵護。因為心思敏感，容易受到情緒波動影響。建議在感情中培養多一點獨立性，那份溫柔將成為您最迷人的武器。"
@@ -2107,7 +2539,7 @@
                 name: "丙火 (太陽之火)",
                 desc: "熱情豪爽，光耀照人",
                 character: "您的本命元神為「丙火」，象徵天上的太陽。您天生自帶光芒，熱情、開朗、充滿正能量。您心裡藏不住事，喜怒哀樂全寫在臉上，這種真誠讓您極具感染力。您樂於助人，不求回報，就像太陽無私普照大地。但要注意有時熱情過度會變為急躁，或好面子而打腫臉充胖子。",
-                career: "丙火人天生屬於舞台。您需要一份能展現自我、受到關注的工作。您的領袖魅力強大，能夠瞬間點燃團隊的熱情。之所以在職場受歡迎，是因為您從不吝嗇給予他人讚美與溫暖。切記，太陽若被烏雲遮蔽（挫折）會失去光彩，保持自信是您唯一的生存法則。",
+                career: "丙火人天生屬於舞臺。您需要一份能展現自我、受到關注的工作。您的領袖魅力強大，能夠瞬間點燃團隊的熱情。之所以在職場受歡迎，是因為您從不吝嗇給予他人讚美與溫暖。切記，太陽若被烏雲遮蔽（挫折）會失去光彩，保持自信是您唯一的生存法則。",
                 wealth: "您的財運通常是大進大出。因為慷慨豪爽，交際應酬開銷大，但也因此結識各路英雄好漢，帶來廣闊的財路。您的財富多與「名氣」掛鉤，名氣越大，財運越旺。建立個人品牌或信譽，是您致富的最佳捷徑。",
                 love: "您的愛像正午的陽光，熱烈而直接。喜歡一個人會主動出擊，毫無保留。在感情中您坦率真誠，不喜歡猜忌。但要注意，陽光太強有時會灼傷人，給對方一點私密空間，這段關係會更舒適長久。"
             },
@@ -2125,7 +2557,7 @@
                 character: "您的本命元神為「戊土」，象徵厚實的城牆或高山。主要特質是「信」，您給人極大的安全感，答應的事絕不食言。性格穩重、寬容，擁有大將之風。您不容易被外界動搖，但這種堅定有時也會變成固執不知變通。您像大地一樣沉默寡言，卻默默承載著所有的責任與壓力。",
                 career: "戊土人是團隊中的定海神針。您不一定是最衝鋒陷陣的，但一定是最能穩住局面的。適合在大型機構或穩定體系中發展。之所以能身居高位，是因為您的包容力能整合各種不同的人才，且在危機來臨時，您能成為大家最堅實的後盾。",
                 wealth: "土主信，信生財。您的財富建立在良好的信用資產上。雖然發財速度不快，但基礎非常穩固，不易破敗。房地產或土地相關投資往往是您的幸運領域。只要守住「誠信」二字，財富自然會像山嶽一樣越堆越高。",
-                love: "您的愛情像山一樣堅定。不輕易動情，一旦認定就是一輩子。您不懂花言巧語，只會用實際行動來照顧對方。您的伴侶會感到無比的踏實與安全。但要注意，偶爾製造一點浪漫與驚喜，能讓這份如岩石般的愛更具情趣。"
+                love: "您的愛情像山一樣堅定。不輕易動情，一旦認定就是一輩子。您不懂花言巧語，只會用實際行動來照顧對方。您的伴侶會感到無比的踏實與安全。但要注意，偶爾製造一點浪漫與驚喜，能讓這份如巖石般的愛更具情趣。"
             },
             "己": {
                 name: "己土 (田園之土)",
@@ -2137,7 +2569,7 @@
             },
             "庚": {
                 name: "庚金 (刀劍之金)",
-                desc: "剛毅果斷，義氣干雲",
+                desc: "剛毅果斷，義氣幹雲",
                 character: "您的本命元神為「庚金」，象徵鋒利的刀劍或鋼鐵。主要特質是「剛」，您性格豪爽，愛恨分明，做事乾脆俐落，絕不拖泥帶水。您極重義氣，路見不平必拔刀相助。這種剛直的性格讓您極具魄力，但也容易因為說話太直、不懂修飾而無意傷人，就像刀劍太利容易傷手。",
                 career: "庚金人是天生的開拓者與改革者。您不畏艱難，越是混亂的局面越能激發您的鬥志。適合從事軍警、司法、改革性強或需要高度執行力的工作。之所以能成大器，是因為您具備斬斷亂麻的決斷力，在關鍵時刻敢於做別人不敢做的決定。",
                 wealth: "您的財運帶有「肅殺」之氣，意味著財富往往來自於變革或競爭。您有賺大錢的魄力，敢於冒險投資。金子需要火煉才能成器，所以經歷一些財務波折反而能讓您的理財觀念更成熟。適合技術生財或高競爭領域的獲利。",
@@ -2163,7 +2595,7 @@
                 name: "癸水 (雨露之水)",
                 desc: "溫柔細膩，潤物無聲",
                 character: "您的本命元神為「癸水」，象徵滋潤萬物的晨露或雨水。您性格溫柔沉靜，外表看似平靜，內心卻情感豐富波瀾壯闊。您直覺敏銳，善解人意，是最富同理心的人。做事採取滲透戰術，無聲無息中改變局勢。雖然看起來柔弱，但滴水穿石，您的韌性往往超乎想像。",
-                career: "癸水人是最佳的輔佐者與潛移默化者。您不需要在台前大呼小叫，卻能掌控全局。適合心理諮詢、研發、幕後策劃等需要細膩思維的工作。之所以強大，是因為您無孔不入，能滲透到每個人的心裡。您的力量是柔性的，卻能化解最剛硬的障礙。",
+                career: "癸水人是最佳的輔佐者與潛移默化者。您不需要在臺前大呼小叫，卻能掌控全局。適合心理諮詢、研發、幕後策劃等需要細膩思維的工作。之所以強大，是因為您無孔不入，能滲透到每個人的心裡。您的力量是柔性的，卻能化解最剛硬的障礙。",
                 wealth: "您的財運細水長流。雨露雖小，但積少成多。您適合賺取服務財或腦力財。您對金錢有獨特的直覺，往往能憑感覺避開風險。不像壬水的大起大落，您的財富是透過一點一滴的積累與滲透而來，最終匯聚成湖。",
                 love: "您的愛情是浪漫且夢幻的。您極度渴望靈魂伴侶，對於感覺非常重視。在感情中，您溫柔體貼，願意為對方改變自己（像水適應容器）。但有時過於敏感多疑，容易情緒化。學會建立內心的安全感，不要讓情緒的雨季下得太久，愛情的花朵才能綻放。"
             }
@@ -2228,7 +2660,7 @@
             // Earthly Branches (Main Qi)
             "寅": "wood", "卯": "wood",
             "巳": "fire", "午": "fire",
-            "辰": "earth", "戌": "earth", "丑": "earth", "未": "earth",
+            "辰": "earth", "戌": "earth", "醜": "earth", "未": "earth",
             "申": "metal", "酉": "metal",
             "亥": "water", "子": "water"
         };
@@ -2316,22 +2748,22 @@
         };
 
         const zodiacGeodeMap = {
-            "鼠": { name: "鼠", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "鼠之本命屬水，靈動機敏，然易隨波逐流。波浪形晶洞宛如聚寶盆中的活水，能匯聚四方財氣，將您的聰慧轉化為實質的財富。它象徵源源不絕的的人脈與機運，能大旺偏財，助您在變動的局勢中游刃有餘，財源廣進。" },
+            "鼠": { name: "鼠", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "鼠之本命屬水，靈動機敏，然易隨波逐流。波浪形晶洞宛如聚寶盆中的活水，能匯聚四方財氣，將您的聰慧轉化為實質的財富。它象徵源源不絕的的人脈與機運，能大旺偏財，助您在變動的局勢中遊刃有餘，財源廣進。" },
             "牛": { name: "牛", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "牛之本命屬土，敦厚沈穩，但有時過於保守。正梯形晶洞象徵『穩如泰山』的基業，能為您鎮守財庫，防止錢財流失。其厚實的能量能增強您的魄力與決斷力，讓您在穩健中求突破，步步高升，成就百年大業。" },
             "虎": { name: "虎", element: "木", shape: "長方形 (木型)", shapeName: "長方形", desc: "虎之本命屬木，氣勢威猛，正如參天大樹。長方形直聳的晶洞象徵事業『扶搖直上』，能輔助您開疆闢土，增強領導統御的權威感。它能穩固您的根基，讓你在職場上屹立不搖，招來貴人提攜，成就非凡霸業。" },
-            "兔": { name: "兔", element: "木", shape: "長方形 (木型)", shapeName: "長方形", desc: "兔之本命屬木，心思細膩，如花草般柔韌。長方形晶洞能為您注入強大的『棟樑之氣』，提升您的自信與格局，不再受情緒左右。它能助您在職場上展現獨當一面的能力，將人緣轉化為實質的貴人運，名利雙收。" },
+            "兔": { name: "兔", element: "木", shape: "長方形 (木型)", shapeName: "長方形", desc: "兔之本命屬木，心思細膩，如花草般柔韌。長方形晶洞能為您注入強大的『棟梁之氣』，提升您的自信與格局，不再受情緒左右。它能助您在職場上展現獨當一面的能力，將人緣轉化為實質的貴人運，名利雙收。" },
             "龍": { name: "龍", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "龍之本命屬土，貴氣逼人，如帝王降臨。方正厚實的梯形晶洞最能匹配您的氣場，象徵權勢穩固與地位崇高。它能幫助您鎮壓身邊的小人與煞氣，匯聚天地正氣，讓您的事業運勢如日中天，掌握實質大權。" },
-            "龙": { name: "龍", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "龍之本命屬土，貴氣逼人，如帝王降臨。方正厚實的梯形晶洞最能匹配您的氣場，象徵權勢穩固與地位崇高。它能幫助您鎮壓身邊的小人與煞氣，匯聚天地正氣，讓您的事業運勢如日中天，掌握實質大權。" },
-            "蛇": { name: "蛇", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "蛇之本命屬火，神祕敏銳，洞察力強。火焰狀的尖形晶洞能點燃您內心的熱情與企圖心，將潛藏的才華徹底釋放。它能增強您的名聲運與桃花運，讓您在人群中散發耀眼光芒，事業與人際皆能如火如荼，大展鴻圖。" },
+            "龍": { name: "龍", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "龍之本命屬土，貴氣逼人，如帝王降臨。方正厚實的梯形晶洞最能匹配您的氣場，象徵權勢穩固與地位崇高。它能幫助您鎮壓身邊的小人與煞氣，匯聚天地正氣，讓您的事業運勢如日中天，掌握實質大權。" },
+            "蛇": { name: "蛇", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "蛇之本命屬火，神秘敏銳，洞察力強。火焰狀的尖形晶洞能點燃您內心的熱情與企圖心，將潛藏的才華徹底釋放。它能增強您的名聲運與桃花運，讓您在人群中散發耀眼光芒，事業與人際皆能如火如荼，大展鴻圖。" },
             "馬": { name: "馬", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "馬之本命屬火，奔放自由，行動力極強。形如火焰的晶洞能與您的陽氣產生共鳴，讓您的行動更加精準有效，避免衝動行事。它象徵運勢『紅紅火火』，能助您在競爭激烈的環境中脫穎而出，快速達成目標，財運亨通。" },
-            "马": { name: "馬", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "馬之本命屬火，奔放自由，行動力極強。形如火焰的晶洞能與您的陽氣產生共鳴，讓您的行動更加精準有效，避免衝動行事。它象徵運勢『紅紅火火』，能助您在競爭激烈的環境中脫穎而出，快速達成目標，財運亨通。" },
+            "馬": { name: "馬", element: "火", shape: "尖形/不規則 (火型)", shapeName: "尖形", desc: "馬之本命屬火，奔放自由，行動力極強。形如火焰的晶洞能與您的陽氣產生共鳴，讓您的行動更加精準有效，避免衝動行事。它象徵運勢『紅紅火火』，能助您在競爭激烈的環境中脫穎而出，快速達成目標，財運亨通。" },
             "羊": { name: "羊", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "羊之本命屬土，外柔內剛，具有極強的韌性。平台形晶洞象徵廣闊大地的包容力，能安定您的心神，消除焦慮與不安。它能為您帶來家庭與事業的雙重穩定，聚氣聚財，讓您在歲月靜好中累積豐厚的資產，福氣綿長。" },
             "猴": { name: "猴", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "猴之本命屬金，聰慧靈巧。三角形晶洞狀似金字塔，象徵凝聚專注；圓形晶洞則代表圓滿招財。兩者皆能將您的才智轉化為強大的執行力，讓決策果斷犀利，同時廣結善緣，財源廣進。" },
             "雞": { name: "雞", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "雞之本命屬金，勤奮自信。三角形線條象徵突破與精準，圓形則象徵周全與圓融。這兩種形態皆能強化您的口才與表現力，助您在職場上展現大將之風，既能開拓疆土，也能守成聚財。" },
-            "鸡": { name: "雞", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "雞之本命屬金，勤奮自信。三角形線條象徵突破與精準，圓形則象徵周全與圓融。這兩種形態皆能強化您的口才與表現力，助您在職場上展現大將之風，既能開拓疆土，也能守成聚財。" },
+            "雞": { name: "雞", element: "金", shape: "三角形/圓形 (金型)", shapeName: "三角形/圓形", desc: "雞之本命屬金，勤奮自信。三角形線條象徵突破與精準，圓形則象徵周全與圓融。這兩種形態皆能強化您的口才與表現力，助您在職場上展現大將之風，既能開拓疆土，也能守成聚財。" },
             "狗": { name: "狗", element: "土", shape: "正梯形 (土型)", shapeName: "正梯形", desc: "狗之本命屬土，忠誠守信，責任感強。方正穩重的晶洞最能呼應您的特質，象徵『信用即財富』。它能為您累積深厚的信譽資本，讓您在商場上無往不利，同時鎮宅安家，守護您辛苦累積的財富，基業長青。" },
             "豬": { name: "豬", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "豬之本命屬水，生性樂觀，福氣深厚。蜿蜒流暢的晶洞造型象徵福氣與財富的流轉，能增強您的貴人運與食祿。它能活絡您的思維，帶來意想不到的偏財運，讓您一生衣食無憂，財富如流水般自然匯聚，富貴安康。" },
-            "猪": { name: "豬", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "豬之本命屬水，生性樂觀，福氣深厚。蜿蜒流暢的晶洞造型象徵福氣與財富的流轉，能增強您的貴人運與食祿。它能活絡您的思維，帶來意想不到的偏財運，讓您一生衣食無憂，財富如流水般自然匯聚，富貴安康。" }
+            "豬": { name: "豬", element: "水", shape: "波浪形 (水型)", shapeName: "波浪形", desc: "豬之本命屬水，生性樂觀，福氣深厚。蜿蜒流暢的晶洞造型象徵福氣與財富的流轉，能增強您的貴人運與食祿。它能活絡您的思維，帶來意想不到的偏財運，讓您一生衣食無憂，財富如流水般自然匯聚，富貴安康。" }
         };
 
         function analyzeFiveElements(baziArr, lunarObj) {
@@ -2450,31 +2882,6 @@
 
         // --- AI Analysis Logic ---
 
-        // Partial Key Logic
-        const API_KEY_PREFIX = "AIzaSyCrL4WxeQAX4Qjy87Hi34v7EXShq";
-
-        function showApiKeyModal(errorMsg = '') {
-            const modal = document.getElementById('apiKeyModal');
-            const errorEl = document.getElementById('apiKeyError');
-
-            modal.classList.remove('hidden');
-            document.getElementById('inputApiKey').value = '';
-            document.getElementById('inputApiKey').focus();
-
-            if (errorMsg) {
-                errorEl.innerText = errorMsg;
-                errorEl.classList.remove('hidden');
-                document.getElementById('inputApiKey').classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-            } else {
-                errorEl.classList.add('hidden');
-                document.getElementById('inputApiKey').classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-            }
-        }
-
-        function closeApiKeyModal() {
-            document.getElementById('apiKeyModal').classList.add('hidden');
-        }
-
         function showLoading(callback) {
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.remove('hidden');
@@ -2496,52 +2903,20 @@
             }, 100);
         }
 
-        function saveApiKey() {
-            const input = document.getElementById('inputApiKey');
-            const suffix = input.value.trim();
-            if (!suffix || suffix.length < 5) {
-                showApiKeyModal('長度不足，請輸入完整的後 6 碼');
-                return;
-            }
-
-            const fullKey = API_KEY_PREFIX + suffix;
-
-            localStorage.setItem('gemini_api_key', fullKey);
-            closeApiKeyModal();
-
-            // Retry based on active tab
-            if (!document.getElementById('tab-bazi').classList.contains('hidden')) {
-                handleAIAnalysis();
-            } else if (!document.getElementById('tab-name').classList.contains('hidden') && window.handleNameAIAnalysis) {
-                window.handleNameAIAnalysis();
-            }
-        }
-
         window.handleAIAnalysis = async function () {
             if (!window.latestBaziData) {
                 alert("請先進行八字計算！(若剛載入頁面，請先點擊「開始批算」)");
                 return;
             }
 
-            // 1. Get API Key strategy: CONFIG (dev) -> LocalStorage (prod/fallback)
+            // 1. Get API Key from config.js
             let apiKey = '';
-
-            // Check CONFIG first (if loaded)
             if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
                 apiKey = CONFIG.GEMINI_API_KEY;
             }
 
-            // If no valid config key, try LocalStorage
             if (!apiKey) {
-                const localKey = localStorage.getItem('gemini_api_key');
-                if (localKey) {
-                    apiKey = localKey;
-                }
-            }
-
-            // If still no key, show input modal
-            if (!apiKey) {
-                showApiKeyModal();
+                alert("尚未設定 API Key，請確認 config.js 是否存在並已填入正確的金鑰。");
                 return;
             }
 
@@ -2611,32 +2986,11 @@
             } catch (error) {
                 console.error(error);
 
-                // If invalid key
-                if (error.message.includes('API key not valid') || error.message.includes('400') || error.message.includes('API request failed')) {
-                    localStorage.removeItem('gemini_api_key'); // Clear invald key
-
-                    // Reset UI State for retry
-                    loading.classList.add('hidden');
-                    aiBtn.disabled = false;
-                    aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    resultArea.classList.add('hidden');
-
-                    showApiKeyModal("通關密語錯誤，請確認後重新輸入");
-                    return;
-                }
-
                 content.innerHTML = `
                     <div class="flex flex-col items-center gap-3 p-4 bg-red-50 rounded-lg border border-red-100">
                         <span class="text-red-600 font-serif font-bold text-lg">分析發生錯誤</span>
                          <span class="text-sm text-gray-700 bg-white px-3 py-2 rounded border border-gray-200 font-mono">${error.message}</span>
-                        <p class="text-xs text-gray-500 mt-1">可能是網路不穩、模型忙碌，或 API Key 額度已滿。</p>
-                        <button onclick="showApiKeyModal()" class="mt-2 px-5 py-2.5 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition-colors text-sm font-bold flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                           </svg>
-                           更換 API Key 並重試
-                        </button>
-                         <p class="text-[10px] text-gray-400">請確認 config.js 或更換上方 Key</p>
+                        <p class="text-xs text-gray-500 mt-1">可能是網路不穩、模型忙碌，或 API Key 額度已滿，請確認 config.js 中的金鑰是否正確。</p>
                     </div>
                 `;
             } finally {
@@ -2717,46 +3071,6 @@
             });
         });
     </script>
-    <!-- API Key Input Modal -->
-    <div id="apiKeyModal"
-        class="fixed inset-0 bg-gray-900 bg-opacity-80 z-[200] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
-        <div
-            class="bg-white max-w-md w-full mx-4 rounded-xl shadow-2xl p-8 relative transform scale-100 transition-transform border-t-4 border-red-800">
-            <div class="text-center mb-6">
-                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2 tracking-widest">通關密語</h3>
-                <p class="text-gray-500 text-sm">請輸入金鑰的<span class="text-red-700 font-bold mx-1">最後 6 碼</span>以啟動 AI</p>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-
-                    <input type="text" id="inputApiKey" placeholder="請輸入最後 6 碼" maxlength="6"
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-800 text-lg rounded-lg focus:ring-red-800 focus:border-red-800 block p-3 text-center tracking-[0.5em] font-mono font-bold transition-colors">
-
-                    <p id="apiKeyError" class="hidden text-red-600 text-xs font-bold mt-2 text-center animate-pulse">
-                        <!-- Error Message -->
-                    </p>
-
-                    <p class="text-xs text-gray-400 mt-2 text-center">
-                        驗證通過後將自動記憶，下次無需再輸入。
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-                    <button onclick="saveApiKey()"
-                        class="flex-1 bg-red-800 hover:bg-red-900 text-white font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest shadow-md">
-                        確認儲存
-                    </button>
-                    <button onclick="closeApiKeyModal()"
-                        class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest">
-                        取消
-                    </button>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
     <script>
         // 2026 Zodiac Data (Source: Chianchi & Web Search)
         // 2026 Zodiac Data (Source: Chianchi & Web Search)
