@@ -1611,9 +1611,10 @@
             if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
                 apiKey = CONFIG.GEMINI_API_KEY;
             }
+            if (!apiKey) apiKey = localStorage.getItem('gemini_api_key');
 
             if (!apiKey) {
-                alert("尚未設定 API Key，請確認 config.js 是否存在並已填入正確的金鑰。");
+                showApiKeyModal();
                 return;
             }
 
@@ -1757,12 +1758,23 @@
                 content.innerHTML = cleanText;
             } catch (error) {
                 console.error(error);
+                if (error.message.includes('API key not valid') || error.message.includes('400')) {
+                    localStorage.removeItem('gemini_api_key');
+                    showApiKeyModal("金鑰失效，請重新輸入");
+                    return;
+                }
 
                 content.innerHTML = `
                     <div class="flex flex-col items-center gap-2 p-4 bg-red-50 rounded-lg border border-red-100">
                         <span class="text-red-600 font-bold">分析發生錯誤</span>
                         <span class="text-xs text-gray-600 font-mono bg-white px-2 py-1 rounded border border-gray-200">${error.message}</span>
-                        <p class="text-xs text-center text-gray-500 my-1">若是 API 額度不足或網路問題，請稍後再試，或確認 config.js 中的金鑰是否正確。</p>
+                        <p class="text-xs text-center text-gray-500 my-1">若是 API 額度不足或網路問題，<br>您可以嘗試輸入新的 Key。</p>
+                        <button onclick="showApiKeyModal()" class="mt-1 px-4 py-2 bg-red-800 text-white rounded hover:bg-red-700 transition-colors text-sm font-bold shadow-sm flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            更換 API Key 並重試
+                        </button>
                     </div>
                 `;
             } finally {
@@ -2882,6 +2894,31 @@
 
         // --- AI Analysis Logic ---
 
+        // Partial Key Logic
+        const API_KEY_PREFIX = "AIzaSyCrL4WxeQAX4Qjy87Hi34v7EXShq";
+
+        function showApiKeyModal(errorMsg = '') {
+            const modal = document.getElementById('apiKeyModal');
+            const errorEl = document.getElementById('apiKeyError');
+
+            modal.classList.remove('hidden');
+            document.getElementById('inputApiKey').value = '';
+            document.getElementById('inputApiKey').focus();
+
+            if (errorMsg) {
+                errorEl.innerText = errorMsg;
+                errorEl.classList.remove('hidden');
+                document.getElementById('inputApiKey').classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+            } else {
+                errorEl.classList.add('hidden');
+                document.getElementById('inputApiKey').classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+            }
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
         function showLoading(callback) {
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.remove('hidden');
@@ -2903,20 +2940,52 @@
             }, 100);
         }
 
+        function saveApiKey() {
+            const input = document.getElementById('inputApiKey');
+            const suffix = input.value.trim();
+            if (!suffix || suffix.length < 5) {
+                showApiKeyModal('長度不足，請輸入完整的後 6 碼');
+                return;
+            }
+
+            const fullKey = API_KEY_PREFIX + suffix;
+
+            localStorage.setItem('gemini_api_key', fullKey);
+            closeApiKeyModal();
+
+            // Retry based on active tab
+            if (!document.getElementById('tab-bazi').classList.contains('hidden')) {
+                handleAIAnalysis();
+            } else if (!document.getElementById('tab-name').classList.contains('hidden') && window.handleNameAIAnalysis) {
+                window.handleNameAIAnalysis();
+            }
+        }
+
         window.handleAIAnalysis = async function () {
             if (!window.latestBaziData) {
                 alert("請先進行八字計算！(若剛載入頁面，請先點擊「開始批算」)");
                 return;
             }
 
-            // 1. Get API Key from config.js
+            // 1. Get API Key strategy: CONFIG (dev) -> LocalStorage (prod/fallback)
             let apiKey = '';
+
+            // Check CONFIG first (if loaded)
             if (typeof CONFIG !== 'undefined' && CONFIG.GEMINI_API_KEY && !CONFIG.GEMINI_API_KEY.includes('在此貼上')) {
                 apiKey = CONFIG.GEMINI_API_KEY;
             }
 
+            // If no valid config key, try LocalStorage
             if (!apiKey) {
-                alert("尚未設定 API Key，請確認 config.js 是否存在並已填入正確的金鑰。");
+                const localKey = localStorage.getItem('gemini_api_key');
+                if (localKey) {
+                    apiKey = localKey;
+                }
+            }
+
+            // If still no key, show input modal
+            if (!apiKey) {
+                showApiKeyModal();
                 return;
             }
 
@@ -2986,11 +3055,32 @@
             } catch (error) {
                 console.error(error);
 
+                // If invalid key
+                if (error.message.includes('API key not valid') || error.message.includes('400') || error.message.includes('API request failed')) {
+                    localStorage.removeItem('gemini_api_key'); // Clear invald key
+
+                    // Reset UI State for retry
+                    loading.classList.add('hidden');
+                    aiBtn.disabled = false;
+                    aiBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    resultArea.classList.add('hidden');
+
+                    showApiKeyModal("通關密語錯誤，請確認後重新輸入");
+                    return;
+                }
+
                 content.innerHTML = `
                     <div class="flex flex-col items-center gap-3 p-4 bg-red-50 rounded-lg border border-red-100">
                         <span class="text-red-600 font-serif font-bold text-lg">分析發生錯誤</span>
                          <span class="text-sm text-gray-700 bg-white px-3 py-2 rounded border border-gray-200 font-mono">${error.message}</span>
-                        <p class="text-xs text-gray-500 mt-1">可能是網路不穩、模型忙碌，或 API Key 額度已滿，請確認 config.js 中的金鑰是否正確。</p>
+                        <p class="text-xs text-gray-500 mt-1">可能是網路不穩、模型忙碌，或 API Key 額度已滿。</p>
+                        <button onclick="showApiKeyModal()" class="mt-2 px-5 py-2.5 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition-colors text-sm font-bold flex items-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                           </svg>
+                           更換 API Key 並重試
+                        </button>
+                         <p class="text-[10px] text-gray-400">請確認 config.js 或更換上方 Key</p>
                     </div>
                 `;
             } finally {
@@ -3071,6 +3161,46 @@
             });
         });
     </script>
+    <!-- API Key Input Modal -->
+    <div id="apiKeyModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-80 z-[200] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+        <div
+            class="bg-white max-w-md w-full mx-4 rounded-xl shadow-2xl p-8 relative transform scale-100 transition-transform border-t-4 border-red-800">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2 tracking-widest">通關密語</h3>
+                <p class="text-gray-500 text-sm">請輸入金鑰的<span class="text-red-700 font-bold mx-1">最後 6 碼</span>以啟動 AI</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+
+                    <input type="text" id="inputApiKey" placeholder="請輸入最後 6 碼" maxlength="6"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-800 text-lg rounded-lg focus:ring-red-800 focus:border-red-800 block p-3 text-center tracking-[0.5em] font-mono font-bold transition-colors">
+
+                    <p id="apiKeyError" class="hidden text-red-600 text-xs font-bold mt-2 text-center animate-pulse">
+                        <!-- Error Message -->
+                    </p>
+
+                    <p class="text-xs text-gray-400 mt-2 text-center">
+                        驗證通過後將自動記憶，下次無需再輸入。
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="saveApiKey()"
+                        class="flex-1 bg-red-800 hover:bg-red-900 text-white font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest shadow-md">
+                        確認儲存
+                    </button>
+                    <button onclick="closeApiKeyModal()"
+                        class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-serif font-bold py-3 px-4 rounded-lg transition-colors tracking-widest">
+                        取消
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
     <script>
         // 2026 Zodiac Data (Source: Chianchi & Web Search)
         // 2026 Zodiac Data (Source: Chianchi & Web Search)
